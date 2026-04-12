@@ -1,0 +1,185 @@
+{
+  "app": {
+    "title": "Scrum Facilitator",
+    "subtitle": "Guided Scrum ceremony runner"
+  },
+  "home": {
+    "title": "Choose a Ceremony",
+    "subtitle": "Select the ceremony you want to facilitate",
+    "timebox": "{{minutes}} min"
+  },
+  "ceremony": {
+    "stepOf": "Step {{current}} of {{total}}",
+    "start": "Start",
+    "pause": "Pause",
+    "resume": "Resume",
+    "reset": "Reset",
+    "prev": "← Prev",
+    "next": "Next →",
+    "finish": "Finish",
+    "timeUp": "Time's up!",
+    "whyToggle": "Why this step?",
+    "tipsToggle": "Facilitation tips",
+    "source": "Based on: Scrum Guide · ICAgile Workbook · Scrum & Kanban"
+  },
+  "daily": {
+    "participants": "Participants",
+    "addPlaceholder": "Add participant name",
+    "add": "Add",
+    "randomise": "Randomise order",
+    "status": {
+      "pending": "Waiting",
+      "speaking": "Speaking",
+      "done": "Done"
+    }
+  },
+  "retro": {
+    "wellDone": "What went well",
+    "toImprove": "To improve",
+    "actions": "Actions",
+    "addPlaceholder": "Add a note...",
+    "add": "Add",
+    "editPlaceholder": "Edit note...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "deleteConfirm": "Delete this note?",
+    "openBoard": "Open Retro Board"
+  },
+  "complete": {
+    "title": "Ceremony complete!",
+    "steps": "{{done}} of {{total}} steps completed",
+    "export": "Export summary",
+    "backHome": "Back to home"
+  },
+  "export": {
+    "title": "Export Summary",
+    "copy": "Copy to clipboard",
+    "copied": "Copied!",
+    "download": "Download .md",
+    "back": "Back"
+  },
+  "common": {
+    "back": "Back",
+    "close": "Close",
+    "delete": "Delete"
+  },
+  "lang": { "en": "English", "ru": "Русский" },
+  "ceremonies": {
+    "planning": {
+      "name": "Sprint Planning",
+      "desc": "Align the team on the Sprint Goal and plan the work",
+      "steps": [
+        {
+          "title": "Define Sprint Goal",
+          "why": "The Sprint Goal gives the team a shared purpose and a north star for the Sprint. Without a clear goal, teams tend to work in silos. The Product Owner must commit to this goal before planning continues."
+        },
+        {
+          "title": "Backlog Review",
+          "why": "The team reviews the top backlog items with the Product Owner to clarify acceptance criteria and dependencies. Items must be understood well enough to estimate before they can be selected."
+        },
+        {
+          "title": "Capacity Check",
+          "why": "The team calculates available capacity in hours or story points for this Sprint, accounting for holidays, support duties, and known absences. Overcommitting leads to missed Sprint Goals."
+        },
+        {
+          "title": "Story Breakdown & Estimation",
+          "why": "Breaking stories into tasks reveals hidden complexity and enables realistic commitment. Estimation as a team surfaces differing understandings and drives alignment."
+        },
+        {
+          "title": "Team Commitment",
+          "why": "The team explicitly commits to the Sprint Goal — not to the task list. This is a moment of shared accountability, not a contract. Ask: 'Is there anything that would prevent us from achieving this goal?'"
+        }
+      ],
+      "tips": [
+        "Start with the Sprint Goal, not the backlog. Goal first, tasks second.",
+        "Timebox backlog refinement ruthlessly — rabbit holes kill planning sessions.",
+        "If estimation takes more than 10 minutes on one story, it's a signal to split it."
+      ]
+    },
+    "daily": {
+      "name": "Daily Stand-up",
+      "desc": "Synchronise the team and surface blockers",
+      "steps": [
+        {
+          "title": "What did I do yesterday?",
+          "why": "This question surfaces progress toward the Sprint Goal, not just task completion. Encourage participants to connect their work to the goal, not just list activities."
+        },
+        {
+          "title": "What will I do today?",
+          "why": "Today's plan creates micro-commitments that the team can hold each other to. It also surfaces dependencies — if A needs B's output today, both need to know."
+        },
+        {
+          "title": "Any blockers?",
+          "why": "Blockers identified here get resolved outside the stand-up, not during it. The Scrum Master's job is to capture and action these immediately after the meeting ends."
+        }
+      ],
+      "tips": [
+        "Stand up. Literally. It keeps the meeting short.",
+        "Talk to the board, not to the Scrum Master. This is a team sync, not a status report.",
+        "If a conversation starts, park it. 'Let's take that offline' — then do it."
+      ]
+    },
+    "review": {
+      "name": "Sprint Review",
+      "desc": "Inspect the increment and adapt the backlog with stakeholders",
+      "steps": [
+        {
+          "title": "Sprint Goal Recap",
+          "why": "Remind everyone what the team committed to. The demo should be evaluated against the Sprint Goal, not against individual stories. Did the team achieve what they set out to do?"
+        },
+        {
+          "title": "Demo Completed Work",
+          "why": "Only demo working software — no slides, no mockups. The demo is the proof of Done. Stakeholders should interact with the product where possible."
+        },
+        {
+          "title": "Stakeholder Feedback",
+          "why": "This is the primary purpose of the Review: inspecting the increment with people outside the team. Feedback here directly shapes the next Sprint. Capture it on the backlog immediately."
+        },
+        {
+          "title": "Backlog Update",
+          "why": "The Product Owner updates the backlog in real time based on feedback. New items, changed priorities, and dropped items should all be reflected before the session ends."
+        },
+        {
+          "title": "Next Sprint Preview",
+          "why": "A brief look ahead — not planning — gives stakeholders context for what's coming. It also creates continuity between Reviews and avoids 'what are you working on?' conversations."
+        }
+      ],
+      "tips": [
+        "Demo to the Sprint Goal, not to the story list. Start with: 'Our goal was X. Here's what we built.'",
+        "Invite real stakeholders, not just the Product Owner. External perspective is the point.",
+        "Capture feedback as backlog items immediately — don't rely on memory."
+      ]
+    },
+    "retro": {
+      "name": "Retrospective",
+      "desc": "Inspect and adapt the team's way of working",
+      "steps": [
+        {
+          "title": "Set the Stage",
+          "why": "Psychological safety is the prerequisite for a useful retrospective. Prime the team with a check-in (one-word how-are-you, or a quick energiser) to shift out of delivery mode and into reflection mode."
+        },
+        {
+          "title": "Gather Data — What went well & To improve",
+          "why": "Surface facts and feelings from the Sprint before interpreting them. The board captures the raw data. Avoid jumping to solutions — gather first, discuss second."
+        },
+        {
+          "title": "Generate Insights",
+          "why": "Look for patterns in the data: which issues are recurring? Which successes can be reinforced? Dot-vote or group notes to find the highest-signal items for discussion."
+        },
+        {
+          "title": "Decide What to Do — Actions",
+          "why": "Actions must be specific, owned, and achievable within the next Sprint. 'We should communicate better' is not an action. 'Alice will share the deployment checklist by Wednesday' is."
+        },
+        {
+          "title": "Close the Retrospective",
+          "why": "A brief close — one word to describe the session, appreciation round, or just a thank-you — signals that the team's time was valued. It also anchors the action items."
+        }
+      ],
+      "tips": [
+        "No blame, no names. Talk about systems and situations, not people.",
+        "End with no more than 2–3 actions. A long list means nothing gets done.",
+        "Review last Sprint's actions first — did they help? Accountability drives change."
+      ]
+    }
+  }
+}

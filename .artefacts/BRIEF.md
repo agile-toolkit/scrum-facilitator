@@ -1,44 +1,31 @@
-# BRIEF
+# Scrum Facilitator — Brief
 
-Derived per [`agent-state.NO-BRIEF.md`](https://github.com/agile-toolkit/.github/blob/main/agent-state.NO-BRIEF.md). There was **no prior** `BRIEF.md`. Sources: `README.md`, `src/i18n/en.json` / `ru.json`, `src/`. Generated **2026-04-19**.
+## Overview
 
-## Product scope (from `README.md`)
+Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed agenda, tips, daily participant flow, retro board, Markdown export. React 18, Vite, Tailwind, react-i18next, `localStorage`. Deploy: GitHub Pages.
 
-- **Ceremony selector** — Planning, Daily, Review, Retro.
-- **Agenda runner** — time-boxed steps, countdown (start / pause / reset).
-- **“Why this step?”** tooltips and **facilitation tips** per ceremony.
-- **Daily participant tracking** — add/remove, speaking/done, randomise order.
-- **Retro board** — three columns, sticky notes.
-- **Export** — Markdown summary (clipboard / download).
-- **EN + RU**, **localStorage** persistence.
+## Features
 
-## Build
+- [x] Ceremony picker and per-ceremony agenda with timer (start / pause / reset)
+- [x] “Why this step?” and facilitation tips (i18n)
+- [x] Daily Scrum — participants, statuses, randomise (`ParticipantPanel.tsx`)
+- [x] Retrospective — three columns, sticky notes (`RetroBoard`, `StickyColumn`, `StickyNote`)
+- [x] Export summary — Markdown clipboard / download
+- [x] EN + RU + persistence
+- [ ] Locale cleanup — `app.subtitle`, `retro.add`, `retro.openBoard`, `common.close` unused in `src/` vs `en.json` / `ru.json`
+- [ ] Header language labels — `App.tsx` uses raw `EN`/`RU`; use `t('lang.en')` / `t('lang.ru')`
 
-- `npm run build` — **passes** (verified **2026-04-19**).
+## Backlog
 
-## TODO / FIXME
+<!-- Append research / review issues -->
 
-- Root `README.md` line ~40: HTML comment `<!-- TODO: add screenshots after first deploy -->` (not under `src/`).
+## Tech notes
 
-## TODO in `src/`
+- Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
-- None.
+## Agent Log
 
-## i18n — orphaned keys (no `t('…')` literal in `src/`)
+### 2026-04-19 — docs: BRIEF template (AGENT_AUTONOMOUS)
 
-- **`app.subtitle`** — `App.tsx` / `HomeScreen.tsx` use **`home.subtitle`** for the tagline under the main title; **`app.subtitle`** in `en.json` is unused.
-- **`retro.add`**, **`retro.openBoard`** — retro UI uses **`retro.addPlaceholder`**, **`retro.save`**, etc.; **`retro.add`** / **`retro.openBoard`** never referenced.
-- **`common.close`** — not referenced (confirm before delete).
-
-## i18n — dynamic keys (used)
-
-- **`daily.status.pending`**, **`speaking`**, **`done`** — used via `` t(`daily.status.${p.status}`) `` in `ParticipantPanel.tsx`.
-
-## Hardcoded user-visible strings
-
-- Language toggle: raw **`EN` / `RU`** in `App.tsx` (~71) while **`lang.en`** / **`lang.ru`** exist in locale files — should use `t('lang.en')` / `t('lang.ru')` or a single toggle key.
-
-## Classification (NO-BRIEF)
-
-- **Status:** `in-progress`
-- **First next task:** Remove or wire **`app.subtitle`**, **`retro.add`**, **`retro.openBoard`**, **`common.close`** in `src/i18n/en.json` + `ru.json`; replace header language labels in `src/App.tsx` with **`t('lang.en')` / `t('lang.ru')`** (or dedicated `common.lang_toggle` keys).
+- Done: Structured BRIEF; listed orphan i18n keys and lang toggle gap.
+- Next task: Remove or wire `app.subtitle`, `retro.add`, `retro.openBoard`, `common.close` in `src/i18n/en.json`+`ru.json`; replace `App.tsx` toggle with `t('lang.en')`/`t('lang.ru')`.

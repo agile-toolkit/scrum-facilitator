@@ -1,41 +1,44 @@
-# BRIEF — Scrum Facilitator
+# BRIEF
 
-## What this app does
-An interactive web tool that helps Scrum Masters and team facilitators run better Scrum ceremonies. It provides guided facilitation flows for Sprint Planning, Daily Stand-up, Sprint Review, and Retrospective, with timers, agenda templates, and participant management.
+Derived per [`agent-state.NO-BRIEF.md`](https://github.com/agile-toolkit/.github/blob/main/agent-state.NO-BRIEF.md). There was **no prior** `BRIEF.md`. Sources: `README.md`, `src/i18n/en.json` / `ru.json`, `src/`. Generated **2026-04-19**.
 
-## Target users
-Scrum Masters, Agile coaches, team leads facilitating Scrum ceremonies with teams of 3–12 people.
+## Product scope (from `README.md`)
 
-## Core features (MVP)
-- Ceremony selector (Planning / Daily / Review / Retro)
-- Built-in agenda with time-boxed steps and a countdown timer
-- Participant list with turn tracking for Daily stand-up
-- Retrospective board with sticky-note columns (What went well / Delta / Actions)
-- Export summary as text/markdown
+- **Ceremony selector** — Planning, Daily, Review, Retro.
+- **Agenda runner** — time-boxed steps, countdown (start / pause / reset).
+- **“Why this step?”** tooltips and **facilitation tips** per ceremony.
+- **Daily participant tracking** — add/remove, speaking/done, randomise order.
+- **Retro board** — three columns, sticky notes.
+- **Export** — Markdown summary (clipboard / download).
+- **EN + RU**, **localStorage** persistence.
 
-## Educational layer
-- Each ceremony has a "Why this step?" tooltip explaining the Scrum rationale
-- Facilitation tips panel (collapsible) with dos and don'ts
-- Reference to source: Scrum Guide, ICAgile Workbook, Scrum & Kanban book
+## Build
 
-## Tech stack
-React 18 + TypeScript + Vite + Tailwind CSS. No backend needed for MVP (localStorage for session state). Deployed to GitHub Pages.
+- `npm run build` — **passes** (verified **2026-04-19**).
 
-## Source materials in `.artefacts/`
-- `Scrum Meetings Guideline.pdf` — step-by-step ceremony scripts
-- `Workbook (ICAgile - Fundamentals of Agile)_22_11_2013.pdf` — ICAgile theory
-- `Scrum Retrospectives.pptx` — retrospective formats and facilitation patterns
-- `scrum_xp-from-the-trenches-rus-final.pdf` — XP + Scrum practical reference
-- `ScrumAndKanbanRuFinal.pdf` — Scrum & Kanban comparative reference
+## TODO / FIXME
 
-## i18n
-English + Russian (react-i18next). All ceremony names, instructions, and tooltips must be translatable.
+- Root `README.md` line ~40: HTML comment `<!-- TODO: add screenshots after first deploy -->` (not under `src/`).
 
-## Agentic pipeline roles
-- `/vadavik` — spec & requirements validation
-- `/lojma` — UX/UI design (ceremony flows, timer UI)
-- `/laznik` — architecture (component tree, state management)
-- `@cmok` — implementation
-- `@bahnik` — QA (timer accuracy, mobile touch, keyboard nav)
-- `@piarun` — documentation
-- `@zlydni` — git commits & GitHub Pages deploy
+## TODO in `src/`
+
+- None.
+
+## i18n — orphaned keys (no `t('…')` literal in `src/`)
+
+- **`app.subtitle`** — `App.tsx` / `HomeScreen.tsx` use **`home.subtitle`** for the tagline under the main title; **`app.subtitle`** in `en.json` is unused.
+- **`retro.add`**, **`retro.openBoard`** — retro UI uses **`retro.addPlaceholder`**, **`retro.save`**, etc.; **`retro.add`** / **`retro.openBoard`** never referenced.
+- **`common.close`** — not referenced (confirm before delete).
+
+## i18n — dynamic keys (used)
+
+- **`daily.status.pending`**, **`speaking`**, **`done`** — used via `` t(`daily.status.${p.status}`) `` in `ParticipantPanel.tsx`.
+
+## Hardcoded user-visible strings
+
+- Language toggle: raw **`EN` / `RU`** in `App.tsx` (~71) while **`lang.en`** / **`lang.ru`** exist in locale files — should use `t('lang.en')` / `t('lang.ru')` or a single toggle key.
+
+## Classification (NO-BRIEF)
+
+- **Status:** `in-progress`
+- **First next task:** Remove or wire **`app.subtitle`**, **`retro.add`**, **`retro.openBoard`**, **`common.close`** in `src/i18n/en.json` + `ru.json`; replace header language labels in `src/App.tsx` with **`t('lang.en')` / `t('lang.ru')`** (or dedicated `common.lang_toggle` keys).

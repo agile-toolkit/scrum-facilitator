@@ -1,7 +1,6 @@
 {
   "app": {
-    "title": "Scrum Фасилитатор",
-    "subtitle": "Ведение Scrum-церемоний"
+    "title": "Scrum Фасилитатор"
   },
   "home": {
     "title": "Выберите церемонию",
@@ -38,12 +37,10 @@
     "toImprove": "Что улучшить",
     "actions": "Действия",
     "addPlaceholder": "Добавить заметку...",
-    "add": "Добавить",
     "editPlaceholder": "Редактировать...",
     "save": "Сохранить",
     "cancel": "Отмена",
-    "deleteConfirm": "Удалить эту заметку?",
-    "openBoard": "Открыть доску ретро"
+    "deleteConfirm": "Удалить эту заметку?"
   },
   "complete": {
     "title": "Церемония завершена!",
@@ -60,7 +57,6 @@
   },
   "common": {
     "back": "Назад",
-    "close": "Закрыть",
     "delete": "Удалить"
   },
   "lang": { "en": "English", "ru": "Русский" },

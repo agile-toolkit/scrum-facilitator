@@ -68,7 +68,7 @@ export default function App() {
             }
             className="text-sm text-gray-500 hover:text-gray-700 px-2 py-1 rounded hover:bg-gray-100 transition-colors"
           >
-            {i18n.language.startsWith('ru') ? 'EN' : 'RU'}
+            {i18n.language.startsWith('ru') ? t('lang.en') : t('lang.ru')}
           </button>
         </div>
       </header>

@@ -12,8 +12,8 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] Retrospective — three columns, sticky notes (`RetroBoard`, `StickyColumn`, `StickyNote`)
 - [x] Export summary — Markdown clipboard / download
 - [x] EN + RU + persistence
-- [ ] Locale cleanup — `app.subtitle`, `retro.add`, `retro.openBoard`, `common.close` unused in `src/` vs `en.json` / `ru.json`
-- [ ] Header language labels — `App.tsx` uses raw `EN`/`RU`; use `t('lang.en')` / `t('lang.ru')`
+- [x] Locale cleanup — removed `app.subtitle`, `retro.add`, `retro.openBoard`, `common.close` from `en.json`/`ru.json`
+- [x] Header language labels — `App.tsx` toggle now uses `t('lang.en')` / `t('lang.ru')`
 
 ## Backlog
 
@@ -24,6 +24,11 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-04-19 — feat: i18n locale cleanup and language toggle fix
+- Done: removed unused keys `app.subtitle`, `retro.add`, `retro.openBoard`, `common.close` from `en.json` and `ru.json`; replaced raw `'EN'`/`'RU'` in `App.tsx` header with `t('lang.en')`/`t('lang.ru')`
+- All BRIEF features implemented — status → stable
+- Next task: check needs-review issues for human feedback
 
 ### 2026-04-19 — docs: BRIEF template (AGENT_AUTONOMOUS)
 

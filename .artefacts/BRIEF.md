@@ -21,12 +21,23 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [ ] [#4] Feature: Add ES and BE locale support (suite standard EN+ES+BE+RU)
 - [ ] [#5] Integration: Export Sprint Review outcomes to Sprint Metrics
 - [ ] [#6] Feature: Persistent ceremony history and retro note recovery
+- [ ] [#7] Feature: Multiple retrospective formats (4Ls, Mad-Sad-Glad, Sailboat)
+- [ ] [#8] Feature: Audio and visual timer alerts when a ceremony step ends
+- [ ] [#9] Integration: Launch Planning Poker from Sprint Planning ceremony
 
 ## Tech notes
 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-04-27 — research: retro formats, timer alerts, Planning Poker integration
+- Done: checked open issues (#4–#6, all needs-review, no approved/changes-requested actions needed)
+- Created issue #7 (multiple retro formats: 4Ls, Mad-Sad-Glad, Sailboat)
+- Created issue #8 (audio+visual timer alerts on step end via Web Audio API)
+- Created issue #9 (Planning Poker deep-link from Sprint Planning estimation step)
+- Waiting for human review on all six open issues (#4–#9)
+- Next task: check needs-review issues for human feedback
 
 ### 2026-04-24 — research: market + integration + UX opportunities
 - Done: created issues #4 (ES+BE locales), #5 (Sprint Metrics integration), #6 (ceremony session history)

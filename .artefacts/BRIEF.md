@@ -14,11 +14,12 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] EN + RU + persistence
 - [x] Locale cleanup — removed `app.subtitle`, `retro.add`, `retro.openBoard`, `common.close` from `en.json`/`ru.json`
 - [x] Header language labels — `App.tsx` toggle now uses `t('lang.en')` / `t('lang.ru')`
+- [x] ES + BE locale support — full translations for all ceremony steps, tips, and UI strings; 4-language cycle toggle (EN→ES→BE→RU→EN)
 
 ## Backlog
 
 <!-- Append research / review issues -->
-- [ ] [#4] Feature: Add ES and BE locale support (suite standard EN+ES+BE+RU)
+- [x] [#4] Feature: Add ES and BE locale support (suite standard EN+ES+BE+RU) — implemented
 - [ ] [#5] Integration: Export Sprint Review outcomes to Sprint Metrics
 - [ ] [#6] Feature: Persistent ceremony history and retro note recovery
 - [ ] [#7] Feature: Multiple retrospective formats (4Ls, Mad-Sad-Glad, Sailboat)
@@ -30,6 +31,12 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-05-01 — feat: ES and BE locale support (#4)
+- Done: created `src/i18n/es.json` and `src/i18n/be.json` with full translations (all ceremony steps, tips, UI strings); added `lang.es` and `lang.be` keys to `en.json` and `ru.json`; updated `src/i18n/index.ts` to register ES and BE; updated `App.tsx` language toggle to cycle EN→ES→BE→RU→EN
+- Issue #4 set to In Review
+- Remaining approved issues: #5 (Sprint Metrics export), #6 (session history), #7 (retro formats), #9 (Planning Poker integration)
+- Next task: implement issue #5 — Export Sprint Review outcomes to Sprint Metrics (add button in ExportView.tsx for review ceremony; write to `sprint-metrics-data` localStorage key)
 
 ### 2026-04-27 — research: retro formats, timer alerts, Planning Poker integration
 - Done: checked open issues (#4–#6, all needs-review, no approved/changes-requested actions needed)

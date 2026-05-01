@@ -1,0 +1,181 @@
+{
+  "app": {
+    "title": "Facilitador Scrum"
+  },
+  "home": {
+    "title": "Elige una Ceremonia",
+    "subtitle": "Selecciona la ceremonia que deseas facilitar",
+    "timebox": "{{minutes}} min"
+  },
+  "ceremony": {
+    "stepOf": "Paso {{current}} de {{total}}",
+    "start": "Iniciar",
+    "pause": "Pausar",
+    "resume": "Reanudar",
+    "reset": "Reiniciar",
+    "prev": "← Anterior",
+    "next": "Siguiente →",
+    "finish": "Finalizar",
+    "timeUp": "¡Tiempo!",
+    "whyToggle": "¿Por qué este paso?",
+    "tipsToggle": "Consejos de facilitación",
+    "source": "Basado en: Guía Scrum · Cuaderno ICAgile · Scrum & Kanban"
+  },
+  "daily": {
+    "participants": "Participantes",
+    "addPlaceholder": "Agregar nombre de participante",
+    "add": "Agregar",
+    "randomise": "Ordenar aleatoriamente",
+    "status": {
+      "pending": "En espera",
+      "speaking": "Hablando",
+      "done": "Listo"
+    }
+  },
+  "retro": {
+    "wellDone": "Qué salió bien",
+    "toImprove": "A mejorar",
+    "actions": "Acciones",
+    "addPlaceholder": "Agregar nota...",
+    "editPlaceholder": "Editar nota...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "deleteConfirm": "¿Eliminar esta nota?"
+  },
+  "complete": {
+    "title": "¡Ceremonia completada!",
+    "steps": "{{done}} de {{total}} pasos completados",
+    "export": "Exportar resumen",
+    "backHome": "Volver al inicio"
+  },
+  "export": {
+    "title": "Exportar Resumen",
+    "copy": "Copiar al portapapeles",
+    "copied": "¡Copiado!",
+    "download": "Descargar .md",
+    "back": "Volver"
+  },
+  "common": {
+    "back": "Volver",
+    "delete": "Eliminar"
+  },
+  "lang": { "en": "English", "es": "Español", "be": "Беларуская", "ru": "Русский" },
+  "ceremonies": {
+    "planning": {
+      "name": "Planificación del Sprint",
+      "desc": "Alinea al equipo en el Objetivo del Sprint y planifica el trabajo",
+      "steps": [
+        {
+          "title": "Definir el Objetivo del Sprint",
+          "why": "El Objetivo del Sprint da al equipo un propósito compartido y una estrella guía para el Sprint. Sin un objetivo claro, los equipos tienden a trabajar en silos. El Product Owner debe comprometerse con este objetivo antes de continuar la planificación."
+        },
+        {
+          "title": "Revisión del Backlog",
+          "why": "El equipo revisa los elementos del backlog con el Product Owner para clarificar los criterios de aceptación y las dependencias. Los elementos deben entenderse lo suficientemente bien como para estimarse antes de poder seleccionarse."
+        },
+        {
+          "title": "Verificación de Capacidad",
+          "why": "El equipo calcula la capacidad disponible en horas o puntos de historia para este Sprint, teniendo en cuenta vacaciones, guardias y ausencias conocidas. Sobrecomprometerse lleva a incumplir los Objetivos del Sprint."
+        },
+        {
+          "title": "Descomposición y Estimación de Historias",
+          "why": "Dividir las historias en tareas revela la complejidad oculta y permite compromisos realistas. La estimación en equipo saca a la luz diferencias de comprensión y fomenta la alineación."
+        },
+        {
+          "title": "Compromiso del Equipo",
+          "why": "El equipo se compromete explícitamente con el Objetivo del Sprint, no con la lista de tareas. Es un momento de responsabilidad compartida, no un contrato. Pregunta: «¿Hay algo que nos impida alcanzar este objetivo?»"
+        }
+      ],
+      "tips": [
+        "Empieza con el Objetivo del Sprint, no con el backlog. Primero el objetivo, luego las tareas.",
+        "Limita el tiempo del refinamiento del backlog con firmeza: las divagaciones arruinan las sesiones de planificación.",
+        "Si la estimación de una historia tarda más de 10 minutos, es señal de que hay que dividirla."
+      ]
+    },
+    "daily": {
+      "name": "Daily Scrum",
+      "desc": "Sincroniza al equipo y saca a la luz los impedimentos",
+      "steps": [
+        {
+          "title": "¿Qué hice ayer?",
+          "why": "Esta pregunta muestra el progreso hacia el Objetivo del Sprint, no solo la finalización de tareas. Anima a los participantes a conectar su trabajo con el objetivo, no solo a enumerar actividades."
+        },
+        {
+          "title": "¿Qué haré hoy?",
+          "why": "El plan de hoy crea microcompromisos que el equipo puede hacerse mutuamente responsable. También saca a la luz dependencias: si A necesita el resultado de B hoy, ambos deben saberlo."
+        },
+        {
+          "title": "¿Hay impedimentos?",
+          "why": "Los impedimentos identificados aquí se resuelven fuera del standup, no durante él. El trabajo del Scrum Master es capturarlos y actuar inmediatamente después de que termine la reunión."
+        }
+      ],
+      "tips": [
+        "De pie. Literalmente. Mantiene la reunión corta.",
+        "Habla al tablero, no al Scrum Master. Es una sincronización del equipo, no un informe de estado.",
+        "Si comienza una conversación, apárcala. «Lo resolvemos luego» — y hazlo."
+      ]
+    },
+    "review": {
+      "name": "Revisión del Sprint",
+      "desc": "Inspecciona el incremento y adapta el backlog con las partes interesadas",
+      "steps": [
+        {
+          "title": "Resumen del Objetivo del Sprint",
+          "why": "Recuerda a todos en qué se comprometió el equipo. La demo debe evaluarse frente al Objetivo del Sprint, no frente a historias individuales. ¿Logró el equipo lo que se propuso?"
+        },
+        {
+          "title": "Demo del Trabajo Completado",
+          "why": "Solo demuestra software funcionando: sin diapositivas ni maquetas. La demo es la prueba de «Terminado». Las partes interesadas deben interactuar con el producto cuando sea posible."
+        },
+        {
+          "title": "Retroalimentación de las Partes Interesadas",
+          "why": "Este es el propósito principal de la Revisión: inspeccionar el incremento con personas externas al equipo. La retroalimentación aquí da forma directamente al próximo Sprint. Captúrala en el backlog de inmediato."
+        },
+        {
+          "title": "Actualización del Backlog",
+          "why": "El Product Owner actualiza el backlog en tiempo real basándose en los comentarios. Los nuevos elementos, las prioridades modificadas y los elementos descartados deben reflejarse antes de que termine la sesión."
+        },
+        {
+          "title": "Vista Previa del Próximo Sprint",
+          "why": "Una breve mirada hacia adelante — no planificación — da contexto a las partes interesadas sobre lo que viene. También crea continuidad entre Revisiones y evita conversaciones del tipo «¿en qué estáis trabajando?»."
+        }
+      ],
+      "tips": [
+        "Haz la demo en función del Objetivo del Sprint, no de la lista de historias. Empieza con: «Nuestro objetivo era X. Esto es lo que construimos.»",
+        "Invita a partes interesadas reales, no solo al Product Owner. La perspectiva externa es el punto clave.",
+        "Captura la retroalimentación como elementos del backlog de inmediato: no confíes en la memoria."
+      ]
+    },
+    "retro": {
+      "name": "Retrospectiva",
+      "desc": "Inspecciona y adapta la forma de trabajar del equipo",
+      "steps": [
+        {
+          "title": "Preparar el Ambiente",
+          "why": "La seguridad psicológica es el requisito previo para una retrospectiva útil. Inicia al equipo con una actividad de calentamiento (una palabra para describir cómo estás, o un energizador rápido) para pasar del modo de entrega al modo de reflexión."
+        },
+        {
+          "title": "Recopilar Datos — Qué salió bien y A mejorar",
+          "why": "Recoge hechos y sentimientos del Sprint antes de interpretarlos. El tablero captura los datos en bruto. Evita saltar a soluciones: recoge primero, discute después."
+        },
+        {
+          "title": "Generar Perspectivas",
+          "why": "Busca patrones en los datos: ¿qué problemas se repiten? ¿Qué éxitos se pueden reforzar? La votación por puntos o la agrupación de notas ayuda a encontrar los elementos más significativos para el debate."
+        },
+        {
+          "title": "Decidir Qué Hacer — Acciones",
+          "why": "Las acciones deben ser específicas, con responsable y alcanzables dentro del próximo Sprint. «Deberíamos comunicarnos mejor» no es una acción. «Alicia compartirá el checklist de despliegue antes del miércoles» sí lo es."
+        },
+        {
+          "title": "Cerrar la Retrospectiva",
+          "why": "Un cierre breve — una palabra para describir la sesión, una ronda de agradecimientos o simplemente un «gracias» — señala que el tiempo del equipo fue valioso. También ancla los elementos de acción."
+        }
+      ],
+      "tips": [
+        "Sin culpas, sin nombres. Habla de sistemas y situaciones, no de personas.",
+        "Termina con no más de 2-3 acciones. Una lista larga significa que no se hará nada.",
+        "Revisa primero las acciones del Sprint anterior: ¿ayudaron? La responsabilidad impulsa el cambio."
+      ]
+    }
+  }
+}

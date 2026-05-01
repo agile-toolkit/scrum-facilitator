@@ -59,7 +59,7 @@
     "back": "Back",
     "delete": "Delete"
   },
-  "lang": { "en": "English", "ru": "Русский" },
+  "lang": { "en": "English", "es": "Español", "be": "Беларуская", "ru": "Русский" },
   "ceremonies": {
     "planning": {
       "name": "Sprint Planning",

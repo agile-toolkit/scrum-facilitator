@@ -20,7 +20,7 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 
 <!-- Append research / review issues -->
 - [x] [#4] Feature: Add ES and BE locale support (suite standard EN+ES+BE+RU) — implemented
-- [ ] [#5] Integration: Export Sprint Review outcomes to Sprint Metrics
+- [x] [#5] Integration: Export Sprint Review outcomes to Sprint Metrics — implemented
 - [ ] [#6] Feature: Persistent ceremony history and retro note recovery
 - [ ] [#7] Feature: Multiple retrospective formats (4Ls, Mad-Sad-Glad, Sailboat)
 - [ ] [#8] Feature: Audio and visual timer alerts when a ceremony step ends
@@ -31,6 +31,12 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-05-01 — feat: Export Sprint Review to Sprint Metrics (#5)
+- Done: added "Export to Sprint Metrics" button in `ExportView.tsx` (visible only for review ceremony); appends a new `SprintData` entry (`id`, `name=date`, `planned/completed/carriedOver=0`) to `sprint-metrics-sprints` localStorage key; opens Sprint Metrics in new tab; shows 4 s green toast; i18n keys added to all 4 locales
+- Issue #5 set to In Review
+- Remaining backlog: #6 (session history), #7 (retro formats), #8 (timer alerts), #9 (Planning Poker integration)
+- Next task: check needs-review issues for human feedback (#6 persistent history, #7 retro formats, #8 timer alerts, #9 Planning Poker integration)
 
 ### 2026-05-01 — feat: ES and BE locale support (#4)
 - Done: created `src/i18n/es.json` and `src/i18n/be.json` with full translations (all ceremony steps, tips, UI strings); added `lang.es` and `lang.be` keys to `en.json` and `ru.json`; updated `src/i18n/index.ts` to register ES and BE; updated `App.tsx` language toggle to cycle EN→ES→BE→RU→EN

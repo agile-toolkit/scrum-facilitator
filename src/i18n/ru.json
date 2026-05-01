@@ -53,13 +53,20 @@
     "copy": "Скопировать",
     "copied": "Скопировано!",
     "download": "Скачать .md",
-    "back": "Назад"
+    "back": "Назад",
+    "sprintMetrics": "Экспорт в Sprint Metrics",
+    "sprintMetricsToast": "Спринт добавлен в Sprint Metrics — заполните story points там."
   },
   "common": {
     "back": "Назад",
     "delete": "Удалить"
   },
-  "lang": { "en": "English", "es": "Español", "be": "Беларуская", "ru": "Русский" },
+  "lang": {
+    "en": "English",
+    "es": "Español",
+    "be": "Беларуская",
+    "ru": "Русский"
+  },
   "ceremonies": {
     "planning": {
       "name": "Планирование спринта",

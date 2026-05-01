@@ -3,6 +3,17 @@ import { useTranslation } from 'react-i18next'
 import type { ExportData } from '../types'
 import { CEREMONIES } from '../data/ceremonies'
 
+const SPRINT_METRICS_KEY = 'sprint-metrics-sprints'
+const SPRINT_METRICS_URL = 'https://agile-toolkit.github.io/sprint-metrics/'
+
+interface SprintEntry {
+  id: string
+  name: string
+  planned: number
+  completed: number
+  carriedOver: number
+}
+
 interface Props {
   data: ExportData
   onBack: () => void
@@ -41,6 +52,7 @@ function buildMarkdown(data: ExportData, t: (k: string, opts?: Record<string, un
 export default function ExportView({ data, onBack }: Props) {
   const { t } = useTranslation()
   const [copied, setCopied] = useState(false)
+  const [smExported, setSmExported] = useState(false)
 
   const markdown = buildMarkdown(data, t as (k: string, opts?: Record<string, unknown>) => string)
 
@@ -60,11 +72,33 @@ export default function ExportView({ data, onBack }: Props) {
     URL.revokeObjectURL(url)
   }
 
+  const exportToSprintMetrics = () => {
+    const existing: SprintEntry[] = (() => {
+      try { return JSON.parse(localStorage.getItem(SPRINT_METRICS_KEY) ?? '[]') } catch { return [] }
+    })()
+    const entry: SprintEntry = {
+      id: Date.now().toString(),
+      name: data.date,
+      planned: 0,
+      completed: 0,
+      carriedOver: 0,
+    }
+    localStorage.setItem(SPRINT_METRICS_KEY, JSON.stringify([...existing, entry]))
+    window.open(SPRINT_METRICS_URL, '_blank', 'noopener,noreferrer')
+    setSmExported(true)
+    setTimeout(() => setSmExported(false), 4000)
+  }
+
   return (
     <div className="flex flex-col gap-4 max-w-2xl">
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 flex-wrap">
         <button onClick={onBack} className="btn-ghost">← {t('export.back')}</button>
         <h2 className="text-xl font-bold flex-1">{t('export.title')}</h2>
+        {data.ceremonyType === 'review' && (
+          <button onClick={exportToSprintMetrics} className="btn-secondary text-sm">
+            📊 {t('export.sprintMetrics')}
+          </button>
+        )}
         <button onClick={download} className="btn-secondary text-sm">
           ⬇ {t('export.download')}
         </button>
@@ -72,6 +106,12 @@ export default function ExportView({ data, onBack }: Props) {
           {copied ? `✓ ${t('export.copied')}` : `📋 ${t('export.copy')}`}
         </button>
       </div>
+
+      {smExported && (
+        <div className="rounded-lg bg-green-50 border border-green-200 px-4 py-2 text-sm text-green-800">
+          {t('export.sprintMetricsToast')}
+        </div>
+      )}
 
       <pre className="card p-4 text-xs text-gray-700 font-mono whitespace-pre-wrap overflow-x-auto leading-relaxed">
         {markdown}

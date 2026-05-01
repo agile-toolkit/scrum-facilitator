@@ -67,6 +67,14 @@
     "be": "Беларуская",
     "ru": "Русский"
   },
+  "history": {
+    "title": "История церемоний",
+    "steps": "{{done}} из {{total}} шагов",
+    "view": "Просмотр",
+    "resumePrompt": "Продолжить {{ceremony}} с {{ago}} назад?",
+    "resume": "Продолжить",
+    "discard": "Отменить"
+  },
   "ceremonies": {
     "planning": {
       "name": "Планирование спринта",

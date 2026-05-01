@@ -62,6 +62,14 @@
     "delete": "Delete"
   },
   "lang": { "en": "English", "es": "Español", "be": "Беларуская", "ru": "Русский" },
+  "history": {
+    "title": "Past Ceremonies",
+    "steps": "{{done}} of {{total}} steps",
+    "view": "View",
+    "resumePrompt": "Resume {{ceremony}} from {{ago}}?",
+    "resume": "Resume",
+    "discard": "Discard"
+  },
   "ceremonies": {
     "planning": {
       "name": "Sprint Planning",

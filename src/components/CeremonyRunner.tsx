@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { CeremonyType, Participant, RetroNotes } from '../types'
+import type { CeremonyType, Participant, RetroNotes, SessionState } from '../types'
 import { getCeremony, formatDuration } from '../data/ceremonies'
 import { useTimer } from '../hooks/useTimer'
 import { useLocalStorage } from '../hooks/useLocalStorage'
@@ -10,21 +10,24 @@ import FacilitationTips from './FacilitationTips'
 import ParticipantPanel from './ParticipantPanel'
 import RetroBoard from './RetroBoard'
 
+const SESSION_KEY = 'scrum-facilitator-session'
+
 interface Props {
   ceremonyType: CeremonyType
   retroNotes: RetroNotes
   onRetroNotesChange: (n: RetroNotes) => void
   onComplete: (stepsCompleted: number, participants?: string[]) => void
   onBack: () => void
+  resumeSession?: SessionState | null
 }
 
 export default function CeremonyRunner({
-  ceremonyType, retroNotes, onRetroNotesChange, onComplete, onBack,
+  ceremonyType, retroNotes, onRetroNotesChange, onComplete, onBack, resumeSession,
 }: Props) {
   const { t } = useTranslation()
   const ceremony = getCeremony(ceremonyType)
-  const [stepIndex, setStepIndex] = useState(0)
-  const [completedSteps, setCompletedSteps] = useState(0)
+  const [stepIndex, setStepIndex] = useState(resumeSession?.stepIndex ?? 0)
+  const [completedSteps, setCompletedSteps] = useState(resumeSession?.completedSteps ?? 0)
   const [participants, setParticipants] = useLocalStorage<Participant[]>('sf_participants', [])
 
   const currentStep = ceremony?.steps[stepIndex]
@@ -32,10 +35,23 @@ export default function CeremonyRunner({
     currentStep?.duration ?? 0,
   )
 
-  // Reset timer when step changes
   useEffect(() => {
     if (currentStep) reset(currentStep.duration)
   }, [stepIndex, currentStep?.id])
+
+  // Auto-save session state on every meaningful change
+  useEffect(() => {
+    if (!ceremony) return
+    const session: SessionState = {
+      ceremonyType,
+      stepIndex,
+      completedSteps,
+      participants,
+      retroNotes,
+      savedAt: Date.now(),
+    }
+    try { localStorage.setItem(SESSION_KEY, JSON.stringify(session)) } catch { /* ignore */ }
+  }, [stepIndex, completedSteps, retroNotes, participants, ceremonyType])
 
   if (!ceremony || !currentStep) return null
 

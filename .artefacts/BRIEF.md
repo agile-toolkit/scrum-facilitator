@@ -15,13 +15,14 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] Locale cleanup — removed `app.subtitle`, `retro.add`, `retro.openBoard`, `common.close` from `en.json`/`ru.json`
 - [x] Header language labels — `App.tsx` toggle now uses `t('lang.en')` / `t('lang.ru')`
 - [x] ES + BE locale support — full translations for all ceremony steps, tips, and UI strings; 4-language cycle toggle (EN→ES→BE→RU→EN)
+- [x] Persistent ceremony history and retro note recovery — auto-saves session to `scrum-facilitator-session` localStorage key; resume banner on home screen if session < 24h old; past 5 completed ceremonies listed on home screen with view-export link
 
 ## Backlog
 
 <!-- Append research / review issues -->
 - [x] [#4] Feature: Add ES and BE locale support (suite standard EN+ES+BE+RU) — implemented
 - [x] [#5] Integration: Export Sprint Review outcomes to Sprint Metrics — implemented
-- [ ] [#6] Feature: Persistent ceremony history and retro note recovery
+- [x] [#6] Feature: Persistent ceremony history and retro note recovery — implemented
 - [ ] [#7] Feature: Multiple retrospective formats (4Ls, Mad-Sad-Glad, Sailboat)
 - [ ] [#8] Feature: Audio and visual timer alerts when a ceremony step ends
 - [ ] [#9] Integration: Launch Planning Poker from Sprint Planning ceremony
@@ -31,6 +32,12 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-05-01 — feat: Persistent ceremony history and retro note recovery (#6)
+- Done: added `SessionState` and `HistoryEntry` types; `CeremonyRunner` auto-saves session to `scrum-facilitator-session` on every step/notes/participant change; `App.tsx` reads session on mount, shows resume banner in `HomeScreen` if session < 24h old (Resume / Discard); completing a ceremony saves to `scrum-facilitator-history` (max 5 entries); past ceremonies displayed on home screen with view-export links; i18n keys added to all 4 locales
+- Issue #6 set to In Review
+- Remaining approved: #7 (retro formats), #9 (Planning Poker integration)
+- Next task: implement issue #7 — multiple retrospective formats (4Ls, Mad-Sad-Glad, Sailboat); add format selector to home/retro step; column titles from i18n; store selected format in localStorage
 
 ### 2026-05-01 — feat: Export Sprint Review to Sprint Metrics (#5)
 - Done: added "Export to Sprint Metrics" button in `ExportView.tsx` (visible only for review ceremony); appends a new `SprintData` entry (`id`, `name=date`, `planned/completed/carriedOver=0`) to `sprint-metrics-sprints` localStorage key; opens Sprint Metrics in new tab; shows 4 s green toast; i18n keys added to all 4 locales

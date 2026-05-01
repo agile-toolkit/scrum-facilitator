@@ -47,6 +47,21 @@ export interface ExportData {
   totalSteps: number
 }
 
+export interface SessionState {
+  ceremonyType: CeremonyType
+  stepIndex: number
+  completedSteps: number
+  participants: Participant[]
+  retroNotes: RetroNotes
+  savedAt: number
+}
+
+export interface HistoryEntry {
+  id: string
+  exportData: ExportData
+  savedAt: number
+}
+
 export type Screen =
   | 'home'
   | 'ceremony'

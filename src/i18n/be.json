@@ -67,6 +67,14 @@
     "be": "Беларуская",
     "ru": "Русский"
   },
+  "history": {
+    "title": "Мінулыя цырымоніі",
+    "steps": "{{done}} з {{total}} крокаў",
+    "view": "Прагляд",
+    "resumePrompt": "Працягнуць {{ceremony}} з {{ago}} назад?",
+    "resume": "Працягнуць",
+    "discard": "Адхіліць"
+  },
   "ceremonies": {
     "planning": {
       "name": "Планаванне спрынту",

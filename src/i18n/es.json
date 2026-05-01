@@ -67,6 +67,14 @@
     "be": "Беларуская",
     "ru": "Русский"
   },
+  "history": {
+    "title": "Ceremonias anteriores",
+    "steps": "{{done}} de {{total}} pasos",
+    "view": "Ver",
+    "resumePrompt": "¿Reanudar {{ceremony}} desde hace {{ago}}?",
+    "resume": "Reanudar",
+    "discard": "Descartar"
+  },
   "ceremonies": {
     "planning": {
       "name": "Planificación del Sprint",

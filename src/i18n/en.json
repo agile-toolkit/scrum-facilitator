@@ -53,7 +53,9 @@
     "copy": "Copy to clipboard",
     "copied": "Copied!",
     "download": "Download .md",
-    "back": "Back"
+    "back": "Back",
+    "sprintMetrics": "Export to Sprint Metrics",
+    "sprintMetricsToast": "Sprint added to Sprint Metrics — fill in story points there."
   },
   "common": {
     "back": "Back",

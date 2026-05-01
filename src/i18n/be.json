@@ -53,13 +53,20 @@
     "copy": "Скапіяваць у буфер",
     "copied": "Скапіявана!",
     "download": "Спампаваць .md",
-    "back": "Назад"
+    "back": "Назад",
+    "sprintMetrics": "Экспарт у Sprint Metrics",
+    "sprintMetricsToast": "Спрынт дададзены ў Sprint Metrics — запоўніце балы гісторый там."
   },
   "common": {
     "back": "Назад",
     "delete": "Выдаліць"
   },
-  "lang": { "en": "English", "es": "Español", "be": "Беларуская", "ru": "Русский" },
+  "lang": {
+    "en": "English",
+    "es": "Español",
+    "be": "Беларуская",
+    "ru": "Русский"
+  },
   "ceremonies": {
     "planning": {
       "name": "Планаванне спрынту",

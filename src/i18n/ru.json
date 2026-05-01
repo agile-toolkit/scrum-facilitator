@@ -59,7 +59,7 @@
     "back": "Назад",
     "delete": "Удалить"
   },
-  "lang": { "en": "English", "ru": "Русский" },
+  "lang": { "en": "English", "es": "Español", "be": "Беларуская", "ru": "Русский" },
   "ceremonies": {
     "planning": {
       "name": "Планирование спринта",

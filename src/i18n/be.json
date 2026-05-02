@@ -83,6 +83,12 @@
     "back": "Назад",
     "delete": "Выдаліць"
   },
+  "poker": {
+    "bannerTitle": "Ацэньвайце з Planning Poker",
+    "bannerDesc": "Выкарыстоўвайце Planning Poker для ацэнкі элементаў бэклогу ў камандзе.",
+    "open": "Адкрыць Planning Poker →",
+    "noParticipants": "Дадайце ўдзельнікаў у Daily Stand-up, каб папярэдне запоўніць спіс каманды."
+  },
   "lang": {
     "en": "English",
     "es": "Español",

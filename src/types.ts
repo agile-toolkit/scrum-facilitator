@@ -8,6 +8,7 @@ export interface AgendaStep {
   duration: number        // seconds
   whyKey: string
   triggersRetro?: boolean
+  triggersPoker?: boolean
 }
 
 export interface Ceremony {

@@ -35,6 +35,11 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 
 ## Agent Log
 
+### 2026-05-02 — research: favicon issue research (#1)
+- Done: surveyed all 10 apps' favicon patterns (32×32 SVG, rounded-rect + icon); found scrum-facilitator favicon.svg is corrupted binary; found colour conflict with improvement-board (both #16a34a green); updated issue #1 body with specific SVG proposals (indigo #4f46e5 + ⏱ emoji or custom clock SVG), asked reviewer to choose approach; set issue #1 project status to In Review
+- Issue #8 (timer alerts) still needs-review — no action yet
+- Next task: check issues for human feedback; if #1 approved implement favicon SVG fix + tailwind brand colour update; if #8 approved implement Web Audio API beep + animate-pulse flash on timer zero
+
 ### 2026-05-02 — feat: Planning Poker integration (#9)
 - Done: added `triggersPoker?: boolean` to `AgendaStep` type; set `triggersPoker: true` on `planning-4` step in `ceremonies.ts`; rendered contextual banner in `CeremonyRunner.tsx` when step triggers poker; banner reads `sf_participants` state and builds URL `https://agile-toolkit.github.io/planning-poker/?participants=<names>`; "Open Planning Poker →" opens in new tab; hint shown if no participants saved; i18n keys `poker.*` added to all 4 locales
 - Issue #9 set to In Review

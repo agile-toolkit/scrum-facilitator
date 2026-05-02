@@ -36,6 +36,7 @@ export const CEREMONIES: Ceremony[] = [
         titleKey: 'ceremonies.planning.steps.3.title',
         duration: 60 * 60,
         whyKey: 'ceremonies.planning.steps.3.why',
+        triggersPoker: true,
       },
       {
         id: 'planning-5',

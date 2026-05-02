@@ -83,6 +83,12 @@
     "back": "Назад",
     "delete": "Удалить"
   },
+  "poker": {
+    "bannerTitle": "Оценка с Planning Poker",
+    "bannerDesc": "Используйте Planning Poker для командной оценки элементов бэклога.",
+    "open": "Открыть Planning Poker →",
+    "noParticipants": "Добавьте участников в Daily Stand-up, чтобы заранее заполнить список команды."
+  },
   "lang": {
     "en": "English",
     "es": "Español",

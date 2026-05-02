@@ -61,6 +61,7 @@ export default function CeremonyRunner({
   const isLast = stepIndex === ceremony.steps.length - 1
   const isDaily = ceremonyType === 'daily'
   const showRetroBoard = currentStep.triggersRetro === true
+  const showPokerBanner = currentStep.triggersPoker === true
 
   const goNext = () => {
     const newCompleted = Math.max(completedSteps, stepIndex + 1)
@@ -155,6 +156,39 @@ export default function CeremonyRunner({
       {/* Daily participant panel */}
       {isDaily && (
         <ParticipantPanel participants={participants} onChange={setParticipants} />
+      )}
+
+      {/* Planning Poker banner */}
+      {showPokerBanner && (
+        <div className="card p-4 flex flex-col gap-2 border-l-4 border-brand-400">
+          <div className="flex items-center gap-2">
+            <span className="text-lg">🃏</span>
+            <h3 className="font-medium text-gray-800">{t('poker.bannerTitle')}</h3>
+          </div>
+          <p className="text-sm text-gray-600">{t('poker.bannerDesc')}</p>
+          {participants.length > 0 ? (
+            <a
+              href={`https://agile-toolkit.github.io/planning-poker/?participants=${encodeURIComponent(participants.map(p => p.name).join(','))}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary self-start text-sm"
+            >
+              {t('poker.open')}
+            </a>
+          ) : (
+            <div className="flex flex-col gap-2">
+              <a
+                href="https://agile-toolkit.github.io/planning-poker/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary self-start text-sm"
+              >
+                {t('poker.open')}
+              </a>
+              <p className="text-xs text-gray-400">{t('poker.noParticipants')}</p>
+            </div>
+          )}
+        </div>
       )}
 
       {/* Retro board (embedded) */}

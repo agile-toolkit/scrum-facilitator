@@ -83,6 +83,12 @@
     "back": "Back",
     "delete": "Delete"
   },
+  "poker": {
+    "bannerTitle": "Estimate with Planning Poker",
+    "bannerDesc": "Use Planning Poker to size your backlog items as a team.",
+    "open": "Open Planning Poker →",
+    "noParticipants": "Add participants in Daily Stand-up to pre-fill the team list."
+  },
   "lang": { "en": "English", "es": "Español", "be": "Беларуская", "ru": "Русский" },
   "history": {
     "title": "Past Ceremonies",

@@ -83,6 +83,12 @@
     "back": "Volver",
     "delete": "Eliminar"
   },
+  "poker": {
+    "bannerTitle": "Estimar con Planning Poker",
+    "bannerDesc": "Usa Planning Poker para dimensionar los elementos del backlog en equipo.",
+    "open": "Abrir Planning Poker →",
+    "noParticipants": "Añade participantes en el Daily Stand-up para pre-cargar la lista del equipo."
+  },
   "lang": {
     "en": "English",
     "es": "Español",

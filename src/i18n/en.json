@@ -40,7 +40,29 @@
     "editPlaceholder": "Edit note...",
     "save": "Save",
     "cancel": "Cancel",
-    "deleteConfirm": "Delete this note?"
+    "deleteConfirm": "Delete this note?",
+    "formatLabel": "Retro format",
+    "format": {
+      "classic": "Classic",
+      "four-ls": "4Ls",
+      "mad-sad-glad": "Mad · Sad · Glad",
+      "sailboat": "Sailboat"
+    },
+    "columns": {
+      "wellDone": "What went well",
+      "toImprove": "To improve",
+      "actions": "Actions",
+      "liked": "Liked",
+      "learned": "Learned",
+      "lacked": "Lacked",
+      "longedFor": "Longed For",
+      "mad": "Mad",
+      "sad": "Sad",
+      "glad": "Glad",
+      "wind": "Wind",
+      "anchor": "Anchor",
+      "rocks": "Rocks"
+    }
   },
   "complete": {
     "title": "Ceremony complete!",

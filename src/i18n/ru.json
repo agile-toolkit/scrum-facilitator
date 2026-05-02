@@ -40,7 +40,29 @@
     "editPlaceholder": "Редактировать...",
     "save": "Сохранить",
     "cancel": "Отмена",
-    "deleteConfirm": "Удалить эту заметку?"
+    "deleteConfirm": "Удалить эту заметку?",
+    "formatLabel": "Формат ретро",
+    "format": {
+      "classic": "Классический",
+      "four-ls": "4Л",
+      "mad-sad-glad": "Злость · Грусть · Радость",
+      "sailboat": "Парусник"
+    },
+    "columns": {
+      "wellDone": "Что прошло хорошо",
+      "toImprove": "Что улучшить",
+      "actions": "Действия",
+      "liked": "Понравилось",
+      "learned": "Узнали",
+      "lacked": "Не хватало",
+      "longedFor": "Хотели бы",
+      "mad": "Злость",
+      "sad": "Грусть",
+      "glad": "Радость",
+      "wind": "Ветер",
+      "anchor": "Якорь",
+      "rocks": "Камни"
+    }
   },
   "complete": {
     "title": "Церемония завершена!",

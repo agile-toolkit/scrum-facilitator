@@ -40,7 +40,29 @@
     "editPlaceholder": "Рэдагаваць нататку...",
     "save": "Захаваць",
     "cancel": "Адмена",
-    "deleteConfirm": "Выдаліць гэтую нататку?"
+    "deleteConfirm": "Выдаліць гэтую нататку?",
+    "formatLabel": "Фармат рэтра",
+    "format": {
+      "classic": "Класічны",
+      "four-ls": "4Л",
+      "mad-sad-glad": "Злосць · Сум · Радасць",
+      "sailboat": "Ветразнік"
+    },
+    "columns": {
+      "wellDone": "Што прайшло добра",
+      "toImprove": "Што паляпшыць",
+      "actions": "Дзеянні",
+      "liked": "Спадабалася",
+      "learned": "Навучыліся",
+      "lacked": "Не хапала",
+      "longedFor": "Хацелі б",
+      "mad": "Злосць",
+      "sad": "Сум",
+      "glad": "Радасць",
+      "wind": "Вецер",
+      "anchor": "Якар",
+      "rocks": "Камяні"
+    }
   },
   "complete": {
     "title": "Цырымонія завершана!",

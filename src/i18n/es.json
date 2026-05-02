@@ -40,7 +40,29 @@
     "editPlaceholder": "Editar nota...",
     "save": "Guardar",
     "cancel": "Cancelar",
-    "deleteConfirm": "¿Eliminar esta nota?"
+    "deleteConfirm": "¿Eliminar esta nota?",
+    "formatLabel": "Formato de retro",
+    "format": {
+      "classic": "Clásico",
+      "four-ls": "4Ls",
+      "mad-sad-glad": "Enojado · Triste · Alegre",
+      "sailboat": "Velero"
+    },
+    "columns": {
+      "wellDone": "Qué salió bien",
+      "toImprove": "A mejorar",
+      "actions": "Acciones",
+      "liked": "Me gustó",
+      "learned": "Aprendí",
+      "lacked": "Faltó",
+      "longedFor": "Deseé",
+      "mad": "Enojado",
+      "sad": "Triste",
+      "glad": "Alegre",
+      "wind": "Viento",
+      "anchor": "Ancla",
+      "rocks": "Rocas"
+    }
   },
   "complete": {
     "title": "¡Ceremonia completada!",

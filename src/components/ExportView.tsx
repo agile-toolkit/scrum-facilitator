@@ -33,15 +33,11 @@ function buildMarkdown(data: ExportData, t: (k: string, opts?: Record<string, un
   }
 
   if (data.retroNotes) {
-    const { wellDone, toImprove, actions } = data.retroNotes
-    if (wellDone.length > 0) {
-      lines.push('', '## What went well', ...wellDone.map(n => `- ${n.text}`))
-    }
-    if (toImprove.length > 0) {
-      lines.push('', '## To improve', ...toImprove.map(n => `- ${n.text}`))
-    }
-    if (actions.length > 0) {
-      lines.push('', '## Actions', ...actions.map(n => `- [ ] ${n.text}`))
+    for (const [key, notes] of Object.entries(data.retroNotes)) {
+      if (notes.length > 0) {
+        const heading = t(`retro.columns.${key}`, { defaultValue: key })
+        lines.push('', `## ${heading}`, ...notes.map(n => `- ${n.text}`))
+      }
     }
   }
 

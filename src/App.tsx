@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { Screen, CeremonyType, ExportData, RetroNotes, SessionState, HistoryEntry } from './types'
+import type { Screen, CeremonyType, ExportData, RetroNotes, RetroFormat, SessionState, HistoryEntry } from './types'
 import { CEREMONIES } from './data/ceremonies'
+import { getRetroFormat, emptyNotes } from './data/retroFormats'
 import { useLocalStorage } from './hooks/useLocalStorage'
 import HomeScreen from './components/HomeScreen'
 import CeremonyRunner from './components/CeremonyRunner'
@@ -34,6 +35,7 @@ export default function App() {
   })
 
   const [history, setHistory] = useLocalStorage<HistoryEntry[]>(HISTORY_KEY, [])
+  const [retroFormat, setRetroFormat] = useLocalStorage<RetroFormat>('scrum-facilitator-retro-format', 'classic')
   const [dismissedResume, setDismissedResume] = useState(false)
 
   const [appState, setAppState] = useState<AppState>({
@@ -43,21 +45,27 @@ export default function App() {
     resumeSession: null,
     exportBackScreen: 'complete',
   })
-  const [retroNotes, setRetroNotes] = useState<RetroNotes>({
-    wellDone: [],
-    toImprove: [],
-    actions: [],
-  })
+  const [retroNotes, setRetroNotes] = useState<RetroNotes>(() =>
+    emptyNotes(getRetroFormat(
+      (() => {
+        try {
+          const raw = localStorage.getItem('scrum-facilitator-retro-format')
+          return (raw ? JSON.parse(raw) : 'classic') as RetroFormat
+        } catch { return 'classic' }
+      })()
+    ))
+  )
 
   const startCeremony = (type: CeremonyType) => {
     localStorage.removeItem(SESSION_KEY)
-    setRetroNotes({ wellDone: [], toImprove: [], actions: [] })
+    setRetroNotes(emptyNotes(getRetroFormat(retroFormat)))
     setAppState({ screen: 'ceremony', ceremonyType: type, exportData: null, resumeSession: null, exportBackScreen: 'complete' })
   }
 
   const resumeCeremony = () => {
     if (!sessionOnMount) return
     setRetroNotes(sessionOnMount.retroNotes)
+    if (sessionOnMount.retroFormat) setRetroFormat(sessionOnMount.retroFormat)
     setDismissedResume(true)
     setAppState({ screen: 'ceremony', ceremonyType: sessionOnMount.ceremonyType, exportData: null, resumeSession: sessionOnMount, exportBackScreen: 'complete' })
   }
@@ -74,6 +82,7 @@ export default function App() {
       date: new Date().toLocaleDateString(),
       participants,
       retroNotes: appState.ceremonyType === 'retro' ? retroNotes : undefined,
+      retroFormat: appState.ceremonyType === 'retro' ? retroFormat : undefined,
       stepsCompleted,
       totalSteps: ceremony?.steps.length ?? 0,
     }
@@ -130,6 +139,8 @@ export default function App() {
         {appState.screen === 'home' && (
           <HomeScreen
             onSelect={startCeremony}
+            retroFormat={retroFormat}
+            onRetroFormatChange={setRetroFormat}
             session={showResumeBanner ? sessionOnMount : null}
             onResume={resumeCeremony}
             onDiscard={discardSession}
@@ -141,6 +152,7 @@ export default function App() {
           <CeremonyRunner
             ceremonyType={appState.ceremonyType}
             retroNotes={retroNotes}
+            retroFormat={retroFormat}
             onRetroNotesChange={setRetroNotes}
             onComplete={completeCeremony}
             onBack={goHome}
@@ -150,7 +162,9 @@ export default function App() {
         {appState.screen === 'retro' && (
           <RetroBoard
             notes={retroNotes}
+            format={retroFormat}
             onChange={setRetroNotes}
+            onFormatChange={setRetroFormat}
             onExport={goToExport}
             onBack={goHome}
           />

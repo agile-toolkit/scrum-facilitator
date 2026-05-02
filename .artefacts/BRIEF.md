@@ -16,6 +16,7 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] Header language labels — `App.tsx` toggle now uses `t('lang.en')` / `t('lang.ru')`
 - [x] ES + BE locale support — full translations for all ceremony steps, tips, and UI strings; 4-language cycle toggle (EN→ES→BE→RU→EN)
 - [x] Persistent ceremony history and retro note recovery — auto-saves session to `scrum-facilitator-session` localStorage key; resume banner on home screen if session < 24h old; past 5 completed ceremonies listed on home screen with view-export link
+- [x] Multiple retrospective formats — Classic (3 cols), 4Ls (4 cols), Mad-Sad-Glad (3 cols), Sailboat (3 cols); format selector on home screen below retro card and inside RetroBoard header; format stored in `scrum-facilitator-retro-format` localStorage; column labels from i18n `retro.columns.*`; dynamic export renders column headings from i18n keys
 
 ## Backlog
 
@@ -23,7 +24,7 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] [#4] Feature: Add ES and BE locale support (suite standard EN+ES+BE+RU) — implemented
 - [x] [#5] Integration: Export Sprint Review outcomes to Sprint Metrics — implemented
 - [x] [#6] Feature: Persistent ceremony history and retro note recovery — implemented
-- [ ] [#7] Feature: Multiple retrospective formats (4Ls, Mad-Sad-Glad, Sailboat)
+- [x] [#7] Feature: Multiple retrospective formats (4Ls, Mad-Sad-Glad, Sailboat) — implemented
 - [ ] [#8] Feature: Audio and visual timer alerts when a ceremony step ends
 - [ ] [#9] Integration: Launch Planning Poker from Sprint Planning ceremony
 
@@ -32,6 +33,12 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-05-02 — feat: Multiple retrospective formats (#7)
+- Done: added `RetroFormat` type and `RetroFormatConfig` data in `src/data/retroFormats.ts`; 4 formats: Classic (wellDone/toImprove/actions), 4Ls (liked/learned/lacked/longedFor), Mad-Sad-Glad, Sailboat (wind/anchor/rocks); `RetroColumn` and `RetroNotes` types made generic (string-keyed); format selector added to HomeScreen below retro card; format picker also in RetroBoard header when `onFormatChange` prop provided; format persisted in `scrum-facilitator-retro-format` localStorage; column labels from `retro.columns.*` i18n keys (all 4 locales); ExportView renders dynamic column headings; `retroFormat` saved in session state for resume
+- Issue #7 set to In Review
+- Remaining backlog: #8 (timer alerts), #9 (Planning Poker integration)
+- Next task: check issues for human feedback; implement #8 (audio/visual timer alerts on step end) or #9 (Planning Poker deep-link) if approved
 
 ### 2026-05-01 — feat: Persistent ceremony history and retro note recovery (#6)
 - Done: added `SessionState` and `HistoryEntry` types; `CeremonyRunner` auto-saves session to `scrum-facilitator-session` on every step/notes/participant change; `App.tsx` reads session on mount, shows resume banner in `HomeScreen` if session < 24h old (Resume / Discard); completing a ceremony saves to `scrum-facilitator-history` (max 5 entries); past ceremonies displayed on home screen with view-export links; i18n keys added to all 4 locales

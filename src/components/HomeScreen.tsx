@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { CEREMONIES } from '../data/ceremonies'
-import type { CeremonyType, SessionState, HistoryEntry } from '../types'
+import { RETRO_FORMATS } from '../data/retroFormats'
+import type { CeremonyType, RetroFormat, SessionState, HistoryEntry } from '../types'
 import CeremonyCard from './CeremonyCard'
 
 function timeAgo(ts: number): string {
@@ -12,6 +13,8 @@ function timeAgo(ts: number): string {
 
 interface Props {
   onSelect: (type: CeremonyType) => void
+  retroFormat: RetroFormat
+  onRetroFormatChange: (f: RetroFormat) => void
   session: SessionState | null
   onResume: () => void
   onDiscard: () => void
@@ -19,7 +22,7 @@ interface Props {
   onViewHistory: (entry: HistoryEntry) => void
 }
 
-export default function HomeScreen({ onSelect, session, onResume, onDiscard, history, onViewHistory }: Props) {
+export default function HomeScreen({ onSelect, retroFormat, onRetroFormatChange, session, onResume, onDiscard, history, onViewHistory }: Props) {
   const { t } = useTranslation()
 
   const ceremonyName = (type: CeremonyType) => {
@@ -53,11 +56,32 @@ export default function HomeScreen({ onSelect, session, onResume, onDiscard, his
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {CEREMONIES.map(ceremony => (
-          <CeremonyCard
-            key={ceremony.type}
-            ceremony={ceremony}
-            onClick={() => onSelect(ceremony.type)}
-          />
+          <div key={ceremony.type} className="flex flex-col gap-2">
+            <CeremonyCard
+              ceremony={ceremony}
+              onClick={() => onSelect(ceremony.type)}
+            />
+            {ceremony.type === 'retro' && (
+              <div className="px-3 py-2 bg-gray-50 rounded-xl border border-gray-100 flex flex-col gap-1.5">
+                <span className="text-xs font-medium text-gray-500">{t('retro.formatLabel')}</span>
+                <div className="flex flex-wrap gap-1.5">
+                  {RETRO_FORMATS.map(fmt => (
+                    <button
+                      key={fmt.id}
+                      onClick={() => onRetroFormatChange(fmt.id)}
+                      className={`text-xs px-2.5 py-1 rounded-full border transition-colors ${
+                        fmt.id === retroFormat
+                          ? 'bg-brand-500 text-white border-brand-500'
+                          : 'bg-white text-gray-600 border-gray-200 hover:border-brand-300 hover:text-brand-600'
+                      }`}
+                    >
+                      {t(fmt.nameKey)}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         ))}
       </div>
 

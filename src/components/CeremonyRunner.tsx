@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { CeremonyType, Participant, RetroNotes, SessionState } from '../types'
+import type { CeremonyType, Participant, RetroNotes, RetroFormat, SessionState } from '../types'
 import { getCeremony, formatDuration } from '../data/ceremonies'
 import { useTimer } from '../hooks/useTimer'
 import { useLocalStorage } from '../hooks/useLocalStorage'
@@ -15,6 +15,7 @@ const SESSION_KEY = 'scrum-facilitator-session'
 interface Props {
   ceremonyType: CeremonyType
   retroNotes: RetroNotes
+  retroFormat: RetroFormat
   onRetroNotesChange: (n: RetroNotes) => void
   onComplete: (stepsCompleted: number, participants?: string[]) => void
   onBack: () => void
@@ -22,7 +23,7 @@ interface Props {
 }
 
 export default function CeremonyRunner({
-  ceremonyType, retroNotes, onRetroNotesChange, onComplete, onBack, resumeSession,
+  ceremonyType, retroNotes, retroFormat, onRetroNotesChange, onComplete, onBack, resumeSession,
 }: Props) {
   const { t } = useTranslation()
   const ceremony = getCeremony(ceremonyType)
@@ -48,6 +49,7 @@ export default function CeremonyRunner({
       completedSteps,
       participants,
       retroNotes,
+      retroFormat,
       savedAt: Date.now(),
     }
     try { localStorage.setItem(SESSION_KEY, JSON.stringify(session)) } catch { /* ignore */ }
@@ -159,6 +161,7 @@ export default function CeremonyRunner({
       {showRetroBoard && (
         <RetroBoard
           notes={retroNotes}
+          format={retroFormat}
           onChange={onRetroNotesChange}
           embedded
         />

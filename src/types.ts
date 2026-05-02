@@ -1,5 +1,7 @@
 export type CeremonyType = 'planning' | 'daily' | 'review' | 'retro'
 
+export type RetroFormat = 'classic' | 'four-ls' | 'mad-sad-glad' | 'sailboat'
+
 export interface AgendaStep {
   id: string
   titleKey: string
@@ -30,19 +32,16 @@ export interface StickyNote {
   createdAt: number
 }
 
-export type RetroColumn = 'wellDone' | 'toImprove' | 'actions'
+export type RetroColumn = string
 
-export interface RetroNotes {
-  wellDone: StickyNote[]
-  toImprove: StickyNote[]
-  actions: StickyNote[]
-}
+export type RetroNotes = Record<string, StickyNote[]>
 
 export interface ExportData {
   ceremonyType: CeremonyType
   date: string
   participants?: string[]
   retroNotes?: RetroNotes
+  retroFormat?: RetroFormat
   stepsCompleted: number
   totalSteps: number
 }
@@ -53,6 +52,7 @@ export interface SessionState {
   completedSteps: number
   participants: Participant[]
   retroNotes: RetroNotes
+  retroFormat?: RetroFormat
   savedAt: number
 }
 

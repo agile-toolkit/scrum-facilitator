@@ -35,6 +35,13 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 
 ## Agent Log
 
+### 2026-05-03 — research: additional favicon research (#1, research-more)
+- Done: confirmed corrupted favicon (6 non-ISO bytes); confirmed colour conflict with improvement-board (both brand.600 = #16a34a); audited all 8 Tailwind configs — indigo #4f46e5 is unique across all 10 apps; analysed emoji ⏱ vs geometric SVG rendering (emoji unreliable at favicon size, geometric SVG renders identically across all platforms); identified all 18 brand-* usages across 7 components (single tailwind.config.js change updates all); provided complete indigo scale and ready-to-execute implementation plan; updated issue #1 body
+- Issue #1 still in review — awaiting human decision on colour and icon approach
+- Issue #8 (timer alerts) still needs-review — no action
+- Issues #4-#9 with approved label are all already implemented (project status = In Review) — do not re-implement
+- Next task: check issues for human feedback; implement #1 (favicon + tailwind rebrand to indigo #4f46e5 + geometric SVG Option B) if approved; implement #8 (Web Audio API 440Hz beep + animate-pulse on timer done) if approved
+
 ### 2026-05-02 — research: favicon issue research (#1)
 - Done: surveyed all 10 apps' favicon patterns (32×32 SVG, rounded-rect + icon); found scrum-facilitator favicon.svg is corrupted binary; found colour conflict with improvement-board (both #16a34a green); updated issue #1 body with specific SVG proposals (indigo #4f46e5 + ⏱ emoji or custom clock SVG), asked reviewer to choose approach; set issue #1 project status to In Review
 - Issue #8 (timer alerts) still needs-review — no action yet

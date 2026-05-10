@@ -19,6 +19,15 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] Multiple retrospective formats — Classic (3 cols), 4Ls (4 cols), Mad-Sad-Glad (3 cols), Sailboat (3 cols); format selector on home screen below retro card and inside RetroBoard header; format stored in `scrum-facilitator-retro-format` localStorage; column labels from i18n `retro.columns.*`; dynamic export renders column headings from i18n keys
 - [x] Planning Poker integration — contextual banner on Sprint Planning estimation step (`planning-4`); "Open Planning Poker →" button deep-links to `https://agile-toolkit.github.io/planning-poker/` with `?participants=` query param pre-filled from Daily Scrum participant list; opens in new tab; hint shown when no participants saved
 
+## localStorage keys
+
+| Key | Content | Used by |
+|-----|---------|---------|
+| `scrum-facilitator-session` | `{ ceremonyType, stepIndex, participantCount, retroNotesCount, timestamp }` | CeremonyRunner auto-save; resume banner |
+| `scrum-facilitator-history` | Array of last 5 completed ceremony summaries | HomeScreen past ceremonies list |
+| `scrum-facilitator-retro-format` | Currently selected retro format name | RetroBoard format selector |
+| `sf_participants` | JSON array of participant names | ParticipantPanel; Planning Poker deep-link |
+
 ## Backlog
 
 <!-- Append research / review issues -->
@@ -28,12 +37,24 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] [#7] Feature: Multiple retrospective formats (4Ls, Mad-Sad-Glad, Sailboat) — implemented
 - [ ] [#8] Feature: Audio and visual timer alerts when a ceremony step ends
 - [x] [#9] Integration: Launch Planning Poker from Sprint Planning ceremony — implemented
+- [ ] [#15] Integration: Dashboard card — surface active session and last ceremony
+- [ ] [#16] Feature: Keyboard shortcuts for ceremony runner (timer, step navigation)
+- [ ] [#17] Research: Mobile/tablet responsiveness of timer and retro board
 
 ## Tech notes
 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-05-10 — research: issue #1 additional research (research-more) + new backlog issues
+- Done: performed additional favicon research — discovered moving-motivators has the same corrupted favicon binary pattern; updated issue #1 body with new finding and revised suite icon analysis (emoji is the suite norm: 5/8 apps); confirmed OG meta and Apple touch icon are consistently absent across all apps (no action needed); confirmed indigo #4f46e5 unique across all 10 apps
+- Created issue #15 (Dashboard card — surface active session/last ceremony via localStorage)
+- Created issue #16 (keyboard shortcuts for ceremony runner: Space/R/arrows)
+- Created issue #17 (mobile/tablet responsiveness of timer and retro board)
+- All new issues set to Backlog; issue #1 remains In Review
+- Issue #8 (timer alerts) still needs-review — no action
+- Next task: check issues for human feedback; implement #1 (favicon + tailwind rebrand to indigo #4f46e5) if approved; implement #8 (Web Audio API beep + animate-pulse) if approved
 
 ### 2026-05-03 — research: additional favicon research (#1, research-more)
 - Done: confirmed corrupted favicon (6 non-ISO bytes); confirmed colour conflict with improvement-board (both brand.600 = #16a34a); audited all 8 Tailwind configs — indigo #4f46e5 is unique across all 10 apps; analysed emoji ⏱ vs geometric SVG rendering (emoji unreliable at favicon size, geometric SVG renders identically across all platforms); identified all 18 brand-* usages across 7 components (single tailwind.config.js change updates all); provided complete indigo scale and ready-to-execute implementation plan; updated issue #1 body

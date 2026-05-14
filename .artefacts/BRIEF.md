@@ -35,6 +35,11 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 
 ## Agent Log
 
+### 2026-05-14 — research: WCAG accessibility audit + favicon option analysis (#1, research-more)
+- Done: audited all brand-* token usages against WCAG contrast requirements; found current green fails AA (text-brand-600 on white: 3.30:1; white on bg-brand-500: 2.28:1); proposed indigo passes both (6.29:1 and 4.47:1); evaluated and rejected Option C (favicon-only fix — leaves WCAG violations in place); confirmed improvement-board uses exact same fill="#16a34a" (conflict is real); settled emoji debate — ⏱ U+23F1 renders as monochrome glyph in Chrome/Firefox; recommended Option B (geometric SVG); updated issue #1 body and set to In Review
+- Issues #8, #15, #16, #17 still needs-review — no action
+- Next task: check issues for human feedback; implement #1 (favicon + tailwind rebrand to indigo #4f46e5 + geometric SVG Option B) on approval — two file changes, zero component edits; implement #8 (Web Audio API 440Hz beep + animate-pulse on timer done) on approval
+
 ### 2026-05-03 — research: additional favicon research (#1, research-more)
 - Done: confirmed corrupted favicon (6 non-ISO bytes); confirmed colour conflict with improvement-board (both brand.600 = #16a34a); audited all 8 Tailwind configs — indigo #4f46e5 is unique across all 10 apps; analysed emoji ⏱ vs geometric SVG rendering (emoji unreliable at favicon size, geometric SVG renders identically across all platforms); identified all 18 brand-* usages across 7 components (single tailwind.config.js change updates all); provided complete indigo scale and ready-to-execute implementation plan; updated issue #1 body
 - Issue #1 still in review — awaiting human decision on colour and icon approach

@@ -35,6 +35,12 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 
 ## Agent Log
 
+### 2026-05-16 — research: favicon/brand audit round 4 (#1, research-more)
+- Done: discovered 3 missing indigo tokens in the round-2 proposed scale (brand-200, brand-300, brand-800); found 4 additional files using brand-* not listed in prior audit (index.css, StickyNote.tsx, CeremonyCard.tsx, ParticipantPanel.tsx — all safe, use only brand-500/600/700); noted that moving-motivators now also uses indigo #4f46e5/#6366f1 (uniqueness claim from round 1 outdated); updated issue #1 body with corrected complete 9-shade indigo scale; set issue #1 project status to In Review
+- Issue #1: research-more complete — awaiting approval to implement (2 file changes: favicon.svg + tailwind.config.js with corrected 9-shade scale)
+- Issue #8 (timer alerts) still needs-review — no action
+- Next task: check issues for human feedback; implement #1 (favicon + tailwind rebrand with corrected 9-shade indigo scale) on approval; implement #8 (Web Audio API 440Hz beep + animate-pulse) on approval
+
 ### 2026-05-03 — research: additional favicon research (#1, research-more)
 - Done: confirmed corrupted favicon (6 non-ISO bytes); confirmed colour conflict with improvement-board (both brand.600 = #16a34a); audited all 8 Tailwind configs — indigo #4f46e5 is unique across all 10 apps; analysed emoji ⏱ vs geometric SVG rendering (emoji unreliable at favicon size, geometric SVG renders identically across all platforms); identified all 18 brand-* usages across 7 components (single tailwind.config.js change updates all); provided complete indigo scale and ready-to-execute implementation plan; updated issue #1 body
 - Issue #1 still in review — awaiting human decision on colour and icon approach

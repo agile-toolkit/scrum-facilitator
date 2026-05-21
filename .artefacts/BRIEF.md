@@ -18,6 +18,7 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] Persistent ceremony history and retro note recovery — auto-saves session to `scrum-facilitator-session` localStorage key; resume banner on home screen if session < 24h old; past 5 completed ceremonies listed on home screen with view-export link
 - [x] Multiple retrospective formats — Classic (3 cols), 4Ls (4 cols), Mad-Sad-Glad (3 cols), Sailboat (3 cols); format selector on home screen below retro card and inside RetroBoard header; format stored in `scrum-facilitator-retro-format` localStorage; column labels from i18n `retro.columns.*`; dynamic export renders column headings from i18n keys
 - [x] Planning Poker integration — contextual banner on Sprint Planning estimation step (`planning-4`); "Open Planning Poker →" button deep-links to `https://agile-toolkit.github.io/planning-poker/` with `?participants=` query param pre-filled from Daily Scrum participant list; opens in new tab; hint shown when no participants saved
+- [x] Audio and visual timer alerts — 440 Hz Web Audio API beep + `animate-pulse` on countdown circle when step timer hits zero; 🔔/🔇 mute toggle in timer controls; mute preference persisted in `scrum-facilitator-muted` localStorage key; all 4 locales updated
 
 ## Backlog
 
@@ -26,7 +27,7 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] [#5] Integration: Export Sprint Review outcomes to Sprint Metrics — implemented
 - [x] [#6] Feature: Persistent ceremony history and retro note recovery — implemented
 - [x] [#7] Feature: Multiple retrospective formats (4Ls, Mad-Sad-Glad, Sailboat) — implemented
-- [ ] [#8] Feature: Audio and visual timer alerts when a ceremony step ends
+- [x] [#8] Feature: Audio and visual timer alerts when a ceremony step ends — implemented
 - [x] [#9] Integration: Launch Planning Poker from Sprint Planning ceremony — implemented
 
 ## Tech notes
@@ -34,6 +35,12 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-05-21 — feat: audio and visual timer alerts (#8)
+- Done: `playBeep()` utility in `CeremonyRunner.tsx` uses Web Audio API (440 Hz sine, 300 ms fade); fires on transition from `running → done` via `useRef` + `useEffect`; `animate-pulse` added to `CountdownTimer.tsx` outer div when `timerState === 'done'`; 🔔/🔇 mute toggle button in timer controls persists to `scrum-facilitator-muted` localStorage; `ceremony.mute` + `ceremony.unmute` keys added to all 4 locales (EN/ES/BE/RU)
+- Issue #8 set to In Review
+- Remaining backlog: #15 (Dashboard card), #16 (keyboard shortcuts), #17 (mobile responsiveness), #18 (header unification), #19 (dark mode), #1 (favicon — research-more)
+- Next task: check issues for human feedback; implement #18 (AppHeader + LanguagePicker unification) if approved
 
 ### 2026-05-16 — research: favicon/brand audit round 4 (#1, research-more)
 - Done: discovered 3 missing indigo tokens in the round-2 proposed scale (brand-200, brand-300, brand-800); found 4 additional files using brand-* not listed in prior audit (index.css, StickyNote.tsx, CeremonyCard.tsx, ParticipantPanel.tsx — all safe, use only brand-500/600/700); noted that moving-motivators now also uses indigo #4f46e5/#6366f1 (uniqueness claim from round 1 outdated); updated issue #1 body with corrected complete 9-shade indigo scale; set issue #1 project status to In Review

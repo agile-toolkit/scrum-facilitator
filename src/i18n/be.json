@@ -19,7 +19,9 @@
     "timeUp": "Час скончыўся!",
     "whyToggle": "Навошта гэты крок?",
     "tipsToggle": "Парады фасілітатару",
-    "source": "На аснове: Кіраўніцтва Scrum · Сшытак ICAgile · Scrum & Kanban"
+    "source": "На аснове: Кіраўніцтва Scrum · Сшытак ICAgile · Scrum & Kanban",
+    "mute": "Заглушыць гукі",
+    "unmute": "Уключыць гукі"
   },
   "daily": {
     "participants": "Удзельнікі",

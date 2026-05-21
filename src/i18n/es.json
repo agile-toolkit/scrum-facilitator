@@ -19,7 +19,9 @@
     "timeUp": "¡Tiempo!",
     "whyToggle": "¿Por qué este paso?",
     "tipsToggle": "Consejos de facilitación",
-    "source": "Basado en: Guía Scrum · Cuaderno ICAgile · Scrum & Kanban"
+    "source": "Basado en: Guía Scrum · Cuaderno ICAgile · Scrum & Kanban",
+    "mute": "Silenciar alertas",
+    "unmute": "Activar alertas"
   },
   "daily": {
     "participants": "Participantes",

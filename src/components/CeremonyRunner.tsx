@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { CeremonyType, Participant, RetroNotes, RetroFormat, SessionState } from '../types'
 import { getCeremony, formatDuration } from '../data/ceremonies'
@@ -11,6 +11,26 @@ import ParticipantPanel from './ParticipantPanel'
 import RetroBoard from './RetroBoard'
 
 const SESSION_KEY = 'scrum-facilitator-session'
+const MUTED_KEY = 'scrum-facilitator-muted'
+
+function playBeep() {
+  try {
+    const ctx = new AudioContext()
+    const osc = ctx.createOscillator()
+    const gain = ctx.createGain()
+    osc.connect(gain)
+    gain.connect(ctx.destination)
+    osc.type = 'sine'
+    osc.frequency.value = 440
+    gain.gain.setValueAtTime(0.4, ctx.currentTime)
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3)
+    osc.start(ctx.currentTime)
+    osc.stop(ctx.currentTime + 0.3)
+    osc.addEventListener('ended', () => ctx.close())
+  } catch {
+    // Web Audio API unavailable
+  }
+}
 
 interface Props {
   ceremonyType: CeremonyType
@@ -31,10 +51,33 @@ export default function CeremonyRunner({
   const [completedSteps, setCompletedSteps] = useState(resumeSession?.completedSteps ?? 0)
   const [participants, setParticipants] = useLocalStorage<Participant[]>('sf_participants', [])
 
+  const [isMuted, setIsMuted] = useState(() => {
+    try { return localStorage.getItem(MUTED_KEY) === 'true' } catch { return false }
+  })
+  const isMutedRef = useRef(isMuted)
+  isMutedRef.current = isMuted
+
   const currentStep = ceremony?.steps[stepIndex]
   const { timeRemaining, timerState, percentLeft, start, pause, reset } = useTimer(
     currentStep?.duration ?? 0,
   )
+
+  const prevTimerStateRef = useRef(timerState)
+  useEffect(() => {
+    const prev = prevTimerStateRef.current
+    prevTimerStateRef.current = timerState
+    if (timerState === 'done' && prev === 'running' && !isMutedRef.current) {
+      playBeep()
+    }
+  }, [timerState])
+
+  const toggleMute = () => {
+    setIsMuted(m => {
+      const next = !m
+      try { localStorage.setItem(MUTED_KEY, String(next)) } catch { /* ignore */ }
+      return next
+    })
+  }
 
   useEffect(() => {
     if (currentStep) reset(currentStep.duration)
@@ -127,7 +170,7 @@ export default function CeremonyRunner({
         </div>
 
         {/* Timer controls */}
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap items-center">
           {timerState === 'idle' && (
             <button onClick={start} className="btn-primary">▶ {t('ceremony.start')}</button>
           )}
@@ -146,6 +189,14 @@ export default function CeremonyRunner({
             aria-label={t('ceremony.reset')}
           >
             ↺ {t('ceremony.reset')}
+          </button>
+          <button
+            onClick={toggleMute}
+            className="btn-ghost ml-auto text-gray-400 hover:text-gray-600"
+            aria-label={isMuted ? t('ceremony.unmute') : t('ceremony.mute')}
+            title={isMuted ? t('ceremony.unmute') : t('ceremony.mute')}
+          >
+            {isMuted ? '🔇' : '🔔'}
           </button>
         </div>
 

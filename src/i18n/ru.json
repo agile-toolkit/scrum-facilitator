@@ -19,7 +19,9 @@
     "timeUp": "Время вышло!",
     "whyToggle": "Зачем этот шаг?",
     "tipsToggle": "Советы фасилитатору",
-    "source": "На основе: Scrum Guide · Учебник ICAgile · Scrum & Kanban"
+    "source": "На основе: Scrum Guide · Учебник ICAgile · Scrum & Kanban",
+    "mute": "Выключить звук",
+    "unmute": "Включить звук"
   },
   "daily": {
     "participants": "Участники",

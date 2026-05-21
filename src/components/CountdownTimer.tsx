@@ -25,7 +25,7 @@ export default function CountdownTimer({ timeRemaining, percentLeft, timerState 
 
   return (
     <div className="flex flex-col items-center gap-1">
-      <div className="relative" style={{ width: SIZE, height: SIZE }}>
+      <div className={`relative${isDone ? ' animate-pulse' : ''}`} style={{ width: SIZE, height: SIZE }}>
         <svg width={SIZE} height={SIZE} className="-rotate-90">
           {/* Track */}
           <circle

@@ -19,7 +19,9 @@
     "timeUp": "Time's up!",
     "whyToggle": "Why this step?",
     "tipsToggle": "Facilitation tips",
-    "source": "Based on: Scrum Guide · ICAgile Workbook · Scrum & Kanban"
+    "source": "Based on: Scrum Guide · ICAgile Workbook · Scrum & Kanban",
+    "mute": "Mute alerts",
+    "unmute": "Unmute alerts"
   },
   "daily": {
     "participants": "Participants",
@@ -89,7 +91,12 @@
     "open": "Open Planning Poker →",
     "noParticipants": "Add participants in Daily Stand-up to pre-fill the team list."
   },
-  "lang": { "en": "English", "es": "Español", "be": "Беларуская", "ru": "Русский" },
+  "lang": {
+    "en": "English",
+    "es": "Español",
+    "be": "Беларуская",
+    "ru": "Русский"
+  },
   "history": {
     "title": "Past Ceremonies",
     "steps": "{{done}} of {{total}} steps",

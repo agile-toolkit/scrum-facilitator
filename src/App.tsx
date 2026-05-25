@@ -9,6 +9,7 @@ import CeremonyRunner from './components/CeremonyRunner'
 import RetroBoard from './components/RetroBoard'
 import CeremonyComplete from './components/CeremonyComplete'
 import ExportView from './components/ExportView'
+import AppHeader from './components/AppHeader'
 
 const SESSION_KEY = 'scrum-facilitator-session'
 const HISTORY_KEY = 'scrum-facilitator-history'
@@ -22,7 +23,7 @@ interface AppState {
 }
 
 export default function App() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
 
   const [sessionOnMount] = useState<SessionState | null>(() => {
     try {
@@ -108,46 +109,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="bg-white border-b border-gray-100 sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <a
-              href="https://agile-toolkit.github.io/"
-              title="Agile Toolkit"
-              className="text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 16 16" fill="currentColor">
-                <rect x="1" y="1" width="6" height="6" rx="1"/>
-                <rect x="9" y="1" width="6" height="6" rx="1"/>
-                <rect x="1" y="9" width="6" height="6" rx="1"/>
-                <rect x="9" y="9" width="6" height="6" rx="1"/>
-              </svg>
-            </a>
-            <button
-              onClick={goHome}
-              className="font-semibold text-brand-600 hover:text-brand-700 transition-colors"
-            >
-              {t('app.title')}
-            </button>
-          </div>
-          <button
-            onClick={() => {
-              const langs = ['en', 'es', 'be', 'ru']
-              const current = langs.find(l => i18n.language.startsWith(l)) ?? 'en'
-              const next = langs[(langs.indexOf(current) + 1) % langs.length]
-              i18n.changeLanguage(next)
-            }}
-            className="text-sm text-gray-500 hover:text-gray-700 px-2 py-1 rounded hover:bg-gray-100 transition-colors"
-          >
-            {(() => {
-              const langs = ['en', 'es', 'be', 'ru']
-              const current = langs.find(l => i18n.language.startsWith(l)) ?? 'en'
-              const next = langs[(langs.indexOf(current) + 1) % langs.length] as 'en' | 'es' | 'be' | 'ru'
-              return t(`lang.${next}`)
-            })()}
-          </button>
-        </div>
-      </header>
+      <AppHeader title={t('app.title')} onTitleClick={goHome} />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-8">
         {appState.screen === 'home' && (

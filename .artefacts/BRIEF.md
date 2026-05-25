@@ -19,6 +19,7 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] Multiple retrospective formats — Classic (3 cols), 4Ls (4 cols), Mad-Sad-Glad (3 cols), Sailboat (3 cols); format selector on home screen below retro card and inside RetroBoard header; format stored in `scrum-facilitator-retro-format` localStorage; column labels from i18n `retro.columns.*`; dynamic export renders column headings from i18n keys
 - [x] Planning Poker integration — contextual banner on Sprint Planning estimation step (`planning-4`); "Open Planning Poker →" button deep-links to `https://agile-toolkit.github.io/planning-poker/` with `?participants=` query param pre-filled from Daily Scrum participant list; opens in new tab; hint shown when no participants saved
 - [x] Audio and visual timer alerts — 440 Hz Web Audio API beep + `animate-pulse` on countdown circle when step timer hits zero; 🔔/🔇 mute toggle in timer controls; mute preference persisted in `scrum-facilitator-muted` localStorage key; all 4 locales updated
+- [x] Unified header — `AppHeader.tsx` + `LanguagePicker.tsx` from design system replace inline header; white sticky h-14 header; dropdown language picker (EN/ES/BE/RU); dashboard grid-icon link
 
 ## Backlog
 
@@ -29,12 +30,18 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] [#7] Feature: Multiple retrospective formats (4Ls, Mad-Sad-Glad, Sailboat) — implemented
 - [x] [#8] Feature: Audio and visual timer alerts when a ceremony step ends — implemented
 - [x] [#9] Integration: Launch Planning Poker from Sprint Planning ceremony — implemented
+- [x] [#18] Unify header: AppHeader component + LanguagePicker — implemented
 
 ## Tech notes
 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-05-25 — feat: unified header (#18)
+- Done: copied `AppHeader.tsx` + `LanguagePicker.tsx` from `agile-toolkit.github.io/design-system/components/` into `src/components/`; replaced inline `<header>` block in `App.tsx` with `<AppHeader title={t('app.title')} onTitleClick={goHome} />`; removed cycle-button language toggle logic; issue #18 set to In Review
+- Remaining approved: #15 (Dashboard card), #16 (keyboard shortcuts), #17 (mobile responsiveness), #19 (dark mode)
+- Next task: implement #19 (light/dark theme: `darkMode: 'class'` in tailwind.config.js, anti-flash script in index.html, copy ThemeToggle.tsx to src/components/, add `<ThemeToggle />` inside AppHeader children slot, add `dark:` variants across all Tailwind classes)
 
 ### 2026-05-21 — feat: audio and visual timer alerts (#8)
 - Done: `playBeep()` utility in `CeremonyRunner.tsx` uses Web Audio API (440 Hz sine, 300 ms fade); fires on transition from `running → done` via `useRef` + `useEffect`; `animate-pulse` added to `CountdownTimer.tsx` outer div when `timerState === 'done'`; 🔔/🔇 mute toggle button in timer controls persists to `scrum-facilitator-muted` localStorage; `ceremony.mute` + `ceremony.unmute` keys added to all 4 locales (EN/ES/BE/RU)

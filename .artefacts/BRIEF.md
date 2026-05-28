@@ -20,6 +20,7 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] Planning Poker integration — contextual banner on Sprint Planning estimation step (`planning-4`); "Open Planning Poker →" button deep-links to `https://agile-toolkit.github.io/planning-poker/` with `?participants=` query param pre-filled from Daily Scrum participant list; opens in new tab; hint shown when no participants saved
 - [x] Audio and visual timer alerts — 440 Hz Web Audio API beep + `animate-pulse` on countdown circle when step timer hits zero; 🔔/🔇 mute toggle in timer controls; mute preference persisted in `scrum-facilitator-muted` localStorage key; all 4 locales updated
 - [x] Unified header — `AppHeader.tsx` + `LanguagePicker.tsx` from design system replace inline header; white sticky h-14 header; dropdown language picker (EN/ES/BE/RU); dashboard grid-icon link
+- [x] Light/dark theme — `darkMode: 'class'` in tailwind.config.js; anti-flash inline script in index.html; `ThemeToggle.tsx` from design system in AppHeader children slot; `dark:` variants across all components and retro board colour configs; preference persisted via `theme` localStorage key
 
 ## Backlog
 
@@ -31,12 +32,19 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] [#8] Feature: Audio and visual timer alerts when a ceremony step ends — implemented
 - [x] [#9] Integration: Launch Planning Poker from Sprint Planning ceremony — implemented
 - [x] [#18] Unify header: AppHeader component + LanguagePicker — implemented
+- [x] [#19] Feature: light/dark theme support (ThemeToggle + dark: Tailwind variants) — implemented
 
 ## Tech notes
 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-05-28 — feat: light/dark theme (#19)
+- Done: `darkMode: 'class'` in tailwind.config.js; anti-flash script in index.html `<head>`; copied `ThemeToggle.tsx` from design system to `src/components/`; added `<ThemeToggle />` inside `<AppHeader>` children slot in App.tsx; added `dark:` Tailwind variants to all components (AppHeader, HomeScreen, CeremonyCard, CeremonyRunner, CountdownTimer, ParticipantPanel, RetroBoard, StickyColumn, StickyNote, CeremonyComplete, ExportView, FacilitationTips, WhyTooltip); updated `retroFormats.ts` to include dark variants in all `colorClass` and `headerColor` strings; updated `index.css` body and component classes (`.card`, `.btn-secondary`, `.btn-ghost`) with dark rules; fixed SVG track stroke in CountdownTimer to use `currentColor` with `dark:text-gray-700`
+- Issue #19 set to In Review
+- Remaining approved: #15 (Dashboard card), #16 (keyboard shortcuts), #17 (mobile responsiveness)
+- Next task: implement #16 (keyboard shortcuts: Space=start/pause, ArrowRight=next step, ArrowLeft=prev step, R=reset timer, M=mute toggle; `useEffect` in CeremonyRunner with `keydown` listener; all 4 locales updated with `keyboard.*` i18n keys)
 
 ### 2026-05-25 — feat: unified header (#18)
 - Done: copied `AppHeader.tsx` + `LanguagePicker.tsx` from `agile-toolkit.github.io/design-system/components/` into `src/components/`; replaced inline `<header>` block in `App.tsx` with `<AppHeader title={t('app.title')} onTitleClick={goHome} />`; removed cycle-button language toggle logic; issue #18 set to In Review

@@ -26,14 +26,14 @@ export default function CountdownTimer({ timeRemaining, percentLeft, timerState 
   return (
     <div className="flex flex-col items-center gap-1">
       <div className={`relative${isDone ? ' animate-pulse' : ''}`} style={{ width: SIZE, height: SIZE }}>
-        <svg width={SIZE} height={SIZE} className="-rotate-90">
+        <svg width={SIZE} height={SIZE} className="-rotate-90 text-gray-200 dark:text-gray-700">
           {/* Track */}
           <circle
             cx={SIZE / 2}
             cy={SIZE / 2}
             r={R}
             fill="none"
-            stroke="#e5e7eb"
+            stroke="currentColor"
             strokeWidth={STROKE}
           />
           {/* Progress */}
@@ -53,7 +53,7 @@ export default function CountdownTimer({ timeRemaining, percentLeft, timerState 
         <div className="absolute inset-0 flex items-center justify-center">
           <span
             className={`text-xl font-mono font-bold tabular-nums ${
-              isDone ? 'text-gray-400' : isLow ? 'text-red-500' : 'text-gray-800'
+              isDone ? 'text-gray-400 dark:text-gray-500' : isLow ? 'text-red-500' : 'text-gray-800 dark:text-gray-100'
             }`}
           >
             {formatTime(timeRemaining)}

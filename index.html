@@ -5,6 +5,14 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Scrum Facilitator</title>
+    <script>
+      (function(){
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
     <meta name="description" content="Interactive Scrum ceremony facilitator with timers, agendas, and retrospective boards" />
     <meta property="og:title" content="Scrum Facilitator" />
     <meta property="og:description" content="Run better Scrum ceremonies with guided facilitation flows and timers." />

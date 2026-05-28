@@ -89,7 +89,7 @@ export default function ExportView({ data, onBack }: Props) {
     <div className="flex flex-col gap-4 max-w-2xl">
       <div className="flex items-center gap-3 flex-wrap">
         <button onClick={onBack} className="btn-ghost">← {t('export.back')}</button>
-        <h2 className="text-xl font-bold flex-1">{t('export.title')}</h2>
+        <h2 className="text-xl font-bold flex-1 dark:text-gray-50">{t('export.title')}</h2>
         {data.ceremonyType === 'review' && (
           <button onClick={exportToSprintMetrics} className="btn-secondary text-sm">
             📊 {t('export.sprintMetrics')}
@@ -109,7 +109,7 @@ export default function ExportView({ data, onBack }: Props) {
         </div>
       )}
 
-      <pre className="card p-4 text-xs text-gray-700 font-mono whitespace-pre-wrap overflow-x-auto leading-relaxed">
+      <pre className="card p-4 text-xs text-gray-700 dark:text-gray-300 font-mono whitespace-pre-wrap overflow-x-auto leading-relaxed">
         {markdown}
       </pre>
     </div>

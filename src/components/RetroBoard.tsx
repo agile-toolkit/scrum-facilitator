@@ -55,7 +55,7 @@ export default function RetroBoard({ notes, format, onChange, onFormatChange, on
 
       {onFormatChange && (
         <div className="flex items-center gap-3 flex-wrap">
-          <span className="text-sm font-medium text-gray-600">{t('retro.formatLabel')}:</span>
+          <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('retro.formatLabel')}:</span>
           <div className="flex gap-2 flex-wrap">
             {(['classic', 'four-ls', 'mad-sad-glad', 'sailboat'] as RetroFormat[]).map(f => (
               <button
@@ -69,7 +69,7 @@ export default function RetroBoard({ notes, format, onChange, onFormatChange, on
                 className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
                   f === format
                     ? 'bg-brand-500 text-white border-brand-500'
-                    : 'bg-white text-gray-600 border-gray-200 hover:border-brand-300 hover:text-brand-600'
+                    : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:border-brand-300 hover:text-brand-600'
                 }`}
               >
                 {t(`retro.format.${f}`)}

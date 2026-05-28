@@ -20,7 +20,7 @@ export default function WhyTooltip({ whyKey }: Props) {
         {t('ceremony.whyToggle')}
       </button>
       {open && (
-        <div className="mt-2 px-4 py-3 bg-brand-50 border border-brand-100 rounded-xl text-sm text-gray-700 leading-relaxed">
+        <div className="mt-2 px-4 py-3 bg-brand-50 dark:bg-gray-800 border border-brand-100 dark:border-gray-700 rounded-xl text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
           {t(whyKey)}
         </div>
       )}

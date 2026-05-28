@@ -126,8 +126,8 @@ export default function CeremonyRunner({
       <div className="flex items-center gap-3">
         <button onClick={onBack} className="btn-ghost">← {t('common.back')}</button>
         <div className="flex-1">
-          <h2 className="font-bold text-gray-900 text-lg">{t(ceremony.nameKey)}</h2>
-          <p className="text-sm text-gray-500">
+          <h2 className="font-bold text-gray-900 dark:text-gray-50 text-lg">{t(ceremony.nameKey)}</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             {t('ceremony.stepOf', { current: stepIndex + 1, total: ceremony.steps.length })}
           </p>
         </div>
@@ -144,7 +144,7 @@ export default function CeremonyRunner({
                 ? 'w-6 bg-brand-500'
                 : i < stepIndex
                 ? 'w-2 bg-brand-300'
-                : 'w-2 bg-gray-200'
+                : 'w-2 bg-gray-200 dark:bg-gray-600'
             }`}
             aria-label={`Step ${i + 1}`}
           />
@@ -162,8 +162,8 @@ export default function CeremonyRunner({
           />
           {/* Step info */}
           <div className="flex-1">
-            <h3 className="text-xl font-bold text-gray-900">{t(currentStep.titleKey)}</h3>
-            <span className="inline-block mt-1 text-xs font-medium bg-brand-50 text-brand-600 px-2 py-0.5 rounded-full">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-50">{t(currentStep.titleKey)}</h3>
+            <span className="inline-block mt-1 text-xs font-medium bg-brand-50 dark:bg-brand-700/20 text-brand-600 dark:text-brand-400 px-2 py-0.5 rounded-full">
               {formatDuration(currentStep.duration)}
             </span>
           </div>
@@ -214,9 +214,9 @@ export default function CeremonyRunner({
         <div className="card p-4 flex flex-col gap-2 border-l-4 border-brand-400">
           <div className="flex items-center gap-2">
             <span className="text-lg">🃏</span>
-            <h3 className="font-medium text-gray-800">{t('poker.bannerTitle')}</h3>
+            <h3 className="font-medium text-gray-800 dark:text-gray-100">{t('poker.bannerTitle')}</h3>
           </div>
-          <p className="text-sm text-gray-600">{t('poker.bannerDesc')}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">{t('poker.bannerDesc')}</p>
           {participants.length > 0 ? (
             <a
               href={`https://agile-toolkit.github.io/planning-poker/?participants=${encodeURIComponent(participants.map(p => p.name).join(','))}`}
@@ -236,7 +236,7 @@ export default function CeremonyRunner({
               >
                 {t('poker.open')}
               </a>
-              <p className="text-xs text-gray-400">{t('poker.noParticipants')}</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500">{t('poker.noParticipants')}</p>
             </div>
           )}
         </div>
@@ -266,7 +266,7 @@ export default function CeremonyRunner({
       </div>
 
       {/* Source */}
-      <p className="text-xs text-center text-gray-400">{t('ceremony.source')}</p>
+      <p className="text-xs text-center text-gray-400 dark:text-gray-500">{t('ceremony.source')}</p>
     </div>
   )
 }

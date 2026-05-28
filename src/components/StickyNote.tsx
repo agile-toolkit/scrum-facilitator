@@ -62,7 +62,7 @@ export default function StickyNote({ note, colorClass, onEdit, onDelete }: Props
       onKeyDown={e => e.key === 'Enter' && setEditing(true)}
       aria-label={`${note.text} — click to edit`}
     >
-      <p className="text-sm text-gray-800 leading-relaxed pr-5 whitespace-pre-wrap break-words">{note.text}</p>
+      <p className="text-sm text-gray-800 dark:text-gray-100 leading-relaxed pr-5 whitespace-pre-wrap break-words">{note.text}</p>
       <button
         onClick={e => {
           e.stopPropagation()

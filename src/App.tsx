@@ -10,6 +10,7 @@ import RetroBoard from './components/RetroBoard'
 import CeremonyComplete from './components/CeremonyComplete'
 import ExportView from './components/ExportView'
 import AppHeader from './components/AppHeader'
+import ThemeToggle from './components/ThemeToggle'
 
 const SESSION_KEY = 'scrum-facilitator-session'
 const HISTORY_KEY = 'scrum-facilitator-history'
@@ -108,8 +109,8 @@ export default function App() {
   const showResumeBanner = !dismissedResume && sessionOnMount !== null
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <AppHeader title={t('app.title')} onTitleClick={goHome} />
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
+      <AppHeader title={t('app.title')} onTitleClick={goHome}><ThemeToggle /></AppHeader>
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-8">
         {appState.screen === 'home' && (

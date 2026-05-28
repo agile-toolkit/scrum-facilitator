@@ -9,8 +9,8 @@ interface Props {
 
 function statusColor(status: Participant['status']): string {
   if (status === 'speaking') return 'bg-brand-500 text-white border-brand-500'
-  if (status === 'done') return 'bg-gray-100 text-gray-400 border-gray-200'
-  return 'bg-white text-gray-700 border-gray-200'
+  if (status === 'done') return 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500 border-gray-200 dark:border-gray-600'
+  return 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-gray-600'
 }
 
 export default function ParticipantPanel({ participants, onChange }: Props) {
@@ -54,7 +54,7 @@ export default function ParticipantPanel({ participants, onChange }: Props) {
   return (
     <div className="card p-4 flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <h3 className="font-medium text-gray-800">{t('daily.participants')}</h3>
+        <h3 className="font-medium text-gray-800 dark:text-gray-100">{t('daily.participants')}</h3>
         {participants.length > 1 && (
           <button onClick={randomise} className="btn-ghost text-xs">
             🔀 {t('daily.randomise')}
@@ -69,7 +69,7 @@ export default function ParticipantPanel({ participants, onChange }: Props) {
           onChange={e => setName(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && addParticipant()}
           placeholder={t('daily.addPlaceholder')}
-          className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400"
+          className="flex-1 border border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400"
         />
         <button onClick={addParticipant} disabled={!name.trim()} className="btn-primary text-sm py-2 px-3">
           {t('daily.add')}

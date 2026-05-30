@@ -97,6 +97,12 @@
     "be": "Беларуская",
     "ru": "Русский"
   },
+  "keyboard": {
+    "space": "Start / Pause",
+    "arrows": "Prev / Next step",
+    "r": "Reset timer",
+    "m": "Mute / Unmute"
+  },
   "history": {
     "title": "Past Ceremonies",
     "steps": "{{done}} of {{total}} steps",

@@ -10,6 +10,14 @@ import FacilitationTips from './FacilitationTips'
 import ParticipantPanel from './ParticipantPanel'
 import RetroBoard from './RetroBoard'
 
+function Kbd({ children }: { children: React.ReactNode }) {
+  return (
+    <kbd className="inline-flex items-center px-1.5 py-0.5 rounded border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-xs font-mono leading-none">
+      {children}
+    </kbd>
+  )
+}
+
 const SESSION_KEY = 'scrum-facilitator-session'
 const MUTED_KEY = 'scrum-facilitator-muted'
 
@@ -98,15 +106,12 @@ export default function CeremonyRunner({
     try { localStorage.setItem(SESSION_KEY, JSON.stringify(session)) } catch { /* ignore */ }
   }, [stepIndex, completedSteps, retroNotes, participants, ceremonyType])
 
-  if (!ceremony || !currentStep) return null
-
   const isFirst = stepIndex === 0
-  const isLast = stepIndex === ceremony.steps.length - 1
+  const isLast = ceremony ? stepIndex === ceremony.steps.length - 1 : false
   const isDaily = ceremonyType === 'daily'
-  const showRetroBoard = currentStep.triggersRetro === true
-  const showPokerBanner = currentStep.triggersPoker === true
 
   const goNext = () => {
+    if (!ceremony || !currentStep) return
     const newCompleted = Math.max(completedSteps, stepIndex + 1)
     setCompletedSteps(newCompleted)
     if (isLast) {
@@ -119,6 +124,48 @@ export default function CeremonyRunner({
   const goPrev = () => {
     if (!isFirst) setStepIndex(i => i - 1)
   }
+
+  // Keep a ref to the latest handlers so the keyboard listener never captures stale closures
+  const shortcutsRef = useRef({ timerState, start, pause, reset, currentStep, goNext, goPrev, toggleMute })
+  shortcutsRef.current = { timerState, start, pause, reset, currentStep, goNext, goPrev, toggleMute }
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement).tagName
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return
+      const h = shortcutsRef.current
+      switch (e.key) {
+        case ' ':
+          e.preventDefault()
+          if (h.timerState === 'running') h.pause()
+          else if (h.timerState === 'idle' || h.timerState === 'paused') h.start()
+          break
+        case 'ArrowRight':
+          e.preventDefault()
+          h.goNext()
+          break
+        case 'ArrowLeft':
+          e.preventDefault()
+          h.goPrev()
+          break
+        case 'r':
+        case 'R':
+          if (h.currentStep) h.reset(h.currentStep.duration)
+          break
+        case 'm':
+        case 'M':
+          h.toggleMute()
+          break
+      }
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [])
+
+  if (!ceremony || !currentStep) return null
+
+  const showRetroBoard = currentStep.triggersRetro === true
+  const showPokerBanner = currentStep.triggersPoker === true
 
   return (
     <div className="flex flex-col gap-6 max-w-2xl">
@@ -263,6 +310,14 @@ export default function CeremonyRunner({
         <button onClick={goNext} className="btn-primary">
           {isLast ? t('ceremony.finish') : t('ceremony.next')}
         </button>
+      </div>
+
+      {/* Keyboard shortcuts hint */}
+      <div className="flex flex-wrap gap-x-4 gap-y-1.5 justify-center text-xs text-gray-400 dark:text-gray-500">
+        <span><Kbd>Space</Kbd> {t('keyboard.space')}</span>
+        <span><Kbd>←</Kbd><Kbd>→</Kbd> {t('keyboard.arrows')}</span>
+        <span><Kbd>R</Kbd> {t('keyboard.r')}</span>
+        <span><Kbd>M</Kbd> {t('keyboard.m')}</span>
       </div>
 
       {/* Source */}

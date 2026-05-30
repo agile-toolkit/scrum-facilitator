@@ -21,6 +21,7 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] Audio and visual timer alerts — 440 Hz Web Audio API beep + `animate-pulse` on countdown circle when step timer hits zero; 🔔/🔇 mute toggle in timer controls; mute preference persisted in `scrum-facilitator-muted` localStorage key; all 4 locales updated
 - [x] Unified header — `AppHeader.tsx` + `LanguagePicker.tsx` from design system replace inline header; white sticky h-14 header; dropdown language picker (EN/ES/BE/RU); dashboard grid-icon link
 - [x] Light/dark theme — `darkMode: 'class'` in tailwind.config.js; anti-flash inline script in index.html; `ThemeToggle.tsx` from design system in AppHeader children slot; `dark:` variants across all components and retro board colour configs; preference persisted via `theme` localStorage key
+- [x] Keyboard shortcuts — `Space` start/pause timer; `ArrowLeft`/`ArrowRight` prev/next step; `R` reset timer; `M` mute toggle; `useEffect` with `keydown` listener in CeremonyRunner; ref pattern to avoid stale closures; keyboard hint bar shown below navigation; `keyboard.*` i18n keys in all 4 locales
 
 ## Backlog
 
@@ -33,12 +34,19 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] [#9] Integration: Launch Planning Poker from Sprint Planning ceremony — implemented
 - [x] [#18] Unify header: AppHeader component + LanguagePicker — implemented
 - [x] [#19] Feature: light/dark theme support (ThemeToggle + dark: Tailwind variants) — implemented
+- [x] [#16] Feature: Keyboard shortcuts for ceremony runner — implemented
 
 ## Tech notes
 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-05-30 — feat: keyboard shortcuts (#16)
+- Done: `useEffect` keydown listener in `CeremonyRunner.tsx`; `shortcutsRef` pattern keeps latest handlers without stale closures; Space=start/pause, ArrowRight=next, ArrowLeft=prev, R=reset, M=mute; skips events from INPUT/TEXTAREA; `Kbd` helper component for key badges; keyboard hint bar below navigation buttons; `keyboard.space/arrows/r/m` i18n keys added to EN/ES/BE/RU
+- Issue #16 set to In Review
+- Remaining approved: #15 (Dashboard card), #17 (mobile responsiveness)
+- Next task: implement #17 (mobile/tablet responsiveness: timer and retro board layout on small screens)
 
 ### 2026-05-28 — feat: light/dark theme (#19)
 - Done: `darkMode: 'class'` in tailwind.config.js; anti-flash script in index.html `<head>`; copied `ThemeToggle.tsx` from design system to `src/components/`; added `<ThemeToggle />` inside `<AppHeader>` children slot in App.tsx; added `dark:` Tailwind variants to all components (AppHeader, HomeScreen, CeremonyCard, CeremonyRunner, CountdownTimer, ParticipantPanel, RetroBoard, StickyColumn, StickyNote, CeremonyComplete, ExportView, FacilitationTips, WhyTooltip); updated `retroFormats.ts` to include dark variants in all `colorClass` and `headerColor` strings; updated `index.css` body and component classes (`.card`, `.btn-secondary`, `.btn-ghost`) with dark rules; fixed SVG track stroke in CountdownTimer to use `currentColor` with `dark:text-gray-700`

@@ -97,6 +97,12 @@
     "be": "Беларуская",
     "ru": "Русский"
   },
+  "keyboard": {
+    "space": "Iniciar / Pausar",
+    "arrows": "Paso anterior / siguiente",
+    "r": "Reiniciar temporizador",
+    "m": "Silenciar / Activar"
+  },
   "history": {
     "title": "Ceremonias anteriores",
     "steps": "{{done}} de {{total}} pasos",

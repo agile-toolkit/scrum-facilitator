@@ -22,6 +22,7 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] Unified header — `AppHeader.tsx` + `LanguagePicker.tsx` from design system replace inline header; white sticky h-14 header; dropdown language picker (EN/ES/BE/RU); dashboard grid-icon link
 - [x] Light/dark theme — `darkMode: 'class'` in tailwind.config.js; anti-flash inline script in index.html; `ThemeToggle.tsx` from design system in AppHeader children slot; `dark:` variants across all components and retro board colour configs; preference persisted via `theme` localStorage key
 - [x] Keyboard shortcuts — `Space` start/pause timer; `ArrowLeft`/`ArrowRight` prev/next step; `R` reset timer; `M` mute toggle; `useEffect` with `keydown` listener in CeremonyRunner; ref pattern to avoid stale closures; keyboard hint bar shown below navigation; `keyboard.*` i18n keys in all 4 locales
+- [x] Mobile/tablet responsiveness — `CountdownTimer` uses `viewBox` + `w-full max-w-[120px]` (scales on narrow viewports); `StickyColumn` accordion on mobile (`hidden md:flex` body, collapse/expand chevron); delete buttons always visible on mobile (`opacity-100 md:opacity-0 md:group-hover:opacity-100`); `ParticipantPanel` 44 × 44 px min tap targets; `CeremonyRunner` stacks timer above step title on mobile (`flex-col sm:flex-row`); keyboard hint hidden on mobile (`hidden sm:flex`)
 
 ## Backlog
 
@@ -35,12 +36,19 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] [#18] Unify header: AppHeader component + LanguagePicker — implemented
 - [x] [#19] Feature: light/dark theme support (ThemeToggle + dark: Tailwind variants) — implemented
 - [x] [#16] Feature: Keyboard shortcuts for ceremony runner — implemented
+- [x] [#17] Research: Mobile/tablet responsiveness — implemented
 
 ## Tech notes
 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-05-31 — feat: mobile/tablet responsiveness (#17)
+- Done: `CountdownTimer.tsx` — SVG uses `viewBox` + `w-full max-w-[120px]` wrapper (scales to any narrow viewport); `StickyColumn.tsx` — accordion on mobile with header button toggle (`hidden md:flex` body, `▲/▼` caret visible below `md`); `StickyNote.tsx` — delete ✕ always visible on mobile (`opacity-100 md:opacity-0 md:group-hover:opacity-100`), min 28×28 px touch area; `ParticipantPanel.tsx` — participant rows `min-h-[44px]`, remove button `min-w-[36px] min-h-[36px]`, always visible on mobile; `CeremonyRunner.tsx` — timer+title stacks vertically on mobile (`flex-col sm:flex-row`), keyboard hint bar hidden below `sm` (`hidden sm:flex`)
+- Issue #17 set to In Review
+- Remaining approved: #15 (Dashboard card)
+- Next task: implement #15 (Dashboard card — surface active session and last ceremony from scrum-facilitator-session and scrum-facilitator-history localStorage keys)
 
 ### 2026-05-30 — feat: keyboard shortcuts (#16)
 - Done: `useEffect` keydown listener in `CeremonyRunner.tsx`; `shortcutsRef` pattern keeps latest handlers without stale closures; Space=start/pause, ArrowRight=next, ArrowLeft=prev, R=reset, M=mute; skips events from INPUT/TEXTAREA; `Kbd` helper component for key badges; keyboard hint bar below navigation buttons; `keyboard.space/arrows/r/m` i18n keys added to EN/ES/BE/RU

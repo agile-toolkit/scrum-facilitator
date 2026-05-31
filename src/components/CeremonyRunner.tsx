@@ -199,16 +199,18 @@ export default function CeremonyRunner({
       </div>
 
       {/* Step card */}
-      <div className="card p-6 flex flex-col gap-5">
-        <div className="flex items-start gap-4">
+      <div className="card p-4 sm:p-6 flex flex-col gap-5">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
           {/* Timer */}
-          <CountdownTimer
-            timeRemaining={timeRemaining}
-            percentLeft={percentLeft}
-            timerState={timerState}
-          />
+          <div className="w-24 sm:w-auto flex-shrink-0">
+            <CountdownTimer
+              timeRemaining={timeRemaining}
+              percentLeft={percentLeft}
+              timerState={timerState}
+            />
+          </div>
           {/* Step info */}
-          <div className="flex-1">
+          <div className="flex-1 text-center sm:text-left">
             <h3 className="text-xl font-bold text-gray-900 dark:text-gray-50">{t(currentStep.titleKey)}</h3>
             <span className="inline-block mt-1 text-xs font-medium bg-brand-50 dark:bg-brand-700/20 text-brand-600 dark:text-brand-400 px-2 py-0.5 rounded-full">
               {formatDuration(currentStep.duration)}
@@ -312,8 +314,8 @@ export default function CeremonyRunner({
         </button>
       </div>
 
-      {/* Keyboard shortcuts hint */}
-      <div className="flex flex-wrap gap-x-4 gap-y-1.5 justify-center text-xs text-gray-400 dark:text-gray-500">
+      {/* Keyboard shortcuts hint — hidden on touch-primary devices */}
+      <div className="hidden sm:flex flex-wrap gap-x-4 gap-y-1.5 justify-center text-xs text-gray-400 dark:text-gray-500">
         <span><Kbd>Space</Kbd> {t('keyboard.space')}</span>
         <span><Kbd>←</Kbd><Kbd>→</Kbd> {t('keyboard.arrows')}</span>
         <span><Kbd>R</Kbd> {t('keyboard.r')}</span>

@@ -25,8 +25,12 @@ export default function CountdownTimer({ timeRemaining, percentLeft, timerState 
 
   return (
     <div className="flex flex-col items-center gap-1">
-      <div className={`relative${isDone ? ' animate-pulse' : ''}`} style={{ width: SIZE, height: SIZE }}>
-        <svg width={SIZE} height={SIZE} className="-rotate-90 text-gray-200 dark:text-gray-700">
+      <div className={`relative w-full max-w-[120px]${isDone ? ' animate-pulse' : ''}`}>
+        <svg
+          viewBox={`0 0 ${SIZE} ${SIZE}`}
+          className="-rotate-90 w-full h-auto text-gray-200 dark:text-gray-700"
+          aria-hidden="true"
+        >
           {/* Track */}
           <circle
             cx={SIZE / 2}

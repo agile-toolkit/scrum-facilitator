@@ -82,21 +82,21 @@ export default function ParticipantPanel({ participants, onChange }: Props) {
           {participants.map(p => (
             <div
               key={p.id}
-              className={`flex items-center gap-3 px-3 py-2 rounded-xl border cursor-pointer transition-all ${statusColor(p.status)}`}
+              className={`flex items-center gap-3 px-3 py-2 min-h-[44px] rounded-xl border cursor-pointer transition-all ${statusColor(p.status)}`}
               onClick={() => advanceStatus(p.id)}
               role="button"
               tabIndex={0}
               onKeyDown={e => e.key === 'Enter' && advanceStatus(p.id)}
               aria-label={`${p.name} — ${t(`daily.status.${p.status}`)}`}
             >
-              <div className="w-8 h-8 rounded-full bg-current bg-opacity-10 flex items-center justify-center text-sm font-bold flex-shrink-0">
+              <div className="w-9 h-9 rounded-full bg-current bg-opacity-10 flex items-center justify-center text-sm font-bold flex-shrink-0">
                 {p.status === 'done' ? '✓' : p.name[0]?.toUpperCase()}
               </div>
               <span className="flex-1 text-sm font-medium">{p.name}</span>
               <span className="text-xs opacity-70">{t(`daily.status.${p.status}`)}</span>
               <button
                 onClick={e => { e.stopPropagation(); removeParticipant(p.id) }}
-                className="opacity-40 hover:opacity-100 text-sm ml-1"
+                className="min-w-[36px] min-h-[36px] flex items-center justify-center opacity-100 md:opacity-40 md:hover:opacity-100 text-sm ml-1"
                 aria-label={t('common.delete')}
               >
                 ×

@@ -109,7 +109,7 @@ export default function App() {
   const showResumeBanner = !dismissedResume && sessionOnMount !== null
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
+    <div data-accent="violet" className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
       <AppHeader title={t('app.title')} onTitleClick={goHome}><ThemeToggle /></AppHeader>
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-8">

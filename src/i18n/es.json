@@ -108,8 +108,13 @@
     "steps": "{{done}} de {{total}} pasos",
     "view": "Ver",
     "resumePrompt": "¿Reanudar {{ceremony}} desde hace {{ago}}?",
+    "resumePromptTeam": "¿Reanudar {{team}} · {{ceremony}} desde hace {{ago}}?",
     "resume": "Reanudar",
     "discard": "Descartar"
+  },
+  "team": {
+    "label": "Equipo / Etiqueta (opcional)",
+    "placeholder": "p. ej. Equipo Alfa"
   },
   "ceremonies": {
     "planning": {

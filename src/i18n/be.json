@@ -108,8 +108,13 @@
     "steps": "{{done}} з {{total}} крокаў",
     "view": "Прагляд",
     "resumePrompt": "Працягнуць {{ceremony}} з {{ago}} назад?",
+    "resumePromptTeam": "Працягнуць {{team}} · {{ceremony}} з {{ago}} назад?",
     "resume": "Працягнуць",
     "discard": "Адхіліць"
+  },
+  "team": {
+    "label": "Каманда / Пазнака (неабавязкова)",
+    "placeholder": "напр. Каманда Альфа"
   },
   "ceremonies": {
     "planning": {

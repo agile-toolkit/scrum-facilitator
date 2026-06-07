@@ -40,6 +40,7 @@ export type RetroNotes = Record<string, StickyNote[]>
 export interface ExportData {
   ceremonyType: CeremonyType
   date: string
+  teamName?: string
   participants?: string[]
   retroNotes?: RetroNotes
   retroFormat?: RetroFormat
@@ -54,6 +55,7 @@ export interface SessionState {
   participants: Participant[]
   retroNotes: RetroNotes
   retroFormat?: RetroFormat
+  teamName?: string
   savedAt: number
 }
 

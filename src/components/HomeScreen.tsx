@@ -15,6 +15,9 @@ interface Props {
   onSelect: (type: CeremonyType) => void
   retroFormat: RetroFormat
   onRetroFormatChange: (f: RetroFormat) => void
+  teamName: string
+  onTeamNameChange: (name: string) => void
+  recentTeamNames: string[]
   session: SessionState | null
   onResume: () => void
   onDiscard: () => void
@@ -22,7 +25,11 @@ interface Props {
   onViewHistory: (entry: HistoryEntry) => void
 }
 
-export default function HomeScreen({ onSelect, retroFormat, onRetroFormatChange, session, onResume, onDiscard, history, onViewHistory }: Props) {
+export default function HomeScreen({
+  onSelect, retroFormat, onRetroFormatChange,
+  teamName, onTeamNameChange, recentTeamNames,
+  session, onResume, onDiscard, history, onViewHistory,
+}: Props) {
   const { t } = useTranslation()
 
   const ceremonyName = (type: CeremonyType) => {
@@ -36,7 +43,9 @@ export default function HomeScreen({ onSelect, retroFormat, onRetroFormatChange,
       {session && (
         <div className="rounded-lg bg-brand-50 dark:bg-gray-800 border border-brand-100 dark:border-gray-600 px-4 py-3 flex items-center justify-between gap-4 flex-wrap">
           <span className="text-sm text-gray-800 dark:text-gray-200">
-            {t('history.resumePrompt', { ceremony: ceremonyName(session.ceremonyType), ago: timeAgo(session.savedAt) })}
+            {session.teamName
+              ? t('history.resumePromptTeam', { ceremony: ceremonyName(session.ceremonyType), team: session.teamName, ago: timeAgo(session.savedAt) })
+              : t('history.resumePrompt', { ceremony: ceremonyName(session.ceremonyType), ago: timeAgo(session.savedAt) })}
           </span>
           <div className="flex gap-2 flex-shrink-0">
             <button onClick={onResume} className="btn-primary text-sm">
@@ -52,6 +61,37 @@ export default function HomeScreen({ onSelect, retroFormat, onRetroFormatChange,
       <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-50">{t('home.title')}</h1>
         <p className="text-gray-500 dark:text-gray-400 mt-2">{t('home.subtitle')}</p>
+      </div>
+
+      {/* Team name input */}
+      <div className="flex flex-col gap-2">
+        <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+          {t('team.label')}
+        </label>
+        <input
+          type="text"
+          value={teamName}
+          onChange={e => onTeamNameChange(e.target.value)}
+          placeholder={t('team.placeholder')}
+          className="w-full sm:w-72 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-sm placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-400 dark:focus:ring-brand-500"
+        />
+        {recentTeamNames.length > 0 && (
+          <div className="flex flex-wrap gap-1.5">
+            {recentTeamNames.map(name => (
+              <button
+                key={name}
+                onClick={() => onTeamNameChange(name)}
+                className={`text-xs px-2.5 py-1 rounded-full border transition-colors ${
+                  name === teamName
+                    ? 'bg-brand-500 text-white border-brand-500'
+                    : 'bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:border-brand-300 hover:text-brand-600'
+                }`}
+              >
+                {name}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -101,7 +141,9 @@ export default function HomeScreen({ onSelect, retroFormat, onRetroFormatChange,
                   </span>
                   <div className="min-w-0">
                     <p className="text-sm font-medium text-gray-800 dark:text-gray-100 truncate">
-                      {ceremonyName(entry.exportData.ceremonyType)}
+                      {entry.exportData.teamName
+                        ? `${entry.exportData.teamName} · ${ceremonyName(entry.exportData.ceremonyType)}`
+                        : ceremonyName(entry.exportData.ceremonyType)}
                     </p>
                     <p className="text-xs text-gray-400 dark:text-gray-500">
                       {entry.exportData.date} · {t('history.steps', { done: entry.exportData.stepsCompleted, total: entry.exportData.totalSteps })}

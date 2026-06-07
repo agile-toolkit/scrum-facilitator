@@ -14,6 +14,7 @@ import ThemeToggle from './components/ThemeToggle'
 
 const SESSION_KEY = 'scrum-facilitator-session'
 const HISTORY_KEY = 'scrum-facilitator-history'
+const TEAM_NAME_KEY = 'scrum-facilitator-team-name'
 
 interface AppState {
   screen: Screen
@@ -38,6 +39,7 @@ export default function App() {
 
   const [history, setHistory] = useLocalStorage<HistoryEntry[]>(HISTORY_KEY, [])
   const [retroFormat, setRetroFormat] = useLocalStorage<RetroFormat>('scrum-facilitator-retro-format', 'classic')
+  const [teamName, setTeamName] = useLocalStorage<string>(TEAM_NAME_KEY, '')
   const [dismissedResume, setDismissedResume] = useState(false)
 
   const [appState, setAppState] = useState<AppState>({
@@ -68,6 +70,7 @@ export default function App() {
     if (!sessionOnMount) return
     setRetroNotes(sessionOnMount.retroNotes)
     if (sessionOnMount.retroFormat) setRetroFormat(sessionOnMount.retroFormat)
+    if (sessionOnMount.teamName !== undefined) setTeamName(sessionOnMount.teamName)
     setDismissedResume(true)
     setAppState({ screen: 'ceremony', ceremonyType: sessionOnMount.ceremonyType, exportData: null, resumeSession: sessionOnMount, exportBackScreen: 'complete' })
   }
@@ -82,6 +85,7 @@ export default function App() {
     const data: ExportData = {
       ceremonyType: appState.ceremonyType!,
       date: new Date().toLocaleDateString(),
+      teamName: teamName.trim() || undefined,
       participants,
       retroNotes: appState.ceremonyType === 'retro' ? retroNotes : undefined,
       retroFormat: appState.ceremonyType === 'retro' ? retroFormat : undefined,
@@ -106,6 +110,10 @@ export default function App() {
     setAppState({ screen: 'home', ceremonyType: null, exportData: null, resumeSession: null, exportBackScreen: 'complete' })
   }
 
+  const recentTeamNames = Array.from(
+    new Set(history.map(e => e.exportData.teamName).filter((n): n is string => Boolean(n)))
+  ).slice(0, 5)
+
   const showResumeBanner = !dismissedResume && sessionOnMount !== null
 
   return (
@@ -118,6 +126,9 @@ export default function App() {
             onSelect={startCeremony}
             retroFormat={retroFormat}
             onRetroFormatChange={setRetroFormat}
+            teamName={teamName}
+            onTeamNameChange={setTeamName}
+            recentTeamNames={recentTeamNames}
             session={showResumeBanner ? sessionOnMount : null}
             onResume={resumeCeremony}
             onDiscard={discardSession}
@@ -130,6 +141,7 @@ export default function App() {
             ceremonyType={appState.ceremonyType}
             retroNotes={retroNotes}
             retroFormat={retroFormat}
+            teamName={teamName.trim() || undefined}
             onRetroNotesChange={setRetroNotes}
             onComplete={completeCeremony}
             onBack={goHome}

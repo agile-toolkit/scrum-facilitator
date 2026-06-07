@@ -23,6 +23,7 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] Light/dark theme — `darkMode: 'class'` in tailwind.config.js; anti-flash inline script in index.html; `ThemeToggle.tsx` from design system in AppHeader children slot; `dark:` variants across all components and retro board colour configs; preference persisted via `theme` localStorage key
 - [x] Keyboard shortcuts — `Space` start/pause timer; `ArrowLeft`/`ArrowRight` prev/next step; `R` reset timer; `M` mute toggle; `useEffect` with `keydown` listener in CeremonyRunner; ref pattern to avoid stale closures; keyboard hint bar shown below navigation; `keyboard.*` i18n keys in all 4 locales
 - [x] Mobile/tablet responsiveness — `CountdownTimer` uses `viewBox` + `w-full max-w-[120px]` (scales on narrow viewports); `StickyColumn` accordion on mobile (`hidden md:flex` body, collapse/expand chevron); delete buttons always visible on mobile (`opacity-100 md:opacity-0 md:group-hover:opacity-100`); `ParticipantPanel` 44 × 44 px min tap targets; `CeremonyRunner` stacks timer above step title on mobile (`flex-col sm:flex-row`); keyboard hint hidden on mobile (`hidden sm:flex`)
+- [x] Named ceremony history — optional `teamName` text input on HomeScreen (persists to `scrum-facilitator-team-name` localStorage); recent team names shown as pill chips; history entries show `Team · Ceremony` format when team is set; resume banner shows team name; CeremonyRunner header shows team name; export Markdown title includes team name; all 4 locales (EN/ES/BE/RU)
 
 ## Backlog
 
@@ -37,12 +38,32 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] [#19] Feature: light/dark theme support (ThemeToggle + dark: Tailwind variants) — implemented
 - [x] [#16] Feature: Keyboard shortcuts for ceremony runner — implemented
 - [x] [#17] Research: Mobile/tablet responsiveness — implemented
+- [x] [#24] Feature: Named ceremony history — label sessions by team/sprint — implemented
+- [ ] [#15] Integration: Dashboard card — surface active session and last ceremony
+
+## localStorage keys
+
+| Key | Content |
+|-----|---------|
+| `scrum-facilitator-session` | `{ ceremonyType, stepIndex, completedSteps, participants, retroNotes, retroFormat, teamName?, savedAt }` — auto-saved during ceremony, cleared on complete |
+| `scrum-facilitator-history` | Array (max 5) of `{ id, exportData, savedAt }` — completed ceremony summaries |
+| `scrum-facilitator-retro-format` | `RetroFormat` string — selected retro format |
+| `scrum-facilitator-muted` | `'true'` or `'false'` — timer alert mute preference |
+| `scrum-facilitator-team-name` | string — last-used team/label name |
+| `sf_participants` | `Participant[]` — Daily Scrum participant list |
+| `theme` | `'dark'` or `'light'` — theme preference |
 
 ## Tech notes
 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-06-07 — feat: named ceremony history (#24)
+- Done: `types.ts` — `teamName?: string` added to `SessionState` and `ExportData`; `App.tsx` — `scrum-facilitator-team-name` localStorage key via `useLocalStorage`, `recentTeamNames` derived from history, teamName passed to `HomeScreen` and `CeremonyRunner`; `HomeScreen.tsx` — "Team / Label (optional)" text input with recent-name pill chips; history entries show `Team · Ceremony` when team set; resume banner uses `resumePromptTeam` i18n key when teamName present; `CeremonyRunner.tsx` — `teamName` prop included in session auto-save and shown in ceremony header; `ExportView.tsx` — Markdown title includes team name; `en/es/be/ru.json` — `team.label`, `team.placeholder`, `history.resumePromptTeam` keys added
+- Issue #24 set to In Review
+- Remaining approved: #15 (Dashboard card — requires agile-toolkit.github.io changes, separate run)
+- Next task: check issues for human feedback; implement #15 (Dashboard card for scrum-facilitator — dashboard reads `scrum-facilitator-session` + `scrum-facilitator-history` keys)
 
 ### 2026-05-31 — feat: mobile/tablet responsiveness (#17)
 - Done: `CountdownTimer.tsx` — SVG uses `viewBox` + `w-full max-w-[120px]` wrapper (scales to any narrow viewport); `StickyColumn.tsx` — accordion on mobile with header button toggle (`hidden md:flex` body, `▲/▼` caret visible below `md`); `StickyNote.tsx` — delete ✕ always visible on mobile (`opacity-100 md:opacity-0 md:group-hover:opacity-100`), min 28×28 px touch area; `ParticipantPanel.tsx` — participant rows `min-h-[44px]`, remove button `min-w-[36px] min-h-[36px]`, always visible on mobile; `CeremonyRunner.tsx` — timer+title stacks vertically on mobile (`flex-col sm:flex-row`), keyboard hint bar hidden below `sm` (`hidden sm:flex`)

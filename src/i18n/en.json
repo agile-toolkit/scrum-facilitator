@@ -108,8 +108,13 @@
     "steps": "{{done}} of {{total}} steps",
     "view": "View",
     "resumePrompt": "Resume {{ceremony}} from {{ago}}?",
+    "resumePromptTeam": "Resume {{team}} · {{ceremony}} from {{ago}}?",
     "resume": "Resume",
     "discard": "Discard"
+  },
+  "team": {
+    "label": "Team / Label (optional)",
+    "placeholder": "e.g. Team Alpha"
   },
   "ceremonies": {
     "planning": {

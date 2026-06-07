@@ -22,8 +22,9 @@ interface Props {
 function buildMarkdown(data: ExportData, t: (k: string, opts?: Record<string, unknown>) => string): string {
   const ceremony = CEREMONIES.find(c => c.type === data.ceremonyType)
   const name = ceremony ? t(ceremony.nameKey) : data.ceremonyType
+  const title = data.teamName ? `${name} — ${data.teamName}` : name
   const lines: string[] = [
-    `# ${name}`,
+    `# ${title}`,
     `**Date:** ${data.date}`,
     `**Steps completed:** ${data.stepsCompleted} / ${data.totalSteps}`,
   ]

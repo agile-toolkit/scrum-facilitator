@@ -108,8 +108,13 @@
     "steps": "{{done}} из {{total}} шагов",
     "view": "Просмотр",
     "resumePrompt": "Продолжить {{ceremony}} с {{ago}} назад?",
+    "resumePromptTeam": "Продолжить {{team}} · {{ceremony}} с {{ago}} назад?",
     "resume": "Продолжить",
     "discard": "Отменить"
+  },
+  "team": {
+    "label": "Команда / Метка (необязательно)",
+    "placeholder": "напр. Команда Альфа"
   },
   "ceremonies": {
     "planning": {

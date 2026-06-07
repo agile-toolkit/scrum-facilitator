@@ -44,6 +44,7 @@ interface Props {
   ceremonyType: CeremonyType
   retroNotes: RetroNotes
   retroFormat: RetroFormat
+  teamName?: string
   onRetroNotesChange: (n: RetroNotes) => void
   onComplete: (stepsCompleted: number, participants?: string[]) => void
   onBack: () => void
@@ -51,7 +52,7 @@ interface Props {
 }
 
 export default function CeremonyRunner({
-  ceremonyType, retroNotes, retroFormat, onRetroNotesChange, onComplete, onBack, resumeSession,
+  ceremonyType, retroNotes, retroFormat, teamName, onRetroNotesChange, onComplete, onBack, resumeSession,
 }: Props) {
   const { t } = useTranslation()
   const ceremony = getCeremony(ceremonyType)
@@ -101,10 +102,11 @@ export default function CeremonyRunner({
       participants,
       retroNotes,
       retroFormat,
+      teamName,
       savedAt: Date.now(),
     }
     try { localStorage.setItem(SESSION_KEY, JSON.stringify(session)) } catch { /* ignore */ }
-  }, [stepIndex, completedSteps, retroNotes, participants, ceremonyType])
+  }, [stepIndex, completedSteps, retroNotes, participants, ceremonyType, teamName])
 
   const isFirst = stepIndex === 0
   const isLast = ceremony ? stepIndex === ceremony.steps.length - 1 : false
@@ -173,7 +175,9 @@ export default function CeremonyRunner({
       <div className="flex items-center gap-3">
         <button onClick={onBack} className="btn-ghost">← {t('common.back')}</button>
         <div className="flex-1">
-          <h2 className="font-bold text-gray-900 dark:text-gray-50 text-lg">{t(ceremony.nameKey)}</h2>
+          <h2 className="font-bold text-gray-900 dark:text-gray-50 text-lg">
+            {teamName ? `${teamName} · ${t(ceremony.nameKey)}` : t(ceremony.nameKey)}
+          </h2>
           <p className="text-sm text-gray-500 dark:text-gray-400">
             {t('ceremony.stepOf', { current: stepIndex + 1, total: ceremony.steps.length })}
           </p>

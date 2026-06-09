@@ -39,13 +39,13 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] [#16] Feature: Keyboard shortcuts for ceremony runner — implemented
 - [x] [#17] Research: Mobile/tablet responsiveness — implemented
 - [x] [#24] Feature: Named ceremony history — label sessions by team/sprint — implemented
-- [ ] [#15] Integration: Dashboard card — surface active session and last ceremony
+- [x] [#15] Integration: Dashboard card — session key enriched with summary fields; dashboard card in agile-toolkit.github.io pending
 
 ## localStorage keys
 
 | Key | Content |
 |-----|---------|
-| `scrum-facilitator-session` | `{ ceremonyType, stepIndex, completedSteps, participants, retroNotes, retroFormat, teamName?, savedAt }` — auto-saved during ceremony, cleared on complete |
+| `scrum-facilitator-session` | `{ ceremonyType, stepIndex, totalSteps, currentStepId, completedSteps, participants, participantCount, retroNotes, retroNotesCount, retroFormat, teamName?, savedAt }` — auto-saved during ceremony; `participantCount`, `retroNotesCount`, `totalSteps`, `currentStepId` are pre-computed for easy dashboard reads |
 | `scrum-facilitator-history` | Array (max 5) of `{ id, exportData, savedAt }` — completed ceremony summaries |
 | `scrum-facilitator-retro-format` | `RetroFormat` string — selected retro format |
 | `scrum-facilitator-muted` | `'true'` or `'false'` — timer alert mute preference |
@@ -58,6 +58,11 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-06-09 — feat: session summary fields for Dashboard (#15, scrum-facilitator side)
+- Done: `types.ts` — added `totalSteps: number`, `currentStepId: string`, `participantCount: number`, `retroNotesCount: number` to `SessionState`; `CeremonyRunner.tsx` — session auto-save now computes and writes all four new fields alongside existing fields; BRIEF.md localStorage keys updated to document new shape
+- Remaining: dashboard card in `agile-toolkit.github.io` (issue #15 dashboard side — separate run targeting that repo)
+- Next task: check issues for human feedback on scrum-facilitator; research new opportunities if none pending
 
 ### 2026-06-07 — feat: named ceremony history (#24)
 - Done: `types.ts` — `teamName?: string` added to `SessionState` and `ExportData`; `App.tsx` — `scrum-facilitator-team-name` localStorage key via `useLocalStorage`, `recentTeamNames` derived from history, teamName passed to `HomeScreen` and `CeremonyRunner`; `HomeScreen.tsx` — "Team / Label (optional)" text input with recent-name pill chips; history entries show `Team · Ceremony` when team set; resume banner uses `resumePromptTeam` i18n key when teamName present; `CeremonyRunner.tsx` — `teamName` prop included in session auto-save and shown in ceremony header; `ExportView.tsx` — Markdown title includes team name; `en/es/be/ru.json` — `team.label`, `team.placeholder`, `history.resumePromptTeam` keys added

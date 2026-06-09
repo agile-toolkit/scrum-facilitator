@@ -51,9 +51,13 @@ export interface ExportData {
 export interface SessionState {
   ceremonyType: CeremonyType
   stepIndex: number
+  totalSteps: number
+  currentStepId: string
   completedSteps: number
   participants: Participant[]
+  participantCount: number
   retroNotes: RetroNotes
+  retroNotesCount: number
   retroFormat?: RetroFormat
   teamName?: string
   savedAt: number

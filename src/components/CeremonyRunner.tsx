@@ -95,12 +95,17 @@ export default function CeremonyRunner({
   // Auto-save session state on every meaningful change
   useEffect(() => {
     if (!ceremony) return
+    const retroNotesCount = Object.values(retroNotes).reduce((sum, notes) => sum + notes.length, 0)
     const session: SessionState = {
       ceremonyType,
       stepIndex,
+      totalSteps: ceremony.steps.length,
+      currentStepId: currentStep?.id ?? '',
       completedSteps,
       participants,
+      participantCount: participants.length,
       retroNotes,
+      retroNotesCount,
       retroFormat,
       teamName,
       savedAt: Date.now(),

@@ -40,6 +40,9 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] [#17] Research: Mobile/tablet responsiveness — implemented
 - [x] [#24] Feature: Named ceremony history — label sessions by team/sprint — implemented
 - [x] [#15] Integration: Dashboard card — session key enriched with summary fields; dashboard card in agile-toolkit.github.io pending
+- [ ] [#30] Feature: Configurable step durations — let facilitators adjust time boxes per ceremony
+- [ ] [#31] Feature: Retro dot voting — upvote sticky notes to prioritise discussion and action items
+- [ ] [#32] Research: Accessibility audit — ARIA roles and keyboard navigation for retro board and sticky notes
 
 ## localStorage keys
 
@@ -58,6 +61,11 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-06-13 — research: configurable durations, retro voting, a11y audit
+- Done: all approved issues (#4–#9, #15–#19, #24) confirmed implemented; created 3 new research issues — #30 (configurable step durations via localStorage overrides), #31 (retro dot voting with vote toggle and sort-by-votes), #32 (a11y audit: ARIA labels on sticky note delete, aria-expanded on column accordion, sr-only live region for timer); all added to project Backlog
+- Remaining: awaiting human feedback on #30–#32; #1 (favicon) still has research-more label
+- Next task: check issues for human feedback; if #30–#32 approved, implement #32 first (targeted a11y fixes, low scope); else continue research cycle
 
 ### 2026-06-09 — feat: session summary fields for Dashboard (#15, scrum-facilitator side)
 - Done: `types.ts` — added `totalSteps: number`, `currentStepId: string`, `participantCount: number`, `retroNotesCount: number` to `SessionState`; `CeremonyRunner.tsx` — session auto-save now computes and writes all four new fields alongside existing fields; BRIEF.md localStorage keys updated to document new shape

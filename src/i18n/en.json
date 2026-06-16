@@ -116,6 +116,10 @@
     "label": "Team / Label (optional)",
     "placeholder": "e.g. Team Alpha"
   },
+  "timebox": {
+    "customize": "Customize timing",
+    "resetDefaults": "Reset to defaults"
+  },
   "ceremonies": {
     "planning": {
       "name": "Sprint Planning",

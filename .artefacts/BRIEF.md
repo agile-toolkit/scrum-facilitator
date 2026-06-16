@@ -24,6 +24,7 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] Keyboard shortcuts — `Space` start/pause timer; `ArrowLeft`/`ArrowRight` prev/next step; `R` reset timer; `M` mute toggle; `useEffect` with `keydown` listener in CeremonyRunner; ref pattern to avoid stale closures; keyboard hint bar shown below navigation; `keyboard.*` i18n keys in all 4 locales
 - [x] Mobile/tablet responsiveness — `CountdownTimer` uses `viewBox` + `w-full max-w-[120px]` (scales on narrow viewports); `StickyColumn` accordion on mobile (`hidden md:flex` body, collapse/expand chevron); delete buttons always visible on mobile (`opacity-100 md:opacity-0 md:group-hover:opacity-100`); `ParticipantPanel` 44 × 44 px min tap targets; `CeremonyRunner` stacks timer above step title on mobile (`flex-col sm:flex-row`); keyboard hint hidden on mobile (`hidden sm:flex`)
 - [x] Named ceremony history — optional `teamName` text input on HomeScreen (persists to `scrum-facilitator-team-name` localStorage); recent team names shown as pill chips; history entries show `Team · Ceremony` format when team is set; resume banner shows team name; CeremonyRunner header shows team name; export Markdown title includes team name; all 4 locales (EN/ES/BE/RU)
+- [x] Configurable step durations — collapsible "Customize timing" panel per ceremony on HomeScreen; min+sec inputs for each step; overrides stored in `scrum-facilitator-timebox-overrides` localStorage key (`Record<CeremonyType, Record<stepId, seconds>>`); "Reset to defaults" button clears ceremony overrides; CeremonyRunner uses overrides for timer init, reset button, R keyboard shortcut, and duration badge; dot indicator on toggle when overrides active; all 4 locales (EN/ES/BE/RU)
 
 ## Backlog
 
@@ -40,7 +41,7 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] [#17] Research: Mobile/tablet responsiveness — implemented
 - [x] [#24] Feature: Named ceremony history — label sessions by team/sprint — implemented
 - [x] [#15] Integration: Dashboard card — session key enriched with summary fields; dashboard card in agile-toolkit.github.io pending
-- [ ] [#30] Feature: Configurable step durations — let facilitators adjust time boxes per ceremony
+- [x] [#30] Feature: Configurable step durations — let facilitators adjust time boxes per ceremony
 - [ ] [#31] Feature: Retro dot voting — upvote sticky notes to prioritise discussion and action items
 - [ ] [#32] Research: Accessibility audit — ARIA roles and keyboard navigation for retro board and sticky notes
 
@@ -53,6 +54,7 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 | `scrum-facilitator-retro-format` | `RetroFormat` string — selected retro format |
 | `scrum-facilitator-muted` | `'true'` or `'false'` — timer alert mute preference |
 | `scrum-facilitator-team-name` | string — last-used team/label name |
+| `scrum-facilitator-timebox-overrides` | `Record<CeremonyType, Record<stepId, seconds>>` — custom step durations per ceremony |
 | `sf_participants` | `Participant[]` — Daily Scrum participant list |
 | `theme` | `'dark'` or `'light'` — theme preference |
 
@@ -61,6 +63,11 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-06-16 — feat: configurable step durations (#30)
+- Done: `TimeboxOverrides` type in `types.ts`; `scrum-facilitator-timebox-overrides` localStorage key via `useLocalStorage` in `App.tsx`; collapsible "Customize timing" panel per ceremony in `HomeScreen.tsx` with min+sec inputs per step and "Reset to defaults" button; blue dot indicator on toggle when overrides active; `CeremonyRunner.tsx` uses overrides for `useTimer` init, step-change reset effect, R keyboard shortcut, reset button, and duration badge; `timebox.customize` + `timebox.resetDefaults` i18n keys in all 4 locales
+- Remaining: #31 (retro dot voting), #32 (a11y audit, not yet approved)
+- Next task: check issues for human feedback; implement #31 (retro dot voting — votes field on StickyNote, toggle vote button, sort-by-votes in StickyColumn header)
 
 ### 2026-06-13 — research: configurable durations, retro voting, a11y audit
 - Done: all approved issues (#4–#9, #15–#19, #24) confirmed implemented; created 3 new research issues — #30 (configurable step durations via localStorage overrides), #31 (retro dot voting with vote toggle and sort-by-votes), #32 (a11y audit: ARIA labels on sticky note delete, aria-expanded on column accordion, sr-only live region for timer); all added to project Backlog

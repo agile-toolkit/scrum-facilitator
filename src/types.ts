@@ -75,3 +75,6 @@ export type Screen =
   | 'retro'
   | 'complete'
   | 'export'
+
+// Record<ceremonyType, Record<stepId, durationSeconds>>
+export type TimeboxOverrides = Partial<Record<CeremonyType, Record<string, number>>>

@@ -45,6 +45,7 @@ interface Props {
   retroNotes: RetroNotes
   retroFormat: RetroFormat
   teamName?: string
+  timeboxOverrides?: Record<string, number>
   onRetroNotesChange: (n: RetroNotes) => void
   onComplete: (stepsCompleted: number, participants?: string[]) => void
   onBack: () => void
@@ -52,7 +53,7 @@ interface Props {
 }
 
 export default function CeremonyRunner({
-  ceremonyType, retroNotes, retroFormat, teamName, onRetroNotesChange, onComplete, onBack, resumeSession,
+  ceremonyType, retroNotes, retroFormat, teamName, timeboxOverrides = {}, onRetroNotesChange, onComplete, onBack, resumeSession,
 }: Props) {
   const { t } = useTranslation()
   const ceremony = getCeremony(ceremonyType)
@@ -67,8 +68,10 @@ export default function CeremonyRunner({
   isMutedRef.current = isMuted
 
   const currentStep = ceremony?.steps[stepIndex]
+  const stepDuration = (step: typeof currentStep) =>
+    step ? (timeboxOverrides[step.id] ?? step.duration) : 0
   const { timeRemaining, timerState, percentLeft, start, pause, reset } = useTimer(
-    currentStep?.duration ?? 0,
+    stepDuration(currentStep),
   )
 
   const prevTimerStateRef = useRef(timerState)
@@ -89,7 +92,7 @@ export default function CeremonyRunner({
   }
 
   useEffect(() => {
-    if (currentStep) reset(currentStep.duration)
+    if (currentStep) reset(stepDuration(currentStep))
   }, [stepIndex, currentStep?.id])
 
   // Auto-save session state on every meaningful change
@@ -133,8 +136,8 @@ export default function CeremonyRunner({
   }
 
   // Keep a ref to the latest handlers so the keyboard listener never captures stale closures
-  const shortcutsRef = useRef({ timerState, start, pause, reset, currentStep, goNext, goPrev, toggleMute })
-  shortcutsRef.current = { timerState, start, pause, reset, currentStep, goNext, goPrev, toggleMute }
+  const shortcutsRef = useRef({ timerState, start, pause, reset, currentStep, stepDuration, goNext, goPrev, toggleMute })
+  shortcutsRef.current = { timerState, start, pause, reset, currentStep, stepDuration, goNext, goPrev, toggleMute }
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -157,7 +160,7 @@ export default function CeremonyRunner({
           break
         case 'r':
         case 'R':
-          if (h.currentStep) h.reset(h.currentStep.duration)
+          if (h.currentStep) h.reset(h.stepDuration(h.currentStep))
           break
         case 'm':
         case 'M':
@@ -222,7 +225,7 @@ export default function CeremonyRunner({
           <div className="flex-1 text-center sm:text-left">
             <h3 className="text-xl font-bold text-gray-900 dark:text-gray-50">{t(currentStep.titleKey)}</h3>
             <span className="inline-block mt-1 text-xs font-medium bg-brand-50 dark:bg-brand-700/20 text-brand-600 dark:text-brand-400 px-2 py-0.5 rounded-full">
-              {formatDuration(currentStep.duration)}
+              {formatDuration(stepDuration(currentStep))}
             </span>
           </div>
         </div>
@@ -242,7 +245,7 @@ export default function CeremonyRunner({
             <span className="text-sm font-medium text-red-500 flex items-center gap-1">⏰ {t('ceremony.timeUp')}</span>
           )}
           <button
-            onClick={() => reset(currentStep.duration)}
+            onClick={() => reset(stepDuration(currentStep))}
             className="btn-ghost"
             aria-label={t('ceremony.reset')}
           >

@@ -116,6 +116,10 @@
     "label": "Equipo / Etiqueta (opcional)",
     "placeholder": "p. ej. Equipo Alfa"
   },
+  "timebox": {
+    "customize": "Personalizar tiempos",
+    "resetDefaults": "Restablecer valores por defecto"
+  },
   "ceremonies": {
     "planning": {
       "name": "Planificación del Sprint",

@@ -1,7 +1,8 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CEREMONIES } from '../data/ceremonies'
 import { RETRO_FORMATS } from '../data/retroFormats'
-import type { CeremonyType, RetroFormat, SessionState, HistoryEntry } from '../types'
+import type { CeremonyType, RetroFormat, SessionState, HistoryEntry, TimeboxOverrides } from '../types'
 import CeremonyCard from './CeremonyCard'
 
 function timeAgo(ts: number): string {
@@ -23,14 +24,35 @@ interface Props {
   onDiscard: () => void
   history: HistoryEntry[]
   onViewHistory: (entry: HistoryEntry) => void
+  timeboxOverrides: TimeboxOverrides
+  onTimeboxOverridesChange: (overrides: TimeboxOverrides) => void
 }
 
 export default function HomeScreen({
   onSelect, retroFormat, onRetroFormatChange,
   teamName, onTeamNameChange, recentTeamNames,
   session, onResume, onDiscard, history, onViewHistory,
+  timeboxOverrides, onTimeboxOverridesChange,
 }: Props) {
   const { t } = useTranslation()
+  const [openTimebox, setOpenTimebox] = useState<CeremonyType | null>(null)
+
+  const setStepOverride = (type: CeremonyType, stepId: string, seconds: number) => {
+    const ceremonyOverrides = { ...(timeboxOverrides[type] ?? {}) }
+    ceremonyOverrides[stepId] = Math.max(0, seconds)
+    onTimeboxOverridesChange({ ...timeboxOverrides, [type]: ceremonyOverrides })
+  }
+
+  const resetCeremonyOverrides = (type: CeremonyType) => {
+    const next = { ...timeboxOverrides }
+    delete next[type]
+    onTimeboxOverridesChange(next)
+  }
+
+  const hasOverrides = (type: CeremonyType) => {
+    const o = timeboxOverrides[type]
+    return o != null && Object.keys(o).length > 0
+  }
 
   const ceremonyName = (type: CeremonyType) => {
     const c = CEREMONIES.find(x => x.type === type)
@@ -121,6 +143,64 @@ export default function HomeScreen({
                 </div>
               </div>
             )}
+            {/* Timebox editor */}
+            <div className="px-3 py-2 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 flex flex-col gap-1.5">
+              <button
+                onClick={() => setOpenTimebox(openTimebox === ceremony.type ? null : ceremony.type)}
+                className="flex items-center gap-1.5 text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              >
+                <span>⏱</span>
+                <span>{t('timebox.customize')}</span>
+                {hasOverrides(ceremony.type) && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-500 flex-shrink-0" />
+                )}
+                <span className="ml-auto">{openTimebox === ceremony.type ? '▲' : '▼'}</span>
+              </button>
+              {openTimebox === ceremony.type && (
+                <div className="flex flex-col gap-2 pt-1">
+                  {ceremony.steps.map(step => {
+                    const effective = timeboxOverrides[ceremony.type]?.[step.id] ?? step.duration
+                    const mins = Math.floor(effective / 60)
+                    const secs = effective % 60
+                    return (
+                      <div key={step.id} className="flex items-center gap-2">
+                        <span className="text-xs text-gray-600 dark:text-gray-300 flex-1 min-w-0 truncate">
+                          {t(step.titleKey)}
+                        </span>
+                        <input
+                          type="number"
+                          min="0"
+                          max="999"
+                          value={mins}
+                          onChange={e => setStepOverride(ceremony.type, step.id, +e.target.value * 60 + secs)}
+                          className="w-12 text-center px-1 py-0.5 rounded border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 text-xs focus:outline-none focus:ring-1 focus:ring-brand-400"
+                          aria-label={`${t(step.titleKey)} minutes`}
+                        />
+                        <span className="text-xs text-gray-400">m</span>
+                        <input
+                          type="number"
+                          min="0"
+                          max="59"
+                          value={secs}
+                          onChange={e => setStepOverride(ceremony.type, step.id, mins * 60 + Math.min(59, +e.target.value))}
+                          className="w-12 text-center px-1 py-0.5 rounded border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 text-xs focus:outline-none focus:ring-1 focus:ring-brand-400"
+                          aria-label={`${t(step.titleKey)} seconds`}
+                        />
+                        <span className="text-xs text-gray-400">s</span>
+                      </div>
+                    )
+                  })}
+                  {hasOverrides(ceremony.type) && (
+                    <button
+                      onClick={() => resetCeremonyOverrides(ceremony.type)}
+                      className="self-start text-xs text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+                    >
+                      {t('timebox.resetDefaults')}
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         ))}
       </div>

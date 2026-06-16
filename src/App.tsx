@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { Screen, CeremonyType, ExportData, RetroNotes, RetroFormat, SessionState, HistoryEntry } from './types'
+import type { Screen, CeremonyType, ExportData, RetroNotes, RetroFormat, SessionState, HistoryEntry, TimeboxOverrides } from './types'
 import { CEREMONIES } from './data/ceremonies'
 import { getRetroFormat, emptyNotes } from './data/retroFormats'
 import { useLocalStorage } from './hooks/useLocalStorage'
@@ -15,6 +15,7 @@ import ThemeToggle from './components/ThemeToggle'
 const SESSION_KEY = 'scrum-facilitator-session'
 const HISTORY_KEY = 'scrum-facilitator-history'
 const TEAM_NAME_KEY = 'scrum-facilitator-team-name'
+const TIMEBOX_KEY = 'scrum-facilitator-timebox-overrides'
 
 interface AppState {
   screen: Screen
@@ -40,6 +41,7 @@ export default function App() {
   const [history, setHistory] = useLocalStorage<HistoryEntry[]>(HISTORY_KEY, [])
   const [retroFormat, setRetroFormat] = useLocalStorage<RetroFormat>('scrum-facilitator-retro-format', 'classic')
   const [teamName, setTeamName] = useLocalStorage<string>(TEAM_NAME_KEY, '')
+  const [timeboxOverrides, setTimeboxOverrides] = useLocalStorage<TimeboxOverrides>(TIMEBOX_KEY, {})
   const [dismissedResume, setDismissedResume] = useState(false)
 
   const [appState, setAppState] = useState<AppState>({
@@ -134,6 +136,8 @@ export default function App() {
             onDiscard={discardSession}
             history={history}
             onViewHistory={viewHistoryEntry}
+            timeboxOverrides={timeboxOverrides}
+            onTimeboxOverridesChange={setTimeboxOverrides}
           />
         )}
         {appState.screen === 'ceremony' && appState.ceremonyType && (
@@ -146,6 +150,7 @@ export default function App() {
             onComplete={completeCeremony}
             onBack={goHome}
             resumeSession={appState.resumeSession}
+            timeboxOverrides={timeboxOverrides[appState.ceremonyType] ?? {}}
           />
         )}
         {appState.screen === 'retro' && (

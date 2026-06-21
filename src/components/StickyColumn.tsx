@@ -12,15 +12,17 @@ interface Props {
   onAdd: (column: RetroColumn, text: string) => void
   onEdit: (column: RetroColumn, id: string, text: string) => void
   onDelete: (column: RetroColumn, id: string) => void
+  onVote: (column: RetroColumn, id: string, delta: number) => void
 }
 
 export default function StickyColumn({
   column, notes, labelKey, colorClass, headerColor,
-  onAdd, onEdit, onDelete,
+  onAdd, onEdit, onDelete, onVote,
 }: Props) {
   const { t } = useTranslation()
   const [draft, setDraft] = useState('')
   const [open, setOpen] = useState(false)
+  const [sortByVotes, setSortByVotes] = useState(false)
 
   const submit = () => {
     const trimmed = draft.trim()
@@ -29,33 +31,56 @@ export default function StickyColumn({
     setDraft('')
   }
 
+  const displayNotes = sortByVotes
+    ? [...notes].sort((a, b) => (b.votes ?? 0) - (a.votes ?? 0))
+    : notes
+
+  const totalVotes = notes.reduce((sum, n) => sum + (n.votes ?? 0), 0)
+
   return (
     <div className="flex flex-col gap-3 min-w-0">
-      {/* Header — tappable on mobile to collapse/expand; non-interactive on md+ */}
-      <button
-        type="button"
-        onClick={() => setOpen(o => !o)}
-        className={`flex items-center gap-2 px-3 py-2 rounded-xl w-full text-left ${headerColor}`}
-        aria-expanded={open}
-      >
-        <span className="font-semibold text-sm flex-1">{t(labelKey)}</span>
-        <span className="text-xs font-medium opacity-70 bg-white bg-opacity-50 rounded-full px-2 py-0.5">
-          {notes.length}
-        </span>
-        {/* Caret visible only on mobile */}
-        <span className="md:hidden text-xs opacity-60 ml-1">{open ? '▲' : '▼'}</span>
-      </button>
+      {/* Header */}
+      <div className={`flex items-center gap-2 px-3 py-2 rounded-xl w-full ${headerColor}`}>
+        <button
+          type="button"
+          onClick={() => setOpen(o => !o)}
+          className="flex items-center gap-2 flex-1 text-left"
+          aria-expanded={open}
+        >
+          <span className="font-semibold text-sm flex-1">{t(labelKey)}</span>
+          <span className="text-xs font-medium opacity-70 bg-white bg-opacity-50 rounded-full px-2 py-0.5">
+            {notes.length}
+          </span>
+          <span className="md:hidden text-xs opacity-60 ml-1">{open ? '▲' : '▼'}</span>
+        </button>
 
-      {/* Body — hidden on mobile when closed, always visible on md+ */}
+        {/* Sort by votes toggle */}
+        <button
+          type="button"
+          onClick={() => setSortByVotes(v => !v)}
+          title={t('retro.sortByVotes')}
+          aria-pressed={sortByVotes}
+          className={`text-xs px-1.5 py-0.5 rounded-full border transition-colors ${
+            sortByVotes
+              ? 'bg-brand-500 text-white border-brand-500'
+              : 'bg-white bg-opacity-50 text-gray-600 border-gray-300 hover:border-brand-400'
+          }`}
+        >
+          {totalVotes > 0 ? `👍 ${totalVotes}` : '👍'}
+        </button>
+      </div>
+
+      {/* Body */}
       <div className={`flex-col gap-2 flex-1 ${open ? 'flex' : 'hidden md:flex'}`}>
         <div className="flex flex-col gap-2 flex-1">
-          {notes.map(note => (
+          {displayNotes.map(note => (
             <StickyNote
               key={note.id}
               note={note}
               colorClass={colorClass}
               onEdit={(id, text) => onEdit(column, id, text)}
               onDelete={id => onDelete(column, id)}
+              onVote={(id, delta) => onVote(column, id, delta)}
             />
           ))}
         </div>

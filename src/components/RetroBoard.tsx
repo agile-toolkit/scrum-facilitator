@@ -37,6 +37,15 @@ export default function RetroBoard({ notes, format, onChange, onFormatChange, on
     update({ ...notes, [column]: (notes[column] ?? []).filter(n => n.id !== id) })
   }
 
+  const voteNote = (column: RetroColumn, id: string, delta: number) => {
+    update({
+      ...notes,
+      [column]: (notes[column] ?? []).map(n =>
+        n.id === id ? { ...n, votes: Math.max(0, (n.votes ?? 0) + delta) } : n
+      ),
+    })
+  }
+
   return (
     <div className="flex flex-col gap-4">
       {!embedded && (
@@ -93,6 +102,7 @@ export default function RetroBoard({ notes, format, onChange, onFormatChange, on
             onAdd={addNote}
             onEdit={editNote}
             onDelete={deleteNote}
+            onVote={voteNote}
           />
         ))}
       </div>

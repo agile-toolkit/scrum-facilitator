@@ -43,6 +43,9 @@
     "save": "Save",
     "cancel": "Cancel",
     "deleteConfirm": "Delete this note?",
+    "vote": "Vote",
+    "unvote": "Remove vote",
+    "sortByVotes": "Sort by votes",
     "formatLabel": "Retro format",
     "format": {
       "classic": "Classic",

@@ -25,6 +25,7 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] Mobile/tablet responsiveness — `CountdownTimer` uses `viewBox` + `w-full max-w-[120px]` (scales on narrow viewports); `StickyColumn` accordion on mobile (`hidden md:flex` body, collapse/expand chevron); delete buttons always visible on mobile (`opacity-100 md:opacity-0 md:group-hover:opacity-100`); `ParticipantPanel` 44 × 44 px min tap targets; `CeremonyRunner` stacks timer above step title on mobile (`flex-col sm:flex-row`); keyboard hint hidden on mobile (`hidden sm:flex`)
 - [x] Named ceremony history — optional `teamName` text input on HomeScreen (persists to `scrum-facilitator-team-name` localStorage); recent team names shown as pill chips; history entries show `Team · Ceremony` format when team is set; resume banner shows team name; CeremonyRunner header shows team name; export Markdown title includes team name; all 4 locales (EN/ES/BE/RU)
 - [x] Configurable step durations — collapsible "Customize timing" panel per ceremony on HomeScreen; min+sec inputs for each step; overrides stored in `scrum-facilitator-timebox-overrides` localStorage key (`Record<CeremonyType, Record<stepId, seconds>>`); "Reset to defaults" button clears ceremony overrides; CeremonyRunner uses overrides for timer init, reset button, R keyboard shortcut, and duration badge; dot indicator on toggle when overrides active; all 4 locales (EN/ES/BE/RU)
+- [x] Retro dot voting — `votes?: number` on `StickyNote` type; 👍 vote button on each `StickyNote.tsx` showing count (increment on click); `−` decrement button visible when votes > 0; per-column sort-by-votes toggle (👍 badge in `StickyColumn.tsx` header) sorts notes descending; votes persisted naturally in `scrum-facilitator-session` localStorage via `retroNotes`; `retro.vote`, `retro.unvote`, `retro.sortByVotes` i18n keys in all 4 locales
 
 ## Backlog
 
@@ -42,7 +43,7 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] [#24] Feature: Named ceremony history — label sessions by team/sprint — implemented
 - [x] [#15] Integration: Dashboard card — session key enriched with summary fields; dashboard card in agile-toolkit.github.io pending
 - [x] [#30] Feature: Configurable step durations — let facilitators adjust time boxes per ceremony
-- [ ] [#31] Feature: Retro dot voting — upvote sticky notes to prioritise discussion and action items
+- [x] [#31] Feature: Retro dot voting — upvote sticky notes to prioritise discussion and action items
 - [ ] [#32] Research: Accessibility audit — ARIA roles and keyboard navigation for retro board and sticky notes
 
 ## localStorage keys
@@ -63,6 +64,11 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-06-21 — feat: retro dot voting (#31)
+- Done: `votes?: number` added to `StickyNote` in `types.ts`; 👍 vote button on `StickyNote.tsx` increments count, `−` decrement button appears when votes > 0; per-column sort-by-votes toggle (👍 badge) in `StickyColumn.tsx` header sorts notes descending by vote count; `voteNote` handler in `RetroBoard.tsx` updates vote count with `Math.max(0, ...)` guard; `retro.vote`, `retro.unvote`, `retro.sortByVotes` i18n keys in all 4 locales (EN/ES/BE/RU); votes persist naturally via existing `retroNotes` in `scrum-facilitator-session` localStorage
+- Remaining: #32 (a11y audit, needs-review — not yet approved)
+- Next task: check issues for human feedback; research cycle for next improvements; #32 awaits approval
 
 ### 2026-06-16 — feat: configurable step durations (#30)
 - Done: `TimeboxOverrides` type in `types.ts`; `scrum-facilitator-timebox-overrides` localStorage key via `useLocalStorage` in `App.tsx`; collapsible "Customize timing" panel per ceremony in `HomeScreen.tsx` with min+sec inputs per step and "Reset to defaults" button; blue dot indicator on toggle when overrides active; `CeremonyRunner.tsx` uses overrides for `useTimer` init, step-change reset effect, R keyboard shortcut, reset button, and duration badge; `timebox.customize` + `timebox.resetDefaults` i18n keys in all 4 locales

@@ -31,6 +31,7 @@ export interface StickyNote {
   id: string
   text: string
   createdAt: number
+  votes?: number
 }
 
 export type RetroColumn = string

@@ -43,6 +43,9 @@
     "save": "Guardar",
     "cancel": "Cancelar",
     "deleteConfirm": "¿Eliminar esta nota?",
+    "vote": "Votar",
+    "unvote": "Quitar voto",
+    "sortByVotes": "Ordenar por votos",
     "formatLabel": "Formato de retro",
     "format": {
       "classic": "Clásico",

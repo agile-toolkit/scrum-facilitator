@@ -44,7 +44,7 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] [#15] Integration: Dashboard card — session key enriched with summary fields; dashboard card in agile-toolkit.github.io pending
 - [x] [#30] Feature: Configurable step durations — let facilitators adjust time boxes per ceremony
 - [x] [#31] Feature: Retro dot voting — upvote sticky notes to prioritise discussion and action items
-- [ ] [#32] Research: Accessibility audit — ARIA roles and keyboard navigation for retro board and sticky notes
+- [ ] [#32] Research: Accessibility audit — ARIA roles and keyboard navigation for retro board and sticky notes (**approved, implement next**)
 
 ## localStorage keys
 
@@ -64,6 +64,11 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-06-23 — research: auto-approved a11y audit (#32); round 5 update on favicon (#1)
+- Done: auto-approved #32 (accessibility audit, 10 days with `needs-review` — Research issue, ≥7 days threshold met); added `approved` label + auto-approval comment with reasoning; updated BRIEF backlog; added round 5 comment to #1 (research-more) confirming all four research questions resolved, implementation spec final (2 file changes: `public/favicon.svg` + `tailwind.config.js` 9-shade indigo scale), awaiting `approved` label
+- Remaining: #1 (favicon + brand rebrand — waiting for human approval with `research-more` label); #32 approved and ready to implement
+- Next task: implement #32 (a11y audit — 5 targeted ARIA fixes: `aria-label` on `StickyNote.tsx` delete button `t('retro.deleteNote')`; `aria-expanded`+`aria-controls` on `StickyColumn.tsx` accordion toggle; `aria-label` on retro `<textarea>` inputs; `aria-pressed` on `ParticipantPanel.tsx` status buttons; `aria-live="polite"` sr-only span in `CountdownTimer.tsx` announcing time at 30-second marks; add `retro.deleteNote`, `retro.addNoteLabel`, `timer.announceTime` i18n keys to all 4 locales)
 
 ### 2026-06-21 — feat: retro dot voting (#31)
 - Done: `votes?: number` added to `StickyNote` in `types.ts`; 👍 vote button on `StickyNote.tsx` increments count, `−` decrement button appears when votes > 0; per-column sort-by-votes toggle (👍 badge) in `StickyColumn.tsx` header sorts notes descending by vote count; `voteNote` handler in `RetroBoard.tsx` updates vote count with `Math.max(0, ...)` guard; `retro.vote`, `retro.unvote`, `retro.sortByVotes` i18n keys in all 4 locales (EN/ES/BE/RU); votes persist naturally via existing `retroNotes` in `scrum-facilitator-session` localStorage

@@ -98,7 +98,7 @@ export default function StickyNote({ note, colorClass, onEdit, onDelete, onVote 
           if (window.confirm(t('retro.deleteConfirm'))) onDelete(note.id)
         }}
         className="absolute top-2 right-2 min-w-[28px] min-h-[28px] flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 text-gray-400 hover:text-red-500 transition-all text-sm"
-        aria-label={t('common.delete')}
+        aria-label={t('retro.deleteNote')}
       >
         ×
       </button>

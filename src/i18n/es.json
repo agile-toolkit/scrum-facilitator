@@ -67,7 +67,9 @@
       "wind": "Viento",
       "anchor": "Ancla",
       "rocks": "Rocas"
-    }
+    },
+    "deleteNote": "Eliminar nota",
+    "addNoteLabel": "Agregar nota a {{column}}"
   },
   "complete": {
     "title": "¡Ceremonia completada!",
@@ -240,5 +242,8 @@
         "Revisa primero las acciones del Sprint anterior: ¿ayudaron? La responsabilidad impulsa el cambio."
       ]
     }
+  },
+  "timer": {
+    "announceTime": "{{time}} restante"
   }
 }

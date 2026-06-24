@@ -44,7 +44,7 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] [#15] Integration: Dashboard card — session key enriched with summary fields; dashboard card in agile-toolkit.github.io pending
 - [x] [#30] Feature: Configurable step durations — let facilitators adjust time boxes per ceremony
 - [x] [#31] Feature: Retro dot voting — upvote sticky notes to prioritise discussion and action items
-- [ ] [#32] Research: Accessibility audit — ARIA roles and keyboard navigation for retro board and sticky notes (**approved, implement next**)
+- [x] [#32] Research: Accessibility audit — ARIA roles and keyboard navigation for retro board and sticky notes
 
 ## localStorage keys
 
@@ -64,6 +64,11 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-06-24 — feat: accessibility audit ARIA fixes (#32)
+- Done: 5 targeted a11y improvements — `retro.deleteNote` aria-label on `StickyNote.tsx` delete button; `aria-controls` on `StickyColumn.tsx` accordion toggle pointing to `retro-notes-{column}` id; `retro.addNoteLabel` aria-label on add input in `StickyColumn.tsx`; `aria-pressed={p.status === 'speaking'}` on participant rows in `ParticipantPanel.tsx`; `aria-live="polite"` sr-only span in `CountdownTimer.tsx` announcing time at 30-second marks; `retro.deleteNote`, `retro.addNoteLabel`, `timer.announceTime` i18n keys added to EN/ES/BE/RU
+- Remaining: #1 (favicon + brand rebrand — waiting for `approved` label with `research-more`)
+- Next task: check issues for human feedback; research cycle if no approved items
 
 ### 2026-06-23 — research: auto-approved a11y audit (#32); round 5 update on favicon (#1)
 - Done: auto-approved #32 (accessibility audit, 10 days with `needs-review` — Research issue, ≥7 days threshold met); added `approved` label + auto-approval comment with reasoning; updated BRIEF backlog; added round 5 comment to #1 (research-more) confirming all four research questions resolved, implementation spec final (2 file changes: `public/favicon.svg` + `tailwind.config.js` 9-shade indigo scale), awaiting `approved` label

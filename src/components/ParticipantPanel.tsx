@@ -88,6 +88,7 @@ export default function ParticipantPanel({ participants, onChange }: Props) {
               tabIndex={0}
               onKeyDown={e => e.key === 'Enter' && advanceStatus(p.id)}
               aria-label={`${p.name} — ${t(`daily.status.${p.status}`)}`}
+              aria-pressed={p.status === 'speaking'}
             >
               <div className="w-9 h-9 rounded-full bg-current bg-opacity-10 flex items-center justify-center text-sm font-bold flex-shrink-0">
                 {p.status === 'done' ? '✓' : p.name[0]?.toUpperCase()}

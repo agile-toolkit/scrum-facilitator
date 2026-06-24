@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { formatTime } from '../hooks/useTimer'
 import type { TimerState } from '../hooks/useTimer'
 
@@ -13,6 +14,7 @@ const R = (SIZE - STROKE) / 2
 const CIRC = 2 * Math.PI * R
 
 export default function CountdownTimer({ timeRemaining, percentLeft, timerState }: Props) {
+  const { t } = useTranslation()
   const dashOffset = CIRC * (1 - percentLeft / 100)
   const isLow = percentLeft < 20 && timerState !== 'idle'
   const isDone = timerState === 'done'
@@ -23,8 +25,13 @@ export default function CountdownTimer({ timeRemaining, percentLeft, timerState 
     ? 'text-red-400'
     : 'text-brand-500'
 
+  const shouldAnnounce = timerState === 'running' && timeRemaining > 0 && timeRemaining % 30 === 0
+
   return (
     <div className="flex flex-col items-center gap-1">
+      <span className="sr-only" aria-live="polite">
+        {shouldAnnounce ? t('timer.announceTime', { time: formatTime(timeRemaining) }) : ''}
+      </span>
       <div className={`relative w-full max-w-[120px]${isDone ? ' animate-pulse' : ''}`}>
         <svg
           viewBox={`0 0 ${SIZE} ${SIZE}`}

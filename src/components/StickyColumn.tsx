@@ -46,6 +46,7 @@ export default function StickyColumn({
           onClick={() => setOpen(o => !o)}
           className="flex items-center gap-2 flex-1 text-left"
           aria-expanded={open}
+          aria-controls={`retro-notes-${column}`}
         >
           <span className="font-semibold text-sm flex-1">{t(labelKey)}</span>
           <span className="text-xs font-medium opacity-70 bg-white bg-opacity-50 rounded-full px-2 py-0.5">
@@ -71,7 +72,7 @@ export default function StickyColumn({
       </div>
 
       {/* Body */}
-      <div className={`flex-col gap-2 flex-1 ${open ? 'flex' : 'hidden md:flex'}`}>
+      <div id={`retro-notes-${column}`} className={`flex-col gap-2 flex-1 ${open ? 'flex' : 'hidden md:flex'}`}>
         <div className="flex flex-col gap-2 flex-1">
           {displayNotes.map(note => (
             <StickyNote
@@ -91,6 +92,7 @@ export default function StickyColumn({
             onChange={e => setDraft(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && submit()}
             placeholder={t('retro.addPlaceholder')}
+            aria-label={t('retro.addNoteLabel', { column: t(labelKey) })}
             className="flex-1 border border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400"
           />
           <button onClick={submit} disabled={!draft.trim()} className="btn-primary text-sm py-2 px-3 min-w-[44px] min-h-[44px]">

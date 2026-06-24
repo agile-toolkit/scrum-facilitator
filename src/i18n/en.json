@@ -43,6 +43,8 @@
     "save": "Save",
     "cancel": "Cancel",
     "deleteConfirm": "Delete this note?",
+    "deleteNote": "Delete note",
+    "addNoteLabel": "Add note to {{column}}",
     "vote": "Vote",
     "unvote": "Remove vote",
     "sortByVotes": "Sort by votes",
@@ -99,6 +101,9 @@
     "es": "Español",
     "be": "Беларуская",
     "ru": "Русский"
+  },
+  "timer": {
+    "announceTime": "{{time}} remaining"
   },
   "keyboard": {
     "space": "Start / Pause",

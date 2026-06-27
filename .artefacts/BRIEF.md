@@ -45,6 +45,9 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] [#30] Feature: Configurable step durations — let facilitators adjust time boxes per ceremony
 - [x] [#31] Feature: Retro dot voting — upvote sticky notes to prioritise discussion and action items
 - [x] [#32] Research: Accessibility audit — ARIA roles and keyboard navigation for retro board and sticky notes
+- [ ] [#36] Feature: Sprint Goal capture in Sprint Planning ceremony
+- [ ] [#37] Feature: Retro action item ownership — assign owners from participant list
+- [ ] [#38] Integration: Impediment log in Daily Scrum → link to Improvement Board
 
 ## localStorage keys
 
@@ -64,6 +67,11 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-06-27 — research: Sprint Goal, retro action ownership, impediment log
+- Done: checked human feedback — all `approved` issues (#4–#32) already implemented; #1 (favicon) has `research-more` with 5 rounds of research complete, spec finalized, awaiting `approved` label; created 3 new research issues: #36 (Sprint Goal capture in Sprint Planning), #37 (retro action item ownership with participant owner assignment), #38 (impediment log in Daily Scrum with Improvement Board link)
+- Remaining: #1 (favicon — awaiting `approved`)
+- Next task: check issues for human feedback; if #36, #37, or #38 approved, implement first approved; else research cycle
 
 ### 2026-06-24 — feat: accessibility audit ARIA fixes (#32)
 - Done: 5 targeted a11y improvements — `retro.deleteNote` aria-label on `StickyNote.tsx` delete button; `aria-controls` on `StickyColumn.tsx` accordion toggle pointing to `retro-notes-{column}` id; `retro.addNoteLabel` aria-label on add input in `StickyColumn.tsx`; `aria-pressed={p.status === 'speaking'}` on participant rows in `ParticipantPanel.tsx`; `aria-live="polite"` sr-only span in `CountdownTimer.tsx` announcing time at 30-second marks; `retro.deleteNote`, `retro.addNoteLabel`, `timer.announceTime` i18n keys added to EN/ES/BE/RU

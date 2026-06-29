@@ -48,6 +48,9 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [ ] [#36] Feature: Sprint Goal capture in Sprint Planning ceremony
 - [ ] [#37] Feature: Retro action item ownership — assign owners from participant list
 - [ ] [#38] Integration: Impediment log in Daily Scrum → link to Improvement Board
+- [ ] [#39] Feature: Sprint Review demo checklist — track items to demo during review-2
+- [ ] [#40] Feature: Ceremony time efficiency stats — planned vs actual per step, shown post-ceremony
+- [ ] [#41] Feature: Stakeholder feedback panel for Sprint Review
 
 ## localStorage keys
 
@@ -67,6 +70,11 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-06-29 — research: Sprint Review demo checklist, time efficiency stats, stakeholder feedback
+- Done: checked human feedback — all approved issues (#4–#32) already implemented; #1 (favicon + brand rebrand) still has `research-more` label with complete 5-round spec, awaiting `approved`; #36/#37/#38 (needs-review, 2 days old) not yet at auto-approve threshold; created 3 new research issues: #39 (Sprint Review demo checklist during review-2 step), #40 (ceremony time efficiency stats — planned vs. actual per step), #41 (stakeholder feedback panel for Sprint Review with participant roles and feedback type categories)
+- Remaining: #1 (favicon — awaiting `approved`); #36–38 reach 7-day auto-approve 2026-07-04
+- Next task: check issues for human feedback; if any of #36 (Sprint Goal), #37 (retro action ownership), #38 (impediment log), #39 (demo checklist), #40 (time stats), #41 (stakeholder feedback) approved, implement first approved; auto-approve #36–#38 on 2026-07-04 if still needs-review
 
 ### 2026-06-27 — research: Sprint Goal, retro action ownership, impediment log
 - Done: checked human feedback — all `approved` issues (#4–#32) already implemented; #1 (favicon) has `research-more` with 5 rounds of research complete, spec finalized, awaiting `approved` label; created 3 new research issues: #36 (Sprint Goal capture in Sprint Planning), #37 (retro action item ownership with participant owner assignment), #38 (impediment log in Daily Scrum with Improvement Board link)

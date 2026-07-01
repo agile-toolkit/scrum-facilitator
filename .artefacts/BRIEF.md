@@ -51,6 +51,9 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [ ] [#39] Feature: Sprint Review demo checklist — track items to demo during review-2
 - [ ] [#40] Feature: Ceremony time efficiency stats — planned vs actual per step, shown post-ceremony
 - [ ] [#41] Feature: Stakeholder feedback panel for Sprint Review
+- [ ] [#42] Feature: Additional retro formats — Starfish (5-col Stop/Less/Keep/More/Start), DAKI (4-col Drop/Add/Keep/Improve), SSC (3-col Start/Stop/Continue); add entries to `retroFormats.ts` + i18n keys
+- [ ] [#43] Feature: Sticky note drag-to-reorder within retro column — HTML5 drag events in `StickyNote.tsx` + `StickyColumn.tsx` + `RetroBoard.tsx`; independent of vote sort
+- [ ] [#44] Integration: Team Identity → Scrum Facilitator participant import — read `team-identity-charter.members[]` from localStorage to suggest Daily Scrum participant names in `ParticipantPanel.tsx` when `sf_participants` is empty
 
 ## localStorage keys
 
@@ -70,6 +73,11 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-07-01 — research: additional retro formats, sticky note reorder, Team Identity participant import
+- Done: checked human feedback — no `approved`/`incomplete` issues; #36/#37/#38 not yet at 7-day auto-approve threshold (2026-07-04); #39/#40/#41 created 2026-06-29 (threshold 2026-07-06); #1 (favicon, `research-more`) received round 6 verification comment confirming both `scrum-facilitator` and `moving-motivators` favicons still corrupted (6B), spec unchanged, no new evidence; created 3 new research issues: #42 (retro formats Starfish/DAKI/SSC — extends `retroFormats.ts`), #43 (sticky note drag-to-reorder within column — HTML5 drag in `StickyNote.tsx`/`StickyColumn.tsx`/`RetroBoard.tsx`), #44 (Team Identity participant import — read `team-identity-charter.members[]` for Daily Scrum pre-fill)
+- Remaining: #36–#38 reach 7-day auto-approve 2026-07-04; #39–#41 reach threshold 2026-07-06; #1 awaits `approved`; #42–#44 await review
+- Next task: check issues for human feedback; auto-approve #36 (Sprint Goal), #37 (retro action ownership), #38 (impediment log) on 2026-07-04 if still needs-review and implement first; #39–#41 threshold 2026-07-06; #1 (favicon) awaiting `approved`
 
 ### 2026-06-29 — research: Sprint Review demo checklist, time efficiency stats, stakeholder feedback
 - Done: checked human feedback — all approved issues (#4–#32) already implemented; #1 (favicon + brand rebrand) still has `research-more` label with complete 5-round spec, awaiting `approved`; #36/#37/#38 (needs-review, 2 days old) not yet at auto-approve threshold; created 3 new research issues: #39 (Sprint Review demo checklist during review-2 step), #40 (ceremony time efficiency stats — planned vs. actual per step), #41 (stakeholder feedback panel for Sprint Review with participant roles and feedback type categories)

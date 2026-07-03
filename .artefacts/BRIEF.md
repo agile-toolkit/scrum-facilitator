@@ -54,6 +54,9 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [ ] [#42] Feature: Additional retro formats — Starfish (5-col Stop/Less/Keep/More/Start), DAKI (4-col Drop/Add/Keep/Improve), SSC (3-col Start/Stop/Continue); add entries to `retroFormats.ts` + i18n keys
 - [ ] [#43] Feature: Sticky note drag-to-reorder within retro column — HTML5 drag events in `StickyNote.tsx` + `StickyColumn.tsx` + `RetroBoard.tsx`; independent of vote sort
 - [ ] [#44] Integration: Team Identity → Scrum Facilitator participant import — read `team-identity-charter.members[]` from localStorage to suggest Daily Scrum participant names in `ParticipantPanel.tsx` when `sf_participants` is empty
+- [ ] [#45] Research: No automated test coverage — add Vitest + React Testing Library, starting with `useTimer`/`useLocalStorage`/`RetroBoard` CRUD
+- [ ] [#46] Accessibility: Timer-done `animate-pulse` ignores `prefers-reduced-motion` (WCAG 2.3.3 gap) — one-line `motion-safe:` fix in `CountdownTimer.tsx`
+- [ ] [#47] UX: Sticky note delete uses native `window.confirm()` — replace with inline two-step confirm consistent with app's custom UI
 
 ## localStorage keys
 
@@ -73,6 +76,11 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-07-03 — research: test coverage, reduced-motion a11y gap, delete-confirm UX
+- Done: checked human feedback — all `approved` issues (#4–#32) confirmed already implemented, awaiting human `Done` close; #1 (favicon, `research-more`) re-reviewed against rounds 5/6 — no new evidence since 2026-07-01, spec unchanged and final, skipped adding a redundant round-7 comment; #36–#38 (7-day threshold 2026-07-04), #39–#41 (2026-07-06), #42–#44 (2026-07-08) none yet stale; created 3 new research issues: #45 (zero test coverage — Vitest + RTL, starting with useTimer/useLocalStorage/RetroBoard), #46 (CountdownTimer `animate-pulse` ignores `prefers-reduced-motion`, WCAG 2.3.3 gap missed by #32's ARIA-only audit), #47 (StickyNote delete uses native `window.confirm()`, only native dialog in the app, breaks dark theme)
+- Remaining: #1 awaits `approved`; #36–#47 await review/threshold
+- Next task: check issues for human feedback; auto-approve #36/#37/#38 on 2026-07-04 if still needs-review and implement first approved; #39–#41 threshold 2026-07-06; #42–#44 threshold 2026-07-08; #45–#47 created this run, await review; else research cycle
 
 ### 2026-07-01 — research: additional retro formats, sticky note reorder, Team Identity participant import
 - Done: checked human feedback — no `approved`/`incomplete` issues; #36/#37/#38 not yet at 7-day auto-approve threshold (2026-07-04); #39/#40/#41 created 2026-06-29 (threshold 2026-07-06); #1 (favicon, `research-more`) received round 6 verification comment confirming both `scrum-facilitator` and `moving-motivators` favicons still corrupted (6B), spec unchanged, no new evidence; created 3 new research issues: #42 (retro formats Starfish/DAKI/SSC — extends `retroFormats.ts`), #43 (sticky note drag-to-reorder within column — HTML5 drag in `StickyNote.tsx`/`StickyColumn.tsx`/`RetroBoard.tsx`), #44 (Team Identity participant import — read `team-identity-charter.members[]` for Daily Scrum pre-fill)

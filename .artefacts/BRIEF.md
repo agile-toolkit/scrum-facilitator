@@ -45,12 +45,12 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] [#30] Feature: Configurable step durations — let facilitators adjust time boxes per ceremony
 - [x] [#31] Feature: Retro dot voting — upvote sticky notes to prioritise discussion and action items
 - [x] [#32] Research: Accessibility audit — ARIA roles and keyboard navigation for retro board and sticky notes
-- [ ] [#36] Feature: Sprint Goal capture in Sprint Planning ceremony
-- [ ] [#37] Feature: Retro action item ownership — assign owners from participant list
-- [ ] [#38] Integration: Impediment log in Daily Scrum → link to Improvement Board
-- [ ] [#39] Feature: Sprint Review demo checklist — track items to demo during review-2
-- [ ] [#40] Feature: Ceremony time efficiency stats — planned vs actual per step, shown post-ceremony
-- [ ] [#41] Feature: Stakeholder feedback panel for Sprint Review
+- [ ] [#36] Feature: Sprint Goal capture in Sprint Planning ceremony — **approved**, next to implement
+- [ ] [#37] Feature: Retro action item ownership — assign owners from participant list — **approved**
+- [ ] [#38] Integration: Impediment log in Daily Scrum → link to Improvement Board — **approved**
+- [ ] [#39] Feature: Sprint Review demo checklist — track items to demo during review-2 — **approved**
+- [ ] [#40] Feature: Ceremony time efficiency stats — planned vs actual per step, shown post-ceremony — **approved**
+- [ ] [#41] Feature: Stakeholder feedback panel for Sprint Review — **approved**
 - [ ] [#42] Feature: Additional retro formats — Starfish (5-col Stop/Less/Keep/More/Start), DAKI (4-col Drop/Add/Keep/Improve), SSC (3-col Start/Stop/Continue); add entries to `retroFormats.ts` + i18n keys
 - [ ] [#43] Feature: Sticky note drag-to-reorder within retro column — HTML5 drag events in `StickyNote.tsx` + `StickyColumn.tsx` + `RetroBoard.tsx`; independent of vote sort
 - [ ] [#44] Integration: Team Identity → Scrum Facilitator participant import — read `team-identity-charter.members[]` from localStorage to suggest Daily Scrum participant names in `ParticipantPanel.tsx` when `sf_participants` is empty
@@ -76,6 +76,11 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-07-06 — research: auto-approved #36–#41; CI green
+- Done: checked human feedback — no `changes-requested`/`incomplete` issues; #1 (favicon, `research-more`) has no new evidence since round 6, skipped per standing note; all `approved` issues (#4–#9,#15–#19,#24,#30–#32) confirmed already implemented, awaiting human `Done` close; auto-approved #36/#37/#38 (created 2026-06-27, 9 days stale, past 7-day threshold) and #39/#40/#41 (created 2026-06-29, 7-day threshold reached today) — all Feature/Integration type, fully specified scope, no new dependency, no breaking change; added `approved` label + auto-approval comment to each; #42/#43/#44 (created 2026-07-01) reach threshold 2026-07-08, not yet stale; #45/#46/#47 (created 2026-07-03) not yet stale; latest CI run (deploy.yml, commit 3c06e13) green
+- Remaining: #36–#41 approved, awaiting implementation starting with #36 (lowest number, Sprint Goal capture)
+- Next task: implement #36 — Sprint Goal capture in Sprint Planning ceremony: `types.ts` add `sprintGoal?: string` to `SessionState`+`ExportData`; `CeremonyRunner.tsx` textarea on `planning-3` step labelled `t('planning.sprintGoalLabel')`, auto-save to `scrum-facilitator-session`, pinned reminder badge in header during later planning steps; `ExportView.tsx` highlighted "Sprint Goal" blockquote at top of Markdown export when set; `HomeScreen.tsx` history entries for planning ceremonies show Sprint Goal as subtitle; add `planning.sprintGoalLabel`/`planning.sprintGoalPlaceholder` to all 4 locales; then #37 (retro action ownership), #38 (impediment log → Improvement Board), #39 (demo checklist), #40 (time efficiency stats), #41 (stakeholder feedback panel), in that order
 
 ### 2026-07-03 — research: test coverage, reduced-motion a11y gap, delete-confirm UX
 - Done: checked human feedback — all `approved` issues (#4–#32) confirmed already implemented, awaiting human `Done` close; #1 (favicon, `research-more`) re-reviewed against rounds 5/6 — no new evidence since 2026-07-01, spec unchanged and final, skipped adding a redundant round-7 comment; #36–#38 (7-day threshold 2026-07-04), #39–#41 (2026-07-06), #42–#44 (2026-07-08) none yet stale; created 3 new research issues: #45 (zero test coverage — Vitest + RTL, starting with useTimer/useLocalStorage/RetroBoard), #46 (CountdownTimer `animate-pulse` ignores `prefers-reduced-motion`, WCAG 2.3.3 gap missed by #32's ARIA-only audit), #47 (StickyNote delete uses native `window.confirm()`, only native dialog in the app, breaks dark theme)

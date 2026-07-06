@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CEREMONIES } from '../data/ceremonies'
 import { RETRO_FORMATS } from '../data/retroFormats'
-import type { CeremonyType, RetroFormat, SessionState, HistoryEntry, TimeboxOverrides } from '../types'
+import type { CeremonyType, RetroFormat, SessionState, HistoryEntry, TimeboxOverrides, DemoItem } from '../types'
 import CeremonyCard from './CeremonyCard'
+import DemoChecklistPanel from './DemoChecklistPanel'
 
 function timeAgo(ts: number): string {
   const diff = Date.now() - ts
@@ -26,6 +27,8 @@ interface Props {
   onViewHistory: (entry: HistoryEntry) => void
   timeboxOverrides: TimeboxOverrides
   onTimeboxOverridesChange: (overrides: TimeboxOverrides) => void
+  demoItems: DemoItem[]
+  onDemoItemsChange: (items: DemoItem[]) => void
 }
 
 export default function HomeScreen({
@@ -33,6 +36,7 @@ export default function HomeScreen({
   teamName, onTeamNameChange, recentTeamNames,
   session, onResume, onDiscard, history, onViewHistory,
   timeboxOverrides, onTimeboxOverridesChange,
+  demoItems, onDemoItemsChange,
 }: Props) {
   const { t } = useTranslation()
   const [openTimebox, setOpenTimebox] = useState<CeremonyType | null>(null)
@@ -142,6 +146,9 @@ export default function HomeScreen({
                   ))}
                 </div>
               </div>
+            )}
+            {ceremony.type === 'review' && (
+              <DemoChecklistPanel items={demoItems} onChange={onDemoItemsChange} />
             )}
             {/* Timebox editor */}
             <div className="px-3 py-2 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 flex flex-col gap-1.5">

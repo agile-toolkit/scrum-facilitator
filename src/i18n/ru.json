@@ -107,6 +107,12 @@
     "sprintGoalLabel": "Цель спринта",
     "sprintGoalPlaceholder": "Чего мы хотим достичь в этом спринте?"
   },
+  "review": {
+    "demoChecklist": "Список демонстрации",
+    "addDemoItem": "Добавить пункт для демонстрации…",
+    "presenter": "Докладчик",
+    "itemDemoed": "Отметить пункт как показанный"
+  },
   "lang": {
     "en": "English",
     "es": "Español",

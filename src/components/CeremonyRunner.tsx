@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { CeremonyType, Participant, RetroNotes, RetroFormat, SessionState } from '../types'
+import type { CeremonyType, Participant, RetroNotes, RetroFormat, SessionState, DemoItem } from '../types'
 import { getCeremony, formatDuration } from '../data/ceremonies'
 import { useTimer } from '../hooks/useTimer'
 import { useLocalStorage } from '../hooks/useLocalStorage'
@@ -9,6 +9,7 @@ import WhyTooltip from './WhyTooltip'
 import FacilitationTips from './FacilitationTips'
 import ParticipantPanel from './ParticipantPanel'
 import ImpedimentPanel from './ImpedimentPanel'
+import DemoChecklistPanel from './DemoChecklistPanel'
 import RetroBoard from './RetroBoard'
 
 function Kbd({ children }: { children: React.ReactNode }) {
@@ -47,14 +48,15 @@ interface Props {
   retroFormat: RetroFormat
   teamName?: string
   timeboxOverrides?: Record<string, number>
+  initialDemoItems?: DemoItem[]
   onRetroNotesChange: (n: RetroNotes) => void
-  onComplete: (stepsCompleted: number, participants?: string[], sprintGoal?: string, impediments?: string[]) => void
+  onComplete: (stepsCompleted: number, participants?: string[], sprintGoal?: string, impediments?: string[], demoItems?: DemoItem[]) => void
   onBack: () => void
   resumeSession?: SessionState | null
 }
 
 export default function CeremonyRunner({
-  ceremonyType, retroNotes, retroFormat, teamName, timeboxOverrides = {}, onRetroNotesChange, onComplete, onBack, resumeSession,
+  ceremonyType, retroNotes, retroFormat, teamName, timeboxOverrides = {}, initialDemoItems = [], onRetroNotesChange, onComplete, onBack, resumeSession,
 }: Props) {
   const { t } = useTranslation()
   const ceremony = getCeremony(ceremonyType)
@@ -63,6 +65,7 @@ export default function CeremonyRunner({
   const [participants, setParticipants] = useLocalStorage<Participant[]>('sf_participants', [])
   const [sprintGoal, setSprintGoal] = useState(resumeSession?.sprintGoal ?? '')
   const [impediments, setImpediments] = useState<string[]>(resumeSession?.impediments ?? [])
+  const [demoItems, setDemoItems] = useState<DemoItem[]>(resumeSession?.demoItems ?? initialDemoItems)
 
   const [isMuted, setIsMuted] = useState(() => {
     try { return localStorage.getItem(MUTED_KEY) === 'true' } catch { return false }
@@ -116,15 +119,18 @@ export default function CeremonyRunner({
       teamName,
       sprintGoal: ceremonyType === 'planning' ? sprintGoal : undefined,
       impediments: ceremonyType === 'daily' ? impediments : undefined,
+      demoItems: ceremonyType === 'review' ? demoItems : undefined,
       savedAt: Date.now(),
     }
     try { localStorage.setItem(SESSION_KEY, JSON.stringify(session)) } catch { /* ignore */ }
-  }, [stepIndex, completedSteps, retroNotes, participants, ceremonyType, teamName, sprintGoal, impediments])
+  }, [stepIndex, completedSteps, retroNotes, participants, ceremonyType, teamName, sprintGoal, impediments, demoItems])
 
   const isFirst = stepIndex === 0
   const isLast = ceremony ? stepIndex === ceremony.steps.length - 1 : false
   const isDaily = ceremonyType === 'daily'
+  const isReview = ceremonyType === 'review'
   const showImpediments = isDaily && stepIndex >= 1
+  const showDemoChecklist = isReview && currentStep?.id === 'review-2'
 
   const goNext = () => {
     if (!ceremony || !currentStep) return
@@ -136,6 +142,7 @@ export default function CeremonyRunner({
         isDaily ? participants.map(p => p.name) : undefined,
         ceremonyType === 'planning' ? sprintGoal.trim() || undefined : undefined,
         isDaily ? impediments : undefined,
+        isReview ? demoItems : undefined,
       )
     } else {
       setStepIndex(i => i + 1)
@@ -311,6 +318,11 @@ export default function CeremonyRunner({
       {/* Daily impediment log */}
       {showImpediments && (
         <ImpedimentPanel impediments={impediments} onChange={setImpediments} />
+      )}
+
+      {/* Sprint Review demo checklist */}
+      {showDemoChecklist && (
+        <DemoChecklistPanel items={demoItems} onChange={setDemoItems} />
       )}
 
       {/* Planning Poker banner */}

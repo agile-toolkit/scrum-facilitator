@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { Screen, CeremonyType, ExportData, RetroNotes, RetroFormat, SessionState, HistoryEntry, TimeboxOverrides } from './types'
+import type { Screen, CeremonyType, ExportData, RetroNotes, RetroFormat, SessionState, HistoryEntry, TimeboxOverrides, DemoItem } from './types'
 import { CEREMONIES } from './data/ceremonies'
 import { getRetroFormat, emptyNotes } from './data/retroFormats'
 import { useLocalStorage } from './hooks/useLocalStorage'
@@ -16,6 +16,7 @@ const SESSION_KEY = 'scrum-facilitator-session'
 const HISTORY_KEY = 'scrum-facilitator-history'
 const TEAM_NAME_KEY = 'scrum-facilitator-team-name'
 const TIMEBOX_KEY = 'scrum-facilitator-timebox-overrides'
+const DEMO_ITEMS_KEY = 'scrum-facilitator-demo-items'
 
 interface AppState {
   screen: Screen
@@ -42,6 +43,7 @@ export default function App() {
   const [retroFormat, setRetroFormat] = useLocalStorage<RetroFormat>('scrum-facilitator-retro-format', 'classic')
   const [teamName, setTeamName] = useLocalStorage<string>(TEAM_NAME_KEY, '')
   const [timeboxOverrides, setTimeboxOverrides] = useLocalStorage<TimeboxOverrides>(TIMEBOX_KEY, {})
+  const [reviewDemoItems, setReviewDemoItems] = useLocalStorage<DemoItem[]>(DEMO_ITEMS_KEY, [])
   const [dismissedResume, setDismissedResume] = useState(false)
 
   const [appState, setAppState] = useState<AppState>({
@@ -82,7 +84,13 @@ export default function App() {
     setDismissedResume(true)
   }
 
-  const completeCeremony = (stepsCompleted: number, participants?: string[], sprintGoal?: string, impediments?: string[]) => {
+  const completeCeremony = (
+    stepsCompleted: number,
+    participants?: string[],
+    sprintGoal?: string,
+    impediments?: string[],
+    demoItems?: DemoItem[],
+  ) => {
     const ceremony = CEREMONIES.find(c => c.type === appState.ceremonyType)
     const data: ExportData = {
       ceremonyType: appState.ceremonyType!,
@@ -93,12 +101,14 @@ export default function App() {
       retroFormat: appState.ceremonyType === 'retro' ? retroFormat : undefined,
       sprintGoal,
       impediments,
+      demoItems,
       stepsCompleted,
       totalSteps: ceremony?.steps.length ?? 0,
     }
     const entry: HistoryEntry = { id: Date.now().toString(), exportData: data, savedAt: Date.now() }
     setHistory([entry, ...history].slice(0, 5))
     localStorage.removeItem(SESSION_KEY)
+    if (appState.ceremonyType === 'review') setReviewDemoItems([])
     setAppState(prev => ({ ...prev, screen: 'complete', exportData: data, resumeSession: null }))
   }
 
@@ -140,6 +150,8 @@ export default function App() {
             onViewHistory={viewHistoryEntry}
             timeboxOverrides={timeboxOverrides}
             onTimeboxOverridesChange={setTimeboxOverrides}
+            demoItems={reviewDemoItems}
+            onDemoItemsChange={setReviewDemoItems}
           />
         )}
         {appState.screen === 'ceremony' && appState.ceremonyType && (
@@ -153,6 +165,7 @@ export default function App() {
             onBack={goHome}
             resumeSession={appState.resumeSession}
             timeboxOverrides={timeboxOverrides[appState.ceremonyType] ?? {}}
+            initialDemoItems={reviewDemoItems}
           />
         )}
         {appState.screen === 'retro' && (

@@ -46,6 +46,18 @@ function buildMarkdown(data: ExportData, t: (k: string, opts?: Record<string, un
     lines.push('', '## Impediments', ...data.impediments.map(i => `- ${i}`))
   }
 
+  if (data.ceremonyType === 'review' && data.demoItems && data.demoItems.length > 0) {
+    lines.push(
+      '',
+      '## Demo Checklist',
+      ...data.demoItems.map(item =>
+        item.demoed
+          ? `- [x] ${item.text}${item.presenter ? ` — ${item.presenter}` : ''}`
+          : `- [ ] ${item.text}${item.presenter ? ` — ${item.presenter}` : ''} (not shown)`,
+      ),
+    )
+  }
+
   if (data.ceremonyType === 'retro' && data.retroNotes) {
     const actionNotes = Object.values(data.retroNotes).flat().filter(n => n.isAction)
     if (actionNotes.length > 0) {

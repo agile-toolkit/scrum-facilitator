@@ -45,6 +45,7 @@ export interface ExportData {
   participants?: string[]
   retroNotes?: RetroNotes
   retroFormat?: RetroFormat
+  sprintGoal?: string
   stepsCompleted: number
   totalSteps: number
 }
@@ -61,6 +62,7 @@ export interface SessionState {
   retroNotesCount: number
   retroFormat?: RetroFormat
   teamName?: string
+  sprintGoal?: string
   savedAt: number
 }
 

@@ -26,6 +26,7 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] Named ceremony history — optional `teamName` text input on HomeScreen (persists to `scrum-facilitator-team-name` localStorage); recent team names shown as pill chips; history entries show `Team · Ceremony` format when team is set; resume banner shows team name; CeremonyRunner header shows team name; export Markdown title includes team name; all 4 locales (EN/ES/BE/RU)
 - [x] Configurable step durations — collapsible "Customize timing" panel per ceremony on HomeScreen; min+sec inputs for each step; overrides stored in `scrum-facilitator-timebox-overrides` localStorage key (`Record<CeremonyType, Record<stepId, seconds>>`); "Reset to defaults" button clears ceremony overrides; CeremonyRunner uses overrides for timer init, reset button, R keyboard shortcut, and duration badge; dot indicator on toggle when overrides active; all 4 locales (EN/ES/BE/RU)
 - [x] Retro dot voting — `votes?: number` on `StickyNote` type; 👍 vote button on each `StickyNote.tsx` showing count (increment on click); `−` decrement button visible when votes > 0; per-column sort-by-votes toggle (👍 badge in `StickyColumn.tsx` header) sorts notes descending; votes persisted naturally in `scrum-facilitator-session` localStorage via `retroNotes`; `retro.vote`, `retro.unvote`, `retro.sortByVotes` i18n keys in all 4 locales
+- [x] Sprint Goal capture — `sprintGoal?: string` on `SessionState`/`ExportData`; textarea on the "Define Sprint Goal" step (`planning-1`) of Sprint Planning, labelled `t('planning.sprintGoalLabel')`, auto-saved to `scrum-facilitator-session`; pinned 🎯 reminder badge in `CeremonyRunner` header on later planning steps; highlighted `> **Sprint Goal:** …` blockquote at top of Markdown export; `HomeScreen` past-ceremonies list shows the goal as a subtitle under planning entries; `planning.sprintGoalLabel`/`planning.sprintGoalPlaceholder` in all 4 locales
 
 ## Backlog
 
@@ -45,7 +46,7 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] [#30] Feature: Configurable step durations — let facilitators adjust time boxes per ceremony
 - [x] [#31] Feature: Retro dot voting — upvote sticky notes to prioritise discussion and action items
 - [x] [#32] Research: Accessibility audit — ARIA roles and keyboard navigation for retro board and sticky notes
-- [ ] [#36] Feature: Sprint Goal capture in Sprint Planning ceremony — **approved**, next to implement
+- [x] [#36] Feature: Sprint Goal capture in Sprint Planning ceremony — implemented
 - [ ] [#37] Feature: Retro action item ownership — assign owners from participant list — **approved**
 - [ ] [#38] Integration: Impediment log in Daily Scrum → link to Improvement Board — **approved**
 - [ ] [#39] Feature: Sprint Review demo checklist — track items to demo during review-2 — **approved**
@@ -76,6 +77,11 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+
+### 2026-07-06 — feat: Sprint Goal capture (#36)
+- Done: `types.ts` adds `sprintGoal?: string` to `SessionState`/`ExportData`; `CeremonyRunner.tsx` renders a labelled textarea on the `planning-1` step ("Define Sprint Goal" — the issue text said `planning-3`, but that id is actually "Capacity Check" in `ceremonies.ts`; used the step whose title/why text is literally about setting the Sprint Goal instead), auto-saves to `scrum-facilitator-session`, and shows a pinned 🎯 badge in the header on every later planning step; `onComplete`/`completeCeremony` thread `sprintGoal` into `ExportData`; `ExportView.tsx` prepends `> **Sprint Goal:** …` to the Markdown export when set; `HomeScreen.tsx` past-ceremonies list shows the goal as a subtitle under planning entries; `planning.sprintGoalLabel`/`planning.sprintGoalPlaceholder` added to `en/es/be/ru.json`. Verified end-to-end in a real browser (Playwright): filled the goal, advanced steps and confirmed the reminder badge, finished the ceremony and confirmed the export blockquote and home-screen history subtitle. `npm run build` passes.
+- Remaining: none for #36. Next up per approval order: #37 (retro action item ownership), #38 (impediment log → Improvement Board), #39 (Sprint Review demo checklist), #40 (ceremony time efficiency stats), #41 (stakeholder feedback panel).
+- Next task: implement #37 — Retro action item ownership: assign an owner (from the Daily Scrum participant list) to each sticky note in the retro's action-oriented column(s); persist via existing `retroNotes`/`StickyNote` structures; surface owner in Markdown export.
 
 ### 2026-07-06 — research: auto-approved #36–#41; CI green
 - Done: checked human feedback — no `changes-requested`/`incomplete` issues; #1 (favicon, `research-more`) has no new evidence since round 6, skipped per standing note; all `approved` issues (#4–#9,#15–#19,#24,#30–#32) confirmed already implemented, awaiting human `Done` close; auto-approved #36/#37/#38 (created 2026-06-27, 9 days stale, past 7-day threshold) and #39/#40/#41 (created 2026-06-29, 7-day threshold reached today) — all Feature/Integration type, fully specified scope, no new dependency, no breaking change; added `approved` label + auto-approval comment to each; #42/#43/#44 (created 2026-07-01) reach threshold 2026-07-08, not yet stale; #45/#46/#47 (created 2026-07-03) not yet stale; latest CI run (deploy.yml, commit 3c06e13) green

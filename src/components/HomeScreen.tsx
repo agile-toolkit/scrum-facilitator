@@ -228,6 +228,11 @@ export default function HomeScreen({
                     <p className="text-xs text-gray-400 dark:text-gray-500">
                       {entry.exportData.date} · {t('history.steps', { done: entry.exportData.stepsCompleted, total: entry.exportData.totalSteps })}
                     </p>
+                    {entry.exportData.ceremonyType === 'planning' && entry.exportData.sprintGoal && (
+                      <p className="text-xs text-brand-600 dark:text-brand-400 truncate">
+                        🎯 {entry.exportData.sprintGoal}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <button

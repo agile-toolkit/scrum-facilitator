@@ -96,6 +96,10 @@
     "open": "Abrir Planning Poker →",
     "noParticipants": "Añade participantes en el Daily Stand-up para pre-cargar la lista del equipo."
   },
+  "planning": {
+    "sprintGoalLabel": "Objetivo del Sprint",
+    "sprintGoalPlaceholder": "¿Qué queremos lograr en este Sprint?"
+  },
   "lang": {
     "en": "English",
     "es": "Español",

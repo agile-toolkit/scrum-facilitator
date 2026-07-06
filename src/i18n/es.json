@@ -107,6 +107,12 @@
     "sprintGoalLabel": "Objetivo del Sprint",
     "sprintGoalPlaceholder": "¿Qué queremos lograr en este Sprint?"
   },
+  "review": {
+    "demoChecklist": "Lista de demostración",
+    "addDemoItem": "Añadir un elemento a demostrar…",
+    "presenter": "Presentador",
+    "itemDemoed": "Marcar elemento como demostrado"
+  },
   "lang": {
     "en": "English",
     "es": "Español",

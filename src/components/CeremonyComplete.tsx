@@ -12,6 +12,8 @@ interface Props {
 export default function CeremonyComplete({ data, onExport, onHome }: Props) {
   const { t } = useTranslation()
   const hasImpediments = data.ceremonyType === 'daily' && (data.impediments?.length ?? 0) > 0
+  const demoItems = data.ceremonyType === 'review' ? data.demoItems ?? [] : []
+  const demoedCount = demoItems.filter(i => i.demoed).length
 
   return (
     <div className="flex flex-col items-center gap-8 max-w-md mx-auto pt-12 text-center">
@@ -40,6 +42,17 @@ export default function CeremonyComplete({ data, onExport, onHome }: Props) {
           >
             {t('daily.openImprovementBoard')}
           </a>
+        </div>
+      )}
+
+      {demoItems.length > 0 && (
+        <div className="card p-4 flex flex-col gap-2 border-l-4 border-brand-400 w-full text-left">
+          <div className="flex items-center gap-2">
+            <span className="text-lg">🎬</span>
+            <h3 className="font-medium text-gray-800 dark:text-gray-100">
+              {t('review.demoChecklist')} ({demoedCount}/{demoItems.length})
+            </h3>
+          </div>
         </div>
       )}
 

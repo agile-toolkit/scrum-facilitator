@@ -40,6 +40,13 @@ export type RetroColumn = string
 
 export type RetroNotes = Record<string, StickyNote[]>
 
+export interface DemoItem {
+  id: string
+  text: string
+  demoed: boolean
+  presenter?: string
+}
+
 export interface ExportData {
   ceremonyType: CeremonyType
   date: string
@@ -49,6 +56,7 @@ export interface ExportData {
   retroFormat?: RetroFormat
   sprintGoal?: string
   impediments?: string[]
+  demoItems?: DemoItem[]
   stepsCompleted: number
   totalSteps: number
 }
@@ -67,6 +75,7 @@ export interface SessionState {
   teamName?: string
   sprintGoal?: string
   impediments?: string[]
+  demoItems?: DemoItem[]
   savedAt: number
 }
 

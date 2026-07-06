@@ -107,6 +107,12 @@
     "sprintGoalLabel": "Мэта спрынту",
     "sprintGoalPlaceholder": "Чаго мы хочам дасягнуць у гэтым спрынце?"
   },
+  "review": {
+    "demoChecklist": "Спіс дэманстрацыі",
+    "addDemoItem": "Дадаць пункт для дэманстрацыі…",
+    "presenter": "Дакладчык",
+    "itemDemoed": "Адзначыць пункт як прадэманстраваны"
+  },
   "lang": {
     "en": "English",
     "es": "Español",

@@ -82,7 +82,7 @@ export default function App() {
     setDismissedResume(true)
   }
 
-  const completeCeremony = (stepsCompleted: number, participants?: string[], sprintGoal?: string) => {
+  const completeCeremony = (stepsCompleted: number, participants?: string[], sprintGoal?: string, impediments?: string[]) => {
     const ceremony = CEREMONIES.find(c => c.type === appState.ceremonyType)
     const data: ExportData = {
       ceremonyType: appState.ceremonyType!,
@@ -92,6 +92,7 @@ export default function App() {
       retroNotes: appState.ceremonyType === 'retro' ? retroNotes : undefined,
       retroFormat: appState.ceremonyType === 'retro' ? retroFormat : undefined,
       sprintGoal,
+      impediments,
       stepsCompleted,
       totalSteps: ceremony?.steps.length ?? 0,
     }

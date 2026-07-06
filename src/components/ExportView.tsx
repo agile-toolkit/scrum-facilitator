@@ -5,6 +5,7 @@ import { CEREMONIES } from '../data/ceremonies'
 
 const SPRINT_METRICS_KEY = 'sprint-metrics-sprints'
 const SPRINT_METRICS_URL = 'https://agile-toolkit.github.io/sprint-metrics/'
+const IMPROVEMENT_BOARD_URL = 'https://agile-toolkit.github.io/improvement-board/'
 
 interface SprintEntry {
   id: string
@@ -39,6 +40,10 @@ function buildMarkdown(data: ExportData, t: (k: string, opts?: Record<string, un
 
   if (data.participants && data.participants.length > 0) {
     lines.push('', '## Participants', ...data.participants.map(p => `- ${p}`))
+  }
+
+  if (data.ceremonyType === 'daily' && data.impediments && data.impediments.length > 0) {
+    lines.push('', '## Impediments', ...data.impediments.map(i => `- ${i}`))
   }
 
   if (data.ceremonyType === 'retro' && data.retroNotes) {
@@ -114,6 +119,16 @@ export default function ExportView({ data, onBack }: Props) {
           <button onClick={exportToSprintMetrics} className="btn-secondary text-sm">
             📊 {t('export.sprintMetrics')}
           </button>
+        )}
+        {data.ceremonyType === 'daily' && data.impediments && data.impediments.length > 0 && (
+          <a
+            href={IMPROVEMENT_BOARD_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-secondary text-sm"
+          >
+            🧩 {t('daily.openImprovementBoard')}
+          </a>
         )}
         <button onClick={download} className="btn-secondary text-sm">
           ⬇ {t('export.download')}

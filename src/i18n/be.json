@@ -69,7 +69,11 @@
       "rocks": "Камяні"
     },
     "deleteNote": "Выдаліць нататку",
-    "addNoteLabel": "Дадаць нататку да {{column}}"
+    "addNoteLabel": "Дадаць нататку да {{column}}",
+    "markAction": "Пазначыць як дзеянне",
+    "unmarkAction": "Зняць пазнаку дзеяння",
+    "owner": "Адказны",
+    "ownerPlaceholder": "Прызначыць адказнага…"
   },
   "complete": {
     "title": "Цырымонія завершана!",

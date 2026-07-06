@@ -69,7 +69,11 @@
       "wind": "Wind",
       "anchor": "Anchor",
       "rocks": "Rocks"
-    }
+    },
+    "markAction": "Mark as action item",
+    "unmarkAction": "Unmark as action item",
+    "owner": "Owner",
+    "ownerPlaceholder": "Assign owner…"
   },
   "complete": {
     "title": "Ceremony complete!",

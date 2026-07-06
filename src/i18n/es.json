@@ -32,7 +32,10 @@
       "pending": "En espera",
       "speaking": "Hablando",
       "done": "Listo"
-    }
+    },
+    "impediments": "Impedimentos",
+    "addImpediment": "Añadir un impedimento…",
+    "openImprovementBoard": "Abrir Improvement Board →"
   },
   "retro": {
     "wellDone": "Qué salió bien",

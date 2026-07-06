@@ -8,6 +8,7 @@ import CountdownTimer from './CountdownTimer'
 import WhyTooltip from './WhyTooltip'
 import FacilitationTips from './FacilitationTips'
 import ParticipantPanel from './ParticipantPanel'
+import ImpedimentPanel from './ImpedimentPanel'
 import RetroBoard from './RetroBoard'
 
 function Kbd({ children }: { children: React.ReactNode }) {
@@ -47,7 +48,7 @@ interface Props {
   teamName?: string
   timeboxOverrides?: Record<string, number>
   onRetroNotesChange: (n: RetroNotes) => void
-  onComplete: (stepsCompleted: number, participants?: string[], sprintGoal?: string) => void
+  onComplete: (stepsCompleted: number, participants?: string[], sprintGoal?: string, impediments?: string[]) => void
   onBack: () => void
   resumeSession?: SessionState | null
 }
@@ -61,6 +62,7 @@ export default function CeremonyRunner({
   const [completedSteps, setCompletedSteps] = useState(resumeSession?.completedSteps ?? 0)
   const [participants, setParticipants] = useLocalStorage<Participant[]>('sf_participants', [])
   const [sprintGoal, setSprintGoal] = useState(resumeSession?.sprintGoal ?? '')
+  const [impediments, setImpediments] = useState<string[]>(resumeSession?.impediments ?? [])
 
   const [isMuted, setIsMuted] = useState(() => {
     try { return localStorage.getItem(MUTED_KEY) === 'true' } catch { return false }
@@ -113,14 +115,16 @@ export default function CeremonyRunner({
       retroFormat,
       teamName,
       sprintGoal: ceremonyType === 'planning' ? sprintGoal : undefined,
+      impediments: ceremonyType === 'daily' ? impediments : undefined,
       savedAt: Date.now(),
     }
     try { localStorage.setItem(SESSION_KEY, JSON.stringify(session)) } catch { /* ignore */ }
-  }, [stepIndex, completedSteps, retroNotes, participants, ceremonyType, teamName, sprintGoal])
+  }, [stepIndex, completedSteps, retroNotes, participants, ceremonyType, teamName, sprintGoal, impediments])
 
   const isFirst = stepIndex === 0
   const isLast = ceremony ? stepIndex === ceremony.steps.length - 1 : false
   const isDaily = ceremonyType === 'daily'
+  const showImpediments = isDaily && stepIndex >= 1
 
   const goNext = () => {
     if (!ceremony || !currentStep) return
@@ -131,6 +135,7 @@ export default function CeremonyRunner({
         newCompleted,
         isDaily ? participants.map(p => p.name) : undefined,
         ceremonyType === 'planning' ? sprintGoal.trim() || undefined : undefined,
+        isDaily ? impediments : undefined,
       )
     } else {
       setStepIndex(i => i + 1)
@@ -301,6 +306,11 @@ export default function CeremonyRunner({
       {/* Daily participant panel */}
       {isDaily && (
         <ParticipantPanel participants={participants} onChange={setParticipants} />
+      )}
+
+      {/* Daily impediment log */}
+      {showImpediments && (
+        <ImpedimentPanel impediments={impediments} onChange={setImpediments} />
       )}
 
       {/* Planning Poker banner */}

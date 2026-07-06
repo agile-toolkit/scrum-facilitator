@@ -233,6 +233,15 @@ export default function HomeScreen({
                         🎯 {entry.exportData.sprintGoal}
                       </p>
                     )}
+                    {entry.exportData.ceremonyType === 'daily' && (
+                      (entry.exportData.participants?.length ?? 0) > 0 || (entry.exportData.impediments?.length ?? 0) > 0
+                    ) && (
+                      <p className="text-xs text-gray-400 dark:text-gray-500 truncate">
+                        {entry.exportData.participants?.length ?? 0} {t('daily.participants').toLowerCase()}
+                        {' · '}
+                        {entry.exportData.impediments?.length ?? 0} {t('daily.impediments').toLowerCase()}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <button

@@ -32,7 +32,10 @@
       "pending": "Чакае",
       "speaking": "Гаворыць",
       "done": "Гатова"
-    }
+    },
+    "impediments": "Перашкоды",
+    "addImpediment": "Дадаць перашкоду…",
+    "openImprovementBoard": "Адкрыць Improvement Board →"
   },
   "retro": {
     "wellDone": "Што прайшло добра",

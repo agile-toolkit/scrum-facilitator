@@ -25,9 +25,17 @@ function buildMarkdown(data: ExportData, t: (k: string, opts?: Record<string, un
   const title = data.teamName ? `${name} — ${data.teamName}` : name
   const lines: string[] = [
     `# ${title}`,
+  ]
+
+  if (data.sprintGoal) {
+    lines.push('', `> **Sprint Goal:** ${data.sprintGoal}`)
+  }
+
+  lines.push(
+    '',
     `**Date:** ${data.date}`,
     `**Steps completed:** ${data.stepsCompleted} / ${data.totalSteps}`,
-  ]
+  )
 
   if (data.participants && data.participants.length > 0) {
     lines.push('', '## Participants', ...data.participants.map(p => `- ${p}`))

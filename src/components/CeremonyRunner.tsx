@@ -47,7 +47,7 @@ interface Props {
   teamName?: string
   timeboxOverrides?: Record<string, number>
   onRetroNotesChange: (n: RetroNotes) => void
-  onComplete: (stepsCompleted: number, participants?: string[]) => void
+  onComplete: (stepsCompleted: number, participants?: string[], sprintGoal?: string) => void
   onBack: () => void
   resumeSession?: SessionState | null
 }
@@ -60,6 +60,7 @@ export default function CeremonyRunner({
   const [stepIndex, setStepIndex] = useState(resumeSession?.stepIndex ?? 0)
   const [completedSteps, setCompletedSteps] = useState(resumeSession?.completedSteps ?? 0)
   const [participants, setParticipants] = useLocalStorage<Participant[]>('sf_participants', [])
+  const [sprintGoal, setSprintGoal] = useState(resumeSession?.sprintGoal ?? '')
 
   const [isMuted, setIsMuted] = useState(() => {
     try { return localStorage.getItem(MUTED_KEY) === 'true' } catch { return false }
@@ -111,10 +112,11 @@ export default function CeremonyRunner({
       retroNotesCount,
       retroFormat,
       teamName,
+      sprintGoal: ceremonyType === 'planning' ? sprintGoal : undefined,
       savedAt: Date.now(),
     }
     try { localStorage.setItem(SESSION_KEY, JSON.stringify(session)) } catch { /* ignore */ }
-  }, [stepIndex, completedSteps, retroNotes, participants, ceremonyType, teamName])
+  }, [stepIndex, completedSteps, retroNotes, participants, ceremonyType, teamName, sprintGoal])
 
   const isFirst = stepIndex === 0
   const isLast = ceremony ? stepIndex === ceremony.steps.length - 1 : false
@@ -125,7 +127,11 @@ export default function CeremonyRunner({
     const newCompleted = Math.max(completedSteps, stepIndex + 1)
     setCompletedSteps(newCompleted)
     if (isLast) {
-      onComplete(newCompleted, isDaily ? participants.map(p => p.name) : undefined)
+      onComplete(
+        newCompleted,
+        isDaily ? participants.map(p => p.name) : undefined,
+        ceremonyType === 'planning' ? sprintGoal.trim() || undefined : undefined,
+      )
     } else {
       setStepIndex(i => i + 1)
     }
@@ -191,6 +197,16 @@ export default function CeremonyRunner({
           </p>
         </div>
       </div>
+
+      {/* Sprint Goal pinned reminder (planning ceremony, after goal-setting step) */}
+      {ceremonyType === 'planning' && sprintGoal.trim() && currentStep.id !== 'planning-1' && (
+        <div className="flex items-start gap-2 rounded-lg bg-brand-50 dark:bg-brand-700/20 border border-brand-200 dark:border-brand-700/40 px-3 py-2">
+          <span className="text-sm">🎯</span>
+          <p className="text-sm text-brand-700 dark:text-brand-300">
+            <span className="font-medium">{t('planning.sprintGoalLabel')}:</span> {sprintGoal}
+          </p>
+        </div>
+      )}
 
       {/* Progress dots */}
       <div className="flex gap-1.5 items-center">
@@ -263,6 +279,23 @@ export default function CeremonyRunner({
 
         {/* Why tooltip */}
         <WhyTooltip whyKey={currentStep.whyKey} />
+
+        {/* Sprint Goal capture */}
+        {ceremonyType === 'planning' && currentStep.id === 'planning-1' && (
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="sprint-goal" className="text-sm font-medium text-gray-600 dark:text-gray-400">
+              {t('planning.sprintGoalLabel')}
+            </label>
+            <textarea
+              id="sprint-goal"
+              value={sprintGoal}
+              onChange={e => setSprintGoal(e.target.value)}
+              placeholder={t('planning.sprintGoalPlaceholder')}
+              rows={3}
+              className="w-full px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-sm placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-400 dark:focus:ring-brand-500 resize-none"
+            />
+          </div>
+        )}
       </div>
 
       {/* Daily participant panel */}

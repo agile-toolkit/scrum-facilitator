@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { StickyNote as StickyNoteType, RetroColumn } from '../types'
+import type { StickyNote as StickyNoteType, RetroColumn, Participant } from '../types'
 import StickyNote from './StickyNote'
 
 interface Props {
@@ -13,11 +13,14 @@ interface Props {
   onEdit: (column: RetroColumn, id: string, text: string) => void
   onDelete: (column: RetroColumn, id: string) => void
   onVote: (column: RetroColumn, id: string, delta: number) => void
+  onToggleAction: (column: RetroColumn, id: string) => void
+  onOwnerChange: (column: RetroColumn, id: string, owner: string) => void
+  participants: Participant[]
 }
 
 export default function StickyColumn({
   column, notes, labelKey, colorClass, headerColor,
-  onAdd, onEdit, onDelete, onVote,
+  onAdd, onEdit, onDelete, onVote, onToggleAction, onOwnerChange, participants,
 }: Props) {
   const { t } = useTranslation()
   const [draft, setDraft] = useState('')
@@ -82,6 +85,9 @@ export default function StickyColumn({
               onEdit={(id, text) => onEdit(column, id, text)}
               onDelete={id => onDelete(column, id)}
               onVote={(id, delta) => onVote(column, id, delta)}
+              onToggleAction={id => onToggleAction(column, id)}
+              onOwnerChange={(id, owner) => onOwnerChange(column, id, owner)}
+              participants={participants}
             />
           ))}
         </div>

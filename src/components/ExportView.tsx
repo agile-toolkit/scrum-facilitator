@@ -41,6 +41,17 @@ function buildMarkdown(data: ExportData, t: (k: string, opts?: Record<string, un
     lines.push('', '## Participants', ...data.participants.map(p => `- ${p}`))
   }
 
+  if (data.ceremonyType === 'retro' && data.retroNotes) {
+    const actionNotes = Object.values(data.retroNotes).flat().filter(n => n.isAction)
+    if (actionNotes.length > 0) {
+      lines.push(
+        '',
+        '## ✅ Action Items',
+        ...actionNotes.map(n => `- [ ] ${n.text}${n.owner ? ` — ${n.owner}` : ''}`),
+      )
+    }
+  }
+
   if (data.retroNotes) {
     for (const [key, notes] of Object.entries(data.retroNotes)) {
       if (notes.length > 0) {

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { StickyNote as StickyNoteType } from '../types'
+import type { StickyNote as StickyNoteType, Participant } from '../types'
 
 interface Props {
   note: StickyNoteType
@@ -8,9 +8,12 @@ interface Props {
   onEdit: (id: string, text: string) => void
   onDelete: (id: string) => void
   onVote: (id: string, delta: number) => void
+  onToggleAction: (id: string) => void
+  onOwnerChange: (id: string, owner: string) => void
+  participants: Participant[]
 }
 
-export default function StickyNote({ note, colorClass, onEdit, onDelete, onVote }: Props) {
+export default function StickyNote({ note, colorClass, onEdit, onDelete, onVote, onToggleAction, onOwnerChange, participants }: Props) {
   const { t } = useTranslation()
   const [editing, setEditing] = useState(false)
   const [draft, setDraft] = useState(note.text)
@@ -56,21 +59,76 @@ export default function StickyNote({ note, colorClass, onEdit, onDelete, onVote 
   }
 
   return (
-    <div
-      className={`rounded-xl p-3 border ${colorClass} relative group cursor-pointer`}
-      onClick={() => setEditing(true)}
-      role="button"
-      tabIndex={0}
-      onKeyDown={e => e.key === 'Enter' && setEditing(true)}
-      aria-label={`${note.text} — click to edit`}
-    >
-      <p className="text-sm text-gray-800 dark:text-gray-100 leading-relaxed pr-5 whitespace-pre-wrap break-words pb-7">{note.text}</p>
+    <div className={`rounded-xl p-3 border ${colorClass} group ${note.isAction ? 'border-l-4 border-l-brand-500' : ''}`}>
+      <div className="flex items-start justify-between gap-2">
+        <div
+          className="flex-1 min-w-0 cursor-pointer"
+          onClick={() => setEditing(true)}
+          role="button"
+          tabIndex={0}
+          onKeyDown={e => e.key === 'Enter' && setEditing(true)}
+          aria-label={`${note.text} — click to edit`}
+        >
+          {note.isAction && (
+            <span aria-hidden="true" className="block text-xs text-brand-600 dark:text-brand-400 mb-1">☑</span>
+          )}
+          <p className="text-sm text-gray-800 dark:text-gray-100 leading-relaxed whitespace-pre-wrap break-words">{note.text}</p>
+        </div>
 
-      {/* Vote controls — bottom-left */}
-      <div
-        className="absolute bottom-2 left-2 flex items-center gap-1"
-        onClick={e => e.stopPropagation()}
-      >
+        <div className="flex items-center gap-1 flex-shrink-0" onClick={e => e.stopPropagation()}>
+          <button
+            onClick={() => onToggleAction(note.id)}
+            className={`min-w-[28px] min-h-[28px] flex items-center justify-center rounded-full text-sm transition-colors ${
+              note.isAction
+                ? 'text-brand-600 dark:text-brand-400'
+                : 'text-gray-300 dark:text-gray-600 opacity-100 md:opacity-0 md:group-hover:opacity-100 hover:text-brand-500'
+            }`}
+            aria-pressed={!!note.isAction}
+            aria-label={note.isAction ? t('retro.unmarkAction') : t('retro.markAction')}
+            title={note.isAction ? t('retro.unmarkAction') : t('retro.markAction')}
+          >
+            {note.isAction ? '☑' : '☐'}
+          </button>
+          <button
+            onClick={() => {
+              if (window.confirm(t('retro.deleteConfirm'))) onDelete(note.id)
+            }}
+            className="min-w-[28px] min-h-[28px] flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 text-gray-400 hover:text-red-500 transition-all text-sm"
+            aria-label={t('retro.deleteNote')}
+          >
+            ×
+          </button>
+        </div>
+      </div>
+
+      {note.isAction && (
+        <div className="mt-2" onClick={e => e.stopPropagation()}>
+          {participants.length > 0 ? (
+            <select
+              value={note.owner ?? ''}
+              onChange={e => onOwnerChange(note.id, e.target.value)}
+              aria-label={t('retro.owner')}
+              className="w-full text-xs border border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 rounded-lg px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-brand-400"
+            >
+              <option value="">{t('retro.ownerPlaceholder')}</option>
+              {participants.map(p => (
+                <option key={p.id} value={p.name}>{p.name}</option>
+              ))}
+            </select>
+          ) : (
+            <input
+              value={note.owner ?? ''}
+              onChange={e => onOwnerChange(note.id, e.target.value)}
+              placeholder={t('retro.ownerPlaceholder')}
+              aria-label={t('retro.owner')}
+              className="w-full text-xs border border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 rounded-lg px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-brand-400"
+            />
+          )}
+        </div>
+      )}
+
+      {/* Vote controls */}
+      <div className="flex items-center gap-1 mt-2" onClick={e => e.stopPropagation()}>
         <button
           onClick={() => onVote(note.id, 1)}
           className="flex items-center gap-1 text-xs px-1.5 py-0.5 rounded-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:border-brand-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors min-w-[28px] min-h-[22px]"
@@ -90,18 +148,6 @@ export default function StickyNote({ note, colorClass, onEdit, onDelete, onVote 
           </button>
         )}
       </div>
-
-      {/* Delete button — top-right */}
-      <button
-        onClick={e => {
-          e.stopPropagation()
-          if (window.confirm(t('retro.deleteConfirm'))) onDelete(note.id)
-        }}
-        className="absolute top-2 right-2 min-w-[28px] min-h-[28px] flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 text-gray-400 hover:text-red-500 transition-all text-sm"
-        aria-label={t('retro.deleteNote')}
-      >
-        ×
-      </button>
     </div>
   )
 }

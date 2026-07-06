@@ -69,7 +69,11 @@
       "rocks": "Rocas"
     },
     "deleteNote": "Eliminar nota",
-    "addNoteLabel": "Agregar nota a {{column}}"
+    "addNoteLabel": "Agregar nota a {{column}}",
+    "markAction": "Marcar como acción",
+    "unmarkAction": "Desmarcar como acción",
+    "owner": "Responsable",
+    "ownerPlaceholder": "Asignar responsable…"
   },
   "complete": {
     "title": "¡Ceremonia completada!",

@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
-import type { RetroNotes, RetroColumn, StickyNote, RetroFormat } from '../types'
+import type { RetroNotes, RetroColumn, StickyNote, RetroFormat, Participant } from '../types'
 import { getRetroFormat, emptyNotes } from '../data/retroFormats'
+import { useLocalStorage } from '../hooks/useLocalStorage'
 import StickyColumn from './StickyColumn'
 
 interface Props {
@@ -16,6 +17,7 @@ interface Props {
 export default function RetroBoard({ notes, format, onChange, onFormatChange, onExport, onBack, embedded = false }: Props) {
   const { t } = useTranslation()
   const formatConfig = getRetroFormat(format)
+  const [participants] = useLocalStorage<Participant[]>('sf_participants', [])
 
   const update = (updated: RetroNotes) => {
     onChange(updated)
@@ -43,6 +45,20 @@ export default function RetroBoard({ notes, format, onChange, onFormatChange, on
       [column]: (notes[column] ?? []).map(n =>
         n.id === id ? { ...n, votes: Math.max(0, (n.votes ?? 0) + delta) } : n
       ),
+    })
+  }
+
+  const toggleAction = (column: RetroColumn, id: string) => {
+    update({
+      ...notes,
+      [column]: (notes[column] ?? []).map(n => (n.id === id ? { ...n, isAction: !n.isAction } : n)),
+    })
+  }
+
+  const setOwner = (column: RetroColumn, id: string, owner: string) => {
+    update({
+      ...notes,
+      [column]: (notes[column] ?? []).map(n => (n.id === id ? { ...n, owner: owner || undefined } : n)),
     })
   }
 
@@ -103,6 +119,9 @@ export default function RetroBoard({ notes, format, onChange, onFormatChange, on
             onEdit={editNote}
             onDelete={deleteNote}
             onVote={voteNote}
+            onToggleAction={toggleAction}
+            onOwnerChange={setOwner}
+            participants={participants}
           />
         ))}
       </div>

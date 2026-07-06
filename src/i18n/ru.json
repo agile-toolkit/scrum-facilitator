@@ -69,7 +69,11 @@
       "rocks": "Камни"
     },
     "deleteNote": "Удалить заметку",
-    "addNoteLabel": "Добавить заметку в {{column}}"
+    "addNoteLabel": "Добавить заметку в {{column}}",
+    "markAction": "Отметить как действие",
+    "unmarkAction": "Снять отметку действия",
+    "owner": "Ответственный",
+    "ownerPlaceholder": "Назначить ответственного…"
   },
   "complete": {
     "title": "Церемония завершена!",

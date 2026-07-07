@@ -113,6 +113,10 @@
     "presenter": "Presenter",
     "itemDemoed": "Mark item as demoed"
   },
+  "timeStats": {
+    "title": "Time breakdown",
+    "overtimeBadge": "Ran significantly over time"
+  },
   "lang": {
     "en": "English",
     "es": "Español",

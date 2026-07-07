@@ -47,6 +47,12 @@ export interface DemoItem {
   presenter?: string
 }
 
+export interface StepTiming {
+  stepId: string
+  planned: number
+  actual: number
+}
+
 export interface ExportData {
   ceremonyType: CeremonyType
   date: string
@@ -57,6 +63,7 @@ export interface ExportData {
   sprintGoal?: string
   impediments?: string[]
   demoItems?: DemoItem[]
+  stepTimings?: StepTiming[]
   stepsCompleted: number
   totalSteps: number
 }
@@ -76,6 +83,8 @@ export interface SessionState {
   sprintGoal?: string
   impediments?: string[]
   demoItems?: DemoItem[]
+  stepTimings?: StepTiming[]
+  stepStartedAt?: number
   savedAt: number
 }
 

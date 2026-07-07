@@ -113,6 +113,10 @@
     "presenter": "Presentador",
     "itemDemoed": "Marcar elemento como demostrado"
   },
+  "timeStats": {
+    "title": "Balance de tiempo",
+    "overtimeBadge": "Se excedió significativamente del tiempo"
+  },
   "lang": {
     "en": "English",
     "es": "Español",

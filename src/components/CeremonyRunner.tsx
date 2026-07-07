@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { CeremonyType, Participant, RetroNotes, RetroFormat, SessionState, DemoItem } from '../types'
+import type { CeremonyType, Participant, RetroNotes, RetroFormat, SessionState, DemoItem, StepTiming } from '../types'
 import { getCeremony, formatDuration } from '../data/ceremonies'
 import { useTimer } from '../hooks/useTimer'
 import { useLocalStorage } from '../hooks/useLocalStorage'
@@ -50,7 +50,7 @@ interface Props {
   timeboxOverrides?: Record<string, number>
   initialDemoItems?: DemoItem[]
   onRetroNotesChange: (n: RetroNotes) => void
-  onComplete: (stepsCompleted: number, participants?: string[], sprintGoal?: string, impediments?: string[], demoItems?: DemoItem[]) => void
+  onComplete: (stepsCompleted: number, participants?: string[], sprintGoal?: string, impediments?: string[], demoItems?: DemoItem[], stepTimings?: StepTiming[]) => void
   onBack: () => void
   resumeSession?: SessionState | null
 }
@@ -66,6 +66,8 @@ export default function CeremonyRunner({
   const [sprintGoal, setSprintGoal] = useState(resumeSession?.sprintGoal ?? '')
   const [impediments, setImpediments] = useState<string[]>(resumeSession?.impediments ?? [])
   const [demoItems, setDemoItems] = useState<DemoItem[]>(resumeSession?.demoItems ?? initialDemoItems)
+  const [stepTimings, setStepTimings] = useState<StepTiming[]>(resumeSession?.stepTimings ?? [])
+  const stepStartedAtRef = useRef<number>(resumeSession?.stepStartedAt ?? Date.now())
 
   const [isMuted, setIsMuted] = useState(() => {
     try { return localStorage.getItem(MUTED_KEY) === 'true' } catch { return false }
@@ -120,10 +122,12 @@ export default function CeremonyRunner({
       sprintGoal: ceremonyType === 'planning' ? sprintGoal : undefined,
       impediments: ceremonyType === 'daily' ? impediments : undefined,
       demoItems: ceremonyType === 'review' ? demoItems : undefined,
+      stepTimings,
+      stepStartedAt: stepStartedAtRef.current,
       savedAt: Date.now(),
     }
     try { localStorage.setItem(SESSION_KEY, JSON.stringify(session)) } catch { /* ignore */ }
-  }, [stepIndex, completedSteps, retroNotes, participants, ceremonyType, teamName, sprintGoal, impediments, demoItems])
+  }, [stepIndex, completedSteps, retroNotes, participants, ceremonyType, teamName, sprintGoal, impediments, demoItems, stepTimings])
 
   const isFirst = stepIndex === 0
   const isLast = ceremony ? stepIndex === ceremony.steps.length - 1 : false
@@ -132,10 +136,26 @@ export default function CeremonyRunner({
   const showImpediments = isDaily && stepIndex >= 1
   const showDemoChecklist = isReview && currentStep?.id === 'review-2'
 
+  // Records how long the step being left actually took (planned vs. actual), then rearms the clock for the next step.
+  const recordStepTiming = (): StepTiming[] => {
+    if (!currentStep) return stepTimings
+    const actual = Math.max(0, Math.round((Date.now() - stepStartedAtRef.current) / 1000))
+    const planned = stepDuration(currentStep)
+    const existingIndex = stepTimings.findIndex(st => st.stepId === currentStep.id)
+    const updated =
+      existingIndex >= 0
+        ? stepTimings.map((st, i) => (i === existingIndex ? { ...st, actual: st.actual + actual } : st))
+        : [...stepTimings, { stepId: currentStep.id, planned, actual }]
+    stepStartedAtRef.current = Date.now()
+    setStepTimings(updated)
+    return updated
+  }
+
   const goNext = () => {
     if (!ceremony || !currentStep) return
     const newCompleted = Math.max(completedSteps, stepIndex + 1)
     setCompletedSteps(newCompleted)
+    const timings = recordStepTiming()
     if (isLast) {
       onComplete(
         newCompleted,
@@ -143,6 +163,7 @@ export default function CeremonyRunner({
         ceremonyType === 'planning' ? sprintGoal.trim() || undefined : undefined,
         isDaily ? impediments : undefined,
         isReview ? demoItems : undefined,
+        timings,
       )
     } else {
       setStepIndex(i => i + 1)
@@ -150,7 +171,10 @@ export default function CeremonyRunner({
   }
 
   const goPrev = () => {
-    if (!isFirst) setStepIndex(i => i - 1)
+    if (!isFirst) {
+      recordStepTiming()
+      setStepIndex(i => i - 1)
+    }
   }
 
   // Keep a ref to the latest handlers so the keyboard listener never captures stale closures
@@ -225,7 +249,7 @@ export default function CeremonyRunner({
         {ceremony.steps.map((_, i) => (
           <button
             key={i}
-            onClick={() => setStepIndex(i)}
+            onClick={() => { if (i !== stepIndex) { recordStepTiming(); setStepIndex(i) } }}
             className={`h-2 rounded-full transition-all ${
               i === stepIndex
                 ? 'w-6 bg-brand-500'

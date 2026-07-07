@@ -13,6 +13,14 @@ function timeAgo(ts: number): string {
   return `${Math.floor(mins / 60)}h ago`
 }
 
+function hasSignificantOvertime(exportData: HistoryEntry['exportData']): boolean {
+  const timings = exportData.stepTimings
+  if (!timings || timings.length === 0) return false
+  const totalPlanned = timings.reduce((sum, t) => sum + t.planned, 0)
+  const totalActual = timings.reduce((sum, t) => sum + t.actual, 0)
+  return totalPlanned > 0 && totalActual > totalPlanned * 1.2
+}
+
 interface Props {
   onSelect: (type: CeremonyType) => void
   retroFormat: RetroFormat
@@ -227,10 +235,15 @@ export default function HomeScreen({
                     {CEREMONIES.find(c => c.type === entry.exportData.ceremonyType)?.icon ?? '📋'}
                   </span>
                   <div className="min-w-0">
-                    <p className="text-sm font-medium text-gray-800 dark:text-gray-100 truncate">
-                      {entry.exportData.teamName
-                        ? `${entry.exportData.teamName} · ${ceremonyName(entry.exportData.ceremonyType)}`
-                        : ceremonyName(entry.exportData.ceremonyType)}
+                    <p className="text-sm font-medium text-gray-800 dark:text-gray-100 truncate flex items-center gap-1.5">
+                      <span className="truncate">
+                        {entry.exportData.teamName
+                          ? `${entry.exportData.teamName} · ${ceremonyName(entry.exportData.ceremonyType)}`
+                          : ceremonyName(entry.exportData.ceremonyType)}
+                      </span>
+                      {hasSignificantOvertime(entry.exportData) && (
+                        <span title={t('timeStats.overtimeBadge')} className="flex-shrink-0">⏱</span>
+                      )}
                     </p>
                     <p className="text-xs text-gray-400 dark:text-gray-500">
                       {entry.exportData.date} · {t('history.steps', { done: entry.exportData.stepsCompleted, total: entry.exportData.totalSteps })}

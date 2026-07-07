@@ -113,6 +113,10 @@
     "presenter": "Докладчик",
     "itemDemoed": "Отметить пункт как показанный"
   },
+  "timeStats": {
+    "title": "Анализ времени",
+    "overtimeBadge": "Значительно превысили время"
+  },
   "lang": {
     "en": "English",
     "es": "Español",

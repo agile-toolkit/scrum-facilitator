@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { ExportData } from '../types'
-import { CEREMONIES } from '../data/ceremonies'
+import { CEREMONIES, formatDuration } from '../data/ceremonies'
 
 const SPRINT_METRICS_KEY = 'sprint-metrics-sprints'
 const SPRINT_METRICS_URL = 'https://agile-toolkit.github.io/sprint-metrics/'
@@ -65,6 +65,26 @@ function buildMarkdown(data: ExportData, t: (k: string, opts?: Record<string, un
         '',
         '## ✅ Action Items',
         ...actionNotes.map(n => `- [ ] ${n.text}${n.owner ? ` — ${n.owner}` : ''}`),
+      )
+    }
+  }
+
+  if (data.stepTimings && data.stepTimings.length > 0 && ceremony) {
+    const rows = ceremony.steps.flatMap(step => {
+      const timing = data.stepTimings!.find(st => st.stepId === step.id)
+      return timing ? [{ step, timing }] : []
+    })
+    if (rows.length > 0) {
+      lines.push(
+        '',
+        '## Time Breakdown',
+        '| Step | Planned | Actual | +/- |',
+        '|------|---------|--------|-----|',
+        ...rows.map(({ step, timing }) => {
+          const delta = timing.actual - timing.planned
+          const deltaStr = delta === 0 ? '0m' : `${delta > 0 ? '+' : '-'}${formatDuration(Math.abs(delta))}`
+          return `| ${t(step.titleKey)} | ${formatDuration(timing.planned)} | ${formatDuration(timing.actual)} | ${deltaStr} |`
+        }),
       )
     }
   }

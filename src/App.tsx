@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { Screen, CeremonyType, ExportData, RetroNotes, RetroFormat, SessionState, HistoryEntry, TimeboxOverrides, DemoItem, StepTiming } from './types'
+import type { Screen, CeremonyType, ExportData, RetroNotes, RetroFormat, SessionState, HistoryEntry, TimeboxOverrides, DemoItem, StepTiming, FeedbackItem } from './types'
 import { CEREMONIES } from './data/ceremonies'
 import { getRetroFormat, emptyNotes } from './data/retroFormats'
 import { useLocalStorage } from './hooks/useLocalStorage'
@@ -91,6 +91,7 @@ export default function App() {
     impediments?: string[],
     demoItems?: DemoItem[],
     stepTimings?: StepTiming[],
+    feedbackItems?: FeedbackItem[],
   ) => {
     const ceremony = CEREMONIES.find(c => c.type === appState.ceremonyType)
     const data: ExportData = {
@@ -104,6 +105,7 @@ export default function App() {
       impediments,
       demoItems,
       stepTimings,
+      feedbackItems,
       stepsCompleted,
       totalSteps: ceremony?.steps.length ?? 0,
     }

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { CeremonyType, Participant, RetroNotes, RetroFormat, SessionState, DemoItem, StepTiming } from '../types'
+import type { CeremonyType, Participant, RetroNotes, RetroFormat, SessionState, DemoItem, StepTiming, FeedbackItem } from '../types'
 import { getCeremony, formatDuration } from '../data/ceremonies'
 import { useTimer } from '../hooks/useTimer'
 import { useLocalStorage } from '../hooks/useLocalStorage'
@@ -10,6 +10,7 @@ import FacilitationTips from './FacilitationTips'
 import ParticipantPanel from './ParticipantPanel'
 import ImpedimentPanel from './ImpedimentPanel'
 import DemoChecklistPanel from './DemoChecklistPanel'
+import FeedbackPanel from './FeedbackPanel'
 import RetroBoard from './RetroBoard'
 
 function Kbd({ children }: { children: React.ReactNode }) {
@@ -50,7 +51,7 @@ interface Props {
   timeboxOverrides?: Record<string, number>
   initialDemoItems?: DemoItem[]
   onRetroNotesChange: (n: RetroNotes) => void
-  onComplete: (stepsCompleted: number, participants?: string[], sprintGoal?: string, impediments?: string[], demoItems?: DemoItem[], stepTimings?: StepTiming[]) => void
+  onComplete: (stepsCompleted: number, participants?: string[], sprintGoal?: string, impediments?: string[], demoItems?: DemoItem[], stepTimings?: StepTiming[], feedbackItems?: FeedbackItem[]) => void
   onBack: () => void
   resumeSession?: SessionState | null
 }
@@ -67,6 +68,7 @@ export default function CeremonyRunner({
   const [impediments, setImpediments] = useState<string[]>(resumeSession?.impediments ?? [])
   const [demoItems, setDemoItems] = useState<DemoItem[]>(resumeSession?.demoItems ?? initialDemoItems)
   const [stepTimings, setStepTimings] = useState<StepTiming[]>(resumeSession?.stepTimings ?? [])
+  const [feedbackItems, setFeedbackItems] = useState<FeedbackItem[]>(resumeSession?.feedbackItems ?? [])
   const stepStartedAtRef = useRef<number>(resumeSession?.stepStartedAt ?? Date.now())
 
   const [isMuted, setIsMuted] = useState(() => {
@@ -124,10 +126,11 @@ export default function CeremonyRunner({
       demoItems: ceremonyType === 'review' ? demoItems : undefined,
       stepTimings,
       stepStartedAt: stepStartedAtRef.current,
+      feedbackItems: ceremonyType === 'review' ? feedbackItems : undefined,
       savedAt: Date.now(),
     }
     try { localStorage.setItem(SESSION_KEY, JSON.stringify(session)) } catch { /* ignore */ }
-  }, [stepIndex, completedSteps, retroNotes, participants, ceremonyType, teamName, sprintGoal, impediments, demoItems, stepTimings])
+  }, [stepIndex, completedSteps, retroNotes, participants, ceremonyType, teamName, sprintGoal, impediments, demoItems, stepTimings, feedbackItems])
 
   const isFirst = stepIndex === 0
   const isLast = ceremony ? stepIndex === ceremony.steps.length - 1 : false
@@ -135,6 +138,7 @@ export default function CeremonyRunner({
   const isReview = ceremonyType === 'review'
   const showImpediments = isDaily && stepIndex >= 1
   const showDemoChecklist = isReview && currentStep?.id === 'review-2'
+  const showFeedback = isReview && currentStep?.id === 'review-3'
 
   // Records how long the step being left actually took (planned vs. actual), then rearms the clock for the next step.
   const recordStepTiming = (): StepTiming[] => {
@@ -164,6 +168,7 @@ export default function CeremonyRunner({
         isDaily ? impediments : undefined,
         isReview ? demoItems : undefined,
         timings,
+        isReview ? feedbackItems : undefined,
       )
     } else {
       setStepIndex(i => i + 1)
@@ -334,9 +339,9 @@ export default function CeremonyRunner({
         )}
       </div>
 
-      {/* Daily participant panel */}
-      {isDaily && (
-        <ParticipantPanel participants={participants} onChange={setParticipants} />
+      {/* Daily / Sprint Review participant panel */}
+      {(isDaily || isReview) && (
+        <ParticipantPanel participants={participants} onChange={setParticipants} ceremonyType={ceremonyType} />
       )}
 
       {/* Daily impediment log */}
@@ -347,6 +352,11 @@ export default function CeremonyRunner({
       {/* Sprint Review demo checklist */}
       {showDemoChecklist && (
         <DemoChecklistPanel items={demoItems} onChange={setDemoItems} />
+      )}
+
+      {/* Sprint Review stakeholder feedback */}
+      {showFeedback && (
+        <FeedbackPanel items={feedbackItems} participants={participants} onChange={setFeedbackItems} />
       )}
 
       {/* Planning Poker banner */}

@@ -111,7 +111,21 @@
     "demoChecklist": "Список демонстрации",
     "addDemoItem": "Добавить пункт для демонстрации…",
     "presenter": "Докладчик",
-    "itemDemoed": "Отметить пункт как показанный"
+    "itemDemoed": "Отметить пункт как показанный",
+    "feedback": "Отзывы заинтересованных сторон",
+    "addFeedback": "Добавить отзыв…",
+    "feedbackFrom": "От (необязательно)",
+    "feedbackType": {
+      "question": "Вопрос",
+      "concern": "Опасение",
+      "praise": "Похвала"
+    }
+  },
+  "participant": {
+    "role": {
+      "team": "Команда",
+      "stakeholder": "Заинтересованная сторона"
+    }
   },
   "timeStats": {
     "title": "Анализ времени",

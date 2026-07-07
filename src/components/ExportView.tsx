@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { ExportData } from '../types'
+import type { ExportData, FeedbackItem } from '../types'
 import { CEREMONIES, formatDuration } from '../data/ceremonies'
 
 const SPRINT_METRICS_KEY = 'sprint-metrics-sprints'
@@ -44,6 +44,26 @@ function buildMarkdown(data: ExportData, t: (k: string, opts?: Record<string, un
 
   if (data.ceremonyType === 'daily' && data.impediments && data.impediments.length > 0) {
     lines.push('', '## Impediments', ...data.impediments.map(i => `- ${i}`))
+  }
+
+  if (data.ceremonyType === 'review' && data.feedbackItems && data.feedbackItems.length > 0) {
+    const groups: { type: FeedbackItem['type']; heading: string }[] = [
+      { type: 'question', heading: 'Questions' },
+      { type: 'concern', heading: 'Concerns' },
+      { type: 'praise', heading: 'Praise' },
+    ]
+    const rows = groups.flatMap(({ type, heading }) => {
+      const forType = data.feedbackItems!.filter(f => f.type === type)
+      if (forType.length === 0) return []
+      return [
+        '',
+        `### ${heading}`,
+        ...forType.map(f => `- ${f.from ? `[${f.from} — Stakeholder] ` : ''}${f.text}`),
+      ]
+    })
+    if (rows.length > 0) {
+      lines.push('', '## Stakeholder Feedback', ...rows)
+    }
   }
 
   if (data.ceremonyType === 'review' && data.demoItems && data.demoItems.length > 0) {

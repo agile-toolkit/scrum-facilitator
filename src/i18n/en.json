@@ -111,7 +111,21 @@
     "demoChecklist": "Demo Checklist",
     "addDemoItem": "Add an item to demo…",
     "presenter": "Presenter",
-    "itemDemoed": "Mark item as demoed"
+    "itemDemoed": "Mark item as demoed",
+    "feedback": "Stakeholder Feedback",
+    "addFeedback": "Add feedback…",
+    "feedbackFrom": "From (optional)",
+    "feedbackType": {
+      "question": "Question",
+      "concern": "Concern",
+      "praise": "Praise"
+    }
+  },
+  "participant": {
+    "role": {
+      "team": "Team",
+      "stakeholder": "Stakeholder"
+    }
   },
   "timeStats": {
     "title": "Time breakdown",

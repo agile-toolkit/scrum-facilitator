@@ -25,6 +25,14 @@ export interface Participant {
   id: string
   name: string
   status: 'pending' | 'speaking' | 'done'
+  role?: 'team' | 'stakeholder'
+}
+
+export interface FeedbackItem {
+  id: string
+  text: string
+  from?: string
+  type: 'question' | 'concern' | 'praise'
 }
 
 export interface StickyNote {
@@ -64,6 +72,7 @@ export interface ExportData {
   impediments?: string[]
   demoItems?: DemoItem[]
   stepTimings?: StepTiming[]
+  feedbackItems?: FeedbackItem[]
   stepsCompleted: number
   totalSteps: number
 }
@@ -85,6 +94,7 @@ export interface SessionState {
   demoItems?: DemoItem[]
   stepTimings?: StepTiming[]
   stepStartedAt?: number
+  feedbackItems?: FeedbackItem[]
   savedAt: number
 }
 

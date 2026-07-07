@@ -111,7 +111,21 @@
     "demoChecklist": "Спіс дэманстрацыі",
     "addDemoItem": "Дадаць пункт для дэманстрацыі…",
     "presenter": "Дакладчык",
-    "itemDemoed": "Адзначыць пункт як прадэманстраваны"
+    "itemDemoed": "Адзначыць пункт як прадэманстраваны",
+    "feedback": "Водгук зацікаўленых бакоў",
+    "addFeedback": "Дадаць водгук…",
+    "feedbackFrom": "Ад (неабавязкова)",
+    "feedbackType": {
+      "question": "Пытанне",
+      "concern": "Занепакоенасць",
+      "praise": "Пахвала"
+    }
+  },
+  "participant": {
+    "role": {
+      "team": "Каманда",
+      "stakeholder": "Зацікаўлены бок"
+    }
   },
   "timeStats": {
     "title": "Аналіз часу",

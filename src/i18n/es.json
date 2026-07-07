@@ -111,7 +111,21 @@
     "demoChecklist": "Lista de demostración",
     "addDemoItem": "Añadir un elemento a demostrar…",
     "presenter": "Presentador",
-    "itemDemoed": "Marcar elemento como demostrado"
+    "itemDemoed": "Marcar elemento como demostrado",
+    "feedback": "Comentarios de las partes interesadas",
+    "addFeedback": "Añadir un comentario…",
+    "feedbackFrom": "De (opcional)",
+    "feedbackType": {
+      "question": "Pregunta",
+      "concern": "Preocupación",
+      "praise": "Elogio"
+    }
+  },
+  "participant": {
+    "role": {
+      "team": "Equipo",
+      "stakeholder": "Interesado"
+    }
   },
   "timeStats": {
     "title": "Balance de tiempo",

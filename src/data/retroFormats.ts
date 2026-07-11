@@ -51,6 +51,36 @@ export const RETRO_FORMATS: RetroFormatConfig[] = [
       { id: 'rocks',  labelKey: 'retro.columns.rocks',  colorClass: 'bg-amber-50 dark:bg-amber-950 border-amber-200 dark:border-amber-800', headerColor: 'bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-200' },
     ],
   },
+  {
+    id: 'starfish',
+    nameKey: 'retro.format.starfish',
+    columns: [
+      { id: 'stop',  labelKey: 'retro.columns.stop',  colorClass: 'bg-red-50 dark:bg-red-950 border-red-200 dark:border-red-800',       headerColor: 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200' },
+      { id: 'less',  labelKey: 'retro.columns.less',  colorClass: 'bg-orange-50 dark:bg-orange-950 border-orange-200 dark:border-orange-800', headerColor: 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200' },
+      { id: 'keep',  labelKey: 'retro.columns.keep',  colorClass: 'bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-800',   headerColor: 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' },
+      { id: 'more',  labelKey: 'retro.columns.more',  colorClass: 'bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800',     headerColor: 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200' },
+      { id: 'start', labelKey: 'retro.columns.start', colorClass: 'bg-purple-50 dark:bg-purple-950 border-purple-200 dark:border-purple-800', headerColor: 'bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200' },
+    ],
+  },
+  {
+    id: 'daki',
+    nameKey: 'retro.format.daki',
+    columns: [
+      { id: 'drop',    labelKey: 'retro.columns.drop',    colorClass: 'bg-red-50 dark:bg-red-950 border-red-200 dark:border-red-800',       headerColor: 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200' },
+      { id: 'add',     labelKey: 'retro.columns.add',     colorClass: 'bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800',     headerColor: 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200' },
+      { id: 'keep',    labelKey: 'retro.columns.keep',    colorClass: 'bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-800',   headerColor: 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' },
+      { id: 'improve', labelKey: 'retro.columns.improve', colorClass: 'bg-yellow-50 dark:bg-yellow-950 border-yellow-200 dark:border-yellow-800', headerColor: 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200' },
+    ],
+  },
+  {
+    id: 'ssc',
+    nameKey: 'retro.format.ssc',
+    columns: [
+      { id: 'start',    labelKey: 'retro.columns.start',    colorClass: 'bg-purple-50 dark:bg-purple-950 border-purple-200 dark:border-purple-800', headerColor: 'bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200' },
+      { id: 'stop',     labelKey: 'retro.columns.stop',     colorClass: 'bg-red-50 dark:bg-red-950 border-red-200 dark:border-red-800',       headerColor: 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200' },
+      { id: 'continue', labelKey: 'retro.columns.continue', colorClass: 'bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-800', headerColor: 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' },
+    ],
+  },
 ]
 
 export function getRetroFormat(id: RetroFormat): RetroFormatConfig {

@@ -105,7 +105,7 @@ export default function RetroBoard({ notes, format, onChange, onFormatChange, on
       )}
 
       <div className={`grid grid-cols-1 gap-4 overflow-x-auto ${
-        formatConfig.columns.length === 4 ? 'md:grid-cols-4' : 'md:grid-cols-3'
+        formatConfig.columns.length === 5 ? 'md:grid-cols-5' : formatConfig.columns.length === 4 ? 'md:grid-cols-4' : 'md:grid-cols-3'
       }`}>
         {formatConfig.columns.map(col => (
           <StickyColumn

@@ -54,7 +54,10 @@
       "classic": "Clásico",
       "four-ls": "4Ls",
       "mad-sad-glad": "Enojado · Triste · Alegre",
-      "sailboat": "Velero"
+      "sailboat": "Velero",
+      "starfish": "Estrella de mar",
+      "daki": "DAKI",
+      "ssc": "Empezar · Parar · Continuar"
     },
     "columns": {
       "wellDone": "Qué salió bien",
@@ -69,7 +72,16 @@
       "glad": "Alegre",
       "wind": "Viento",
       "anchor": "Ancla",
-      "rocks": "Rocas"
+      "rocks": "Rocas",
+      "stop": "Parar",
+      "less": "Menos",
+      "keep": "Mantener",
+      "more": "Más",
+      "start": "Empezar",
+      "drop": "Eliminar",
+      "add": "Agregar",
+      "improve": "Mejorar",
+      "continue": "Continuar"
     },
     "deleteNote": "Eliminar nota",
     "addNoteLabel": "Agregar nota a {{column}}",

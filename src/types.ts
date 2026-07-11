@@ -1,6 +1,6 @@
 export type CeremonyType = 'planning' | 'daily' | 'review' | 'retro'
 
-export type RetroFormat = 'classic' | 'four-ls' | 'mad-sad-glad' | 'sailboat'
+export type RetroFormat = 'classic' | 'four-ls' | 'mad-sad-glad' | 'sailboat' | 'starfish' | 'daki' | 'ssc'
 
 export interface AgendaStep {
   id: string

@@ -56,7 +56,10 @@
       "classic": "Classic",
       "four-ls": "4Ls",
       "mad-sad-glad": "Mad · Sad · Glad",
-      "sailboat": "Sailboat"
+      "sailboat": "Sailboat",
+      "starfish": "Starfish",
+      "daki": "DAKI",
+      "ssc": "Start · Stop · Continue"
     },
     "columns": {
       "wellDone": "What went well",
@@ -71,7 +74,16 @@
       "glad": "Glad",
       "wind": "Wind",
       "anchor": "Anchor",
-      "rocks": "Rocks"
+      "rocks": "Rocks",
+      "stop": "Stop",
+      "less": "Less",
+      "keep": "Keep",
+      "more": "More",
+      "start": "Start",
+      "drop": "Drop",
+      "add": "Add",
+      "improve": "Improve",
+      "continue": "Continue"
     },
     "markAction": "Mark as action item",
     "unmarkAction": "Unmark as action item",

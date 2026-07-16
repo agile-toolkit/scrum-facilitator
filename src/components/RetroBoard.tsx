@@ -62,6 +62,16 @@ export default function RetroBoard({ notes, format, onChange, onFormatChange, on
     })
   }
 
+  const reorderNote = (column: RetroColumn, fromId: string, toId: string) => {
+    const arr = [...(notes[column] ?? [])]
+    const fromIdx = arr.findIndex(n => n.id === fromId)
+    const toIdx = arr.findIndex(n => n.id === toId)
+    if (fromIdx === -1 || toIdx === -1 || fromIdx === toIdx) return
+    const [item] = arr.splice(fromIdx, 1)
+    arr.splice(toIdx, 0, item)
+    update({ ...notes, [column]: arr })
+  }
+
   return (
     <div className="flex flex-col gap-4">
       {!embedded && (
@@ -121,6 +131,7 @@ export default function RetroBoard({ notes, format, onChange, onFormatChange, on
             onVote={voteNote}
             onToggleAction={toggleAction}
             onOwnerChange={setOwner}
+            onReorder={reorderNote}
             participants={participants}
           />
         ))}

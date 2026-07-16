@@ -59,7 +59,7 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - [x] [#40] Feature: Ceremony time efficiency stats — planned vs actual per step, shown post-ceremony — implemented
 - [x] [#41] Feature: Stakeholder feedback panel for Sprint Review — implemented
 - [x] [#42] Feature: Additional retro formats — Starfish (5-col Stop/Less/Keep/More/Start), DAKI (4-col Drop/Add/Keep/Improve), SSC (3-col Start/Stop/Continue); add entries to `retroFormats.ts` + i18n keys — implemented
-- [ ] [#43] Feature: Sticky note drag-to-reorder within retro column — HTML5 drag events in `StickyNote.tsx` + `StickyColumn.tsx` + `RetroBoard.tsx`; independent of vote sort
+- [x] [#43] Feature: Sticky note drag-to-reorder within retro column — draggable wrappers in `StickyColumn.tsx`; `reorderNote` splices array in `RetroBoard.tsx`; drag start auto-deactivates sort-by-votes; drop shows ring-2 brand highlight; no new deps; no new i18n keys
 - [ ] [#44] Integration: Team Identity → Scrum Facilitator participant import — read `team-identity-charter.members[]` from localStorage to suggest Daily Scrum participant names in `ParticipantPanel.tsx` when `sf_participants` is empty
 - [ ] [#45] Research: No automated test coverage — add Vitest + React Testing Library, starting with `useTimer`/`useLocalStorage`/`RetroBoard` CRUD
 - [ ] [#46] Accessibility: Timer-done `animate-pulse` ignores `prefers-reduced-motion` (WCAG 2.3.3 gap) — one-line `motion-safe:` fix in `CountdownTimer.tsx`
@@ -87,6 +87,11 @@ Guided runner for Scrum ceremonies (planning, daily, review, retro): time-boxed 
 - Root `README.md` still has HTML comment TODO for screenshots (non-blocking).
 
 ## Agent Log
+### 2026-07-16 — feat: sticky note drag-to-reorder (#43)
+- Done: HTML5 drag-and-drop reorder within retro column; `reorderNote(column, fromId, toId)` in RetroBoard.tsx; draggable wrapper divs in StickyColumn.tsx with dragId/dragOverId state; drag start auto-clears sort-by-votes; drop target shows ring highlight; opacity-40 on dragged note; cursor-grab; no new deps, no new i18n keys; patch 0.1.0→0.1.1
+- Remaining: none for this issue
+- Next task: check issues for human feedback; auto-approve and implement #44 (Team Identity participant import) — read team-identity-charter.members[] from localStorage, suggest names in ParticipantPanel.tsx when sf_participants is empty
+
 
 ### 2026-07-11 — feat: additional retrospective formats (Starfish, DAKI, SSC)
 - Done: checked human feedback first — no `changes-requested`/`incomplete` issues; #1 (favicon, `research-more`) unchanged since round 6, skipped per standing note; #41/#40/#39/#38/#32 (`approved`) all confirmed already implemented (merged in prior runs), just awaiting human `Done` close, no action needed. Auto-approved and implemented #42 (created 2026-07-01, 10 days stale with zero comments, past the 7-day `needs-review` threshold, and already scoped in the BRIEF backlog) — added Starfish/DAKI/SSC entries to `RETRO_FORMATS`, widened the `RetroFormat` union type, fixed `RetroBoard.tsx`'s grid-column-count logic to handle 5-column formats (previously capped at 4), added all new i18n keys to EN/ES/BE/RU (132 → 141 keys per locale, verified zero drift across locales). No new dependency, no localStorage contract change. `npm run build` (tsc + vite) passes clean. PR #58 merged, CI green. #43/#44 (created 2026-07-01) and #45/#46/#47 (created 2026-07-03) are also past their 7-day threshold now — implement one next run, in issue-number order (#43 sticky-note drag-to-reorder recommended first, self-contained to `StickyNote.tsx`/`StickyColumn.tsx`/`RetroBoard.tsx`); #55/#56/#57 (created 2026-07-07) reach threshold 2026-07-14, not yet stale. Note: gh CLI/API and GraphQL remain blocked in this session (403 GitHub access not enabled, confirmed again) — used mcp__github__ tools for all GitHub ops (list_issues, issue_read, create_pull_request, merge_pull_request, actions_list for CI); actions_list list_workflow_runs output is large (~400KB) — piped to a file and parsed with python instead of reading inline, same workaround as sibling repos.

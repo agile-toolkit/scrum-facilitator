@@ -15,17 +15,20 @@ interface Props {
   onVote: (column: RetroColumn, id: string, delta: number) => void
   onToggleAction: (column: RetroColumn, id: string) => void
   onOwnerChange: (column: RetroColumn, id: string, owner: string) => void
+  onReorder: (column: RetroColumn, fromId: string, toId: string) => void
   participants: Participant[]
 }
 
 export default function StickyColumn({
   column, notes, labelKey, colorClass, headerColor,
-  onAdd, onEdit, onDelete, onVote, onToggleAction, onOwnerChange, participants,
+  onAdd, onEdit, onDelete, onVote, onToggleAction, onOwnerChange, onReorder, participants,
 }: Props) {
   const { t } = useTranslation()
   const [draft, setDraft] = useState('')
   const [open, setOpen] = useState(false)
   const [sortByVotes, setSortByVotes] = useState(false)
+  const [dragId, setDragId] = useState<string | null>(null)
+  const [dragOverId, setDragOverId] = useState<string | null>(null)
 
   const submit = () => {
     const trimmed = draft.trim()
@@ -78,17 +81,38 @@ export default function StickyColumn({
       <div id={`retro-notes-${column}`} className={`flex-col gap-2 flex-1 ${open ? 'flex' : 'hidden md:flex'}`}>
         <div className="flex flex-col gap-2 flex-1">
           {displayNotes.map(note => (
-            <StickyNote
+            <div
               key={note.id}
-              note={note}
-              colorClass={colorClass}
-              onEdit={(id, text) => onEdit(column, id, text)}
-              onDelete={id => onDelete(column, id)}
-              onVote={(id, delta) => onVote(column, id, delta)}
-              onToggleAction={id => onToggleAction(column, id)}
-              onOwnerChange={(id, owner) => onOwnerChange(column, id, owner)}
-              participants={participants}
-            />
+              draggable
+              onDragStart={e => {
+                setDragId(note.id)
+                if (sortByVotes) setSortByVotes(false)
+                e.dataTransfer.effectAllowed = 'move'
+              }}
+              onDragEnd={() => { setDragId(null); setDragOverId(null) }}
+              onDragOver={e => { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; setDragOverId(note.id) }}
+              onDrop={e => {
+                e.preventDefault()
+                if (dragId && dragId !== note.id) onReorder(column, dragId, note.id)
+                setDragId(null); setDragOverId(null)
+              }}
+              className={`relative cursor-grab active:cursor-grabbing transition-opacity ${
+                dragId === note.id ? 'opacity-40' : 'opacity-100'
+              } ${
+                dragOverId === note.id && dragId !== note.id ? 'ring-2 ring-brand-400 rounded-xl' : ''
+              }`}
+            >
+              <StickyNote
+                note={note}
+                colorClass={colorClass}
+                onEdit={(id, text) => onEdit(column, id, text)}
+                onDelete={id => onDelete(column, id)}
+                onVote={(id, delta) => onVote(column, id, delta)}
+                onToggleAction={id => onToggleAction(column, id)}
+                onOwnerChange={(id, owner) => onOwnerChange(column, id, owner)}
+                participants={participants}
+              />
+            </div>
           ))}
         </div>
 

@@ -6,7 +6,7 @@
 
 A guided, time-boxed runner for the four core Scrum ceremonies — Sprint Planning, Daily Stand-up, Sprint Review, and Retrospective. Facilitators get a countdown timer, per-step rationale, structured capture (retro board, sprint goal, impediments, demo checklist, stakeholder feedback), and a one-click Markdown export, all persisted client-side with no backend or account.
 
-See `.artefacts/GOAL.md` for why this exists and its success criteria, and `.artefacts/ROADMAP.md` for what's shipped and what's next.
+See `GOAL.md` for why this exists and its success criteria, and `ROADMAP.md` for what's shipped and what's next.
 
 ## Features
 

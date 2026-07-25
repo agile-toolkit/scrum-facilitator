@@ -24,3 +24,11 @@ open than the alternative and by remembering what happened last time.
 - Ceremonies stay runnable by a facilitator who has never read the docs.
 
 *Repo: `agile-toolkit/scrum-facilitator`*
+
+---
+
+## Latitude
+
+Every goal above names an outcome, not a mechanism. Any roadmap that moves a
+signal without crossing a boundary is fair game — including approaches nobody
+in this category has tried. Invention is expected, not merely permitted.

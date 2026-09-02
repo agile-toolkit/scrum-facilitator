@@ -35,7 +35,12 @@
     },
     "impediments": "Препятствия",
     "addImpediment": "Добавить препятствие…",
-    "openImprovementBoard": "Открыть Improvement Board →"
+    "openImprovementBoard": "Открыть Improvement Board →",
+    "importFromTeamIdentity": "Импортировать {{count}} участника из Team Identity",
+    "importFromTeamIdentity_other": "Импортировать {{count}} участников из Team Identity",
+    "importNames": "{{names}}",
+    "importConfirm": "Импортировать",
+    "importDismiss": "Отклонить"
   },
   "retro": {
     "wellDone": "Что прошло хорошо",

@@ -35,7 +35,12 @@
     },
     "impediments": "Impediments",
     "addImpediment": "Add an impediment…",
-    "openImprovementBoard": "Open Improvement Board →"
+    "openImprovementBoard": "Open Improvement Board →",
+    "importFromTeamIdentity": "Import {{count}} member from Team Identity",
+    "importFromTeamIdentity_other": "Import {{count}} members from Team Identity",
+    "importNames": "{{names}}",
+    "importConfirm": "Import",
+    "importDismiss": "Dismiss"
   },
   "retro": {
     "wellDone": "What went well",

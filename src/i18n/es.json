@@ -35,7 +35,12 @@
     },
     "impediments": "Impedimentos",
     "addImpediment": "Añadir un impedimento…",
-    "openImprovementBoard": "Abrir Improvement Board →"
+    "openImprovementBoard": "Abrir Improvement Board →",
+    "importFromTeamIdentity": "Importar {{count}} miembro de Team Identity",
+    "importFromTeamIdentity_other": "Importar {{count}} miembros de Team Identity",
+    "importNames": "{{names}}",
+    "importConfirm": "Importar",
+    "importDismiss": "Descartar"
   },
   "retro": {
     "wellDone": "Qué salió bien",

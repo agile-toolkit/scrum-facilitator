@@ -35,7 +35,12 @@
     },
     "impediments": "Перашкоды",
     "addImpediment": "Дадаць перашкоду…",
-    "openImprovementBoard": "Адкрыць Improvement Board →"
+    "openImprovementBoard": "Адкрыць Improvement Board →",
+    "importFromTeamIdentity": "Імпартаваць {{count}} удзельніка з Team Identity",
+    "importFromTeamIdentity_other": "Імпартаваць {{count}} удзельнікаў з Team Identity",
+    "importNames": "{{names}}",
+    "importConfirm": "Імпартаваць",
+    "importDismiss": "Адхіліць"
   },
   "retro": {
     "wellDone": "Што прайшло добра",

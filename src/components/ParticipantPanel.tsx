@@ -8,6 +8,21 @@ interface Props {
   ceremonyType?: CeremonyType
 }
 
+const TI_IMPORT_DISMISSED_KEY = 'scrum-facilitator-ti-import-dismissed'
+
+// Team Identity writes { ...charter, savedAt } flat to this key — members
+// lives at the top level, not nested under a `charter` field.
+function readTeamIdentityMembers(): string[] {
+  try {
+    const raw = localStorage.getItem('team-identity-charter')
+    if (!raw) return []
+    const parsed = JSON.parse(raw) as { members?: unknown }
+    return Array.isArray(parsed.members) ? parsed.members.filter((m): m is string => typeof m === 'string' && m.trim().length > 0) : []
+  } catch {
+    return []
+  }
+}
+
 function statusColor(status: Participant['status']): string {
   if (status === 'speaking') return 'bg-brand-500 text-white border-brand-500'
   if (status === 'done') return 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500 border-gray-200 dark:border-gray-600'
@@ -18,7 +33,20 @@ export default function ParticipantPanel({ participants, onChange, ceremonyType 
   const { t } = useTranslation()
   const [name, setName] = useState('')
   const [role, setRole] = useState<'team' | 'stakeholder'>('team')
+  const [tiDismissed, setTiDismissed] = useState(() => localStorage.getItem(TI_IMPORT_DISMISSED_KEY) === '1')
   const isReview = ceremonyType === 'review'
+
+  const tiMembers = readTeamIdentityMembers()
+  const showTiImportBanner = participants.length === 0 && tiMembers.length > 0 && !tiDismissed
+
+  const importFromTeamIdentity = () => {
+    onChange(tiMembers.map(m => ({ id: crypto.randomUUID(), name: m, status: 'pending' as const })))
+  }
+
+  const dismissTiImport = () => {
+    localStorage.setItem(TI_IMPORT_DISMISSED_KEY, '1')
+    setTiDismissed(true)
+  }
 
   const addParticipant = () => {
     const trimmed = name.trim()
@@ -110,6 +138,22 @@ export default function ParticipantPanel({ participants, onChange, ceremonyType 
           </button>
         )}
       </div>
+
+      {showTiImportBanner && (
+        <div className="flex items-center gap-3 px-3 py-2 rounded-xl border border-brand-100 dark:border-gray-600 bg-brand-50 dark:bg-gray-800 text-sm">
+          <span className="flex-1 text-gray-700 dark:text-gray-200">
+            {t('daily.importFromTeamIdentity', { count: tiMembers.length })}
+            {': '}
+            <span className="font-medium text-brand-700 dark:text-brand-400">{t('daily.importNames', { names: tiMembers.join(', ') })}</span>
+          </span>
+          <button onClick={importFromTeamIdentity} className="btn-primary text-xs py-1.5 px-2.5 flex-shrink-0">
+            {t('daily.importConfirm')}
+          </button>
+          <button onClick={dismissTiImport} className="btn-ghost text-xs py-1.5 px-2 flex-shrink-0">
+            {t('daily.importDismiss')}
+          </button>
+        </div>
+      )}
 
       {/* Add form */}
       <div className="flex gap-2">

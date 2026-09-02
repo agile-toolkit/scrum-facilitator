@@ -61,14 +61,17 @@ All keys below are written by this app (not read from other apps). Because `agil
 | `scrum-facilitator-team-name` | `string` | Last-used team/label name |
 | `scrum-facilitator-timebox-overrides` | `Record<CeremonyType, Record<stepId, seconds>>` | Custom per-step durations |
 | `sf_participants` | `Participant[]` | Daily Scrum / Sprint Review participant list |
+| `scrum-facilitator-ti-import-dismissed` | `'1'` once dismissed | Suppresses the "Import from Team Identity" banner in `ParticipantPanel` after the facilitator dismisses it once |
 | `theme` | `'dark' \| 'light'` | Theme preference (shared key convention with sibling apps' `ThemeToggle`) |
+
+**Read from another app:** `team-identity-charter` (written by `team-identity`, shape `{ teamName?: string, members?: string[], ...other charter fields, savedAt: number }` — flat, not nested under a `charter` key). `ParticipantPanel.tsx` reads `members` to offer a one-click import when the participant list is empty, instead of asking the facilitator to re-type names already entered in Team Identity.
 
 ## Tech notes
 
 - **State management** — no global store; each localStorage key is a `useLocalStorage` hook (`src/hooks/useLocalStorage.ts`) backing local component state, kept in sync via `useEffect`. Ceremony session state lives in `CeremonyRunner.tsx` and is auto-saved on every change.
 - **i18n** — `react-i18next` with four locale files (`src/i18n/{en,es,be,ru}.json`), a language-cycle toggle in the header (EN→ES→BE→RU→EN), and `i18next-browser-languagedetector` for the initial guess. Locale key parity across all four files is checked manually each release (see `.artefacts/BRIEF.md` agent log).
 - **Theme** — Tailwind `darkMode: 'class'`; an anti-flash inline script in `index.html` applies the stored `theme` class before first paint; `ThemeToggle.tsx` is copied in from the shared `agile-toolkit` design system.
-- **Cross-app integration** — "Open Planning Poker →" deep-links to `https://agile-toolkit.github.io/planning-poker/` with participants pre-filled via a `?participants=` query param (no localStorage read); the Daily Scrum impediment log deep-links to `https://agile-toolkit.github.io/improvement-board/`. Because all `agile-toolkit` apps share one origin, `localStorage` keys written here are also directly readable by sibling apps (e.g. the suite dashboard).
+- **Cross-app integration** — "Open Planning Poker →" deep-links to `https://agile-toolkit.github.io/planning-poker/` with participants pre-filled via a `?participants=` query param (no localStorage read); the Daily Scrum impediment log deep-links to `https://agile-toolkit.github.io/improvement-board/`. Because all `agile-toolkit` apps share one origin, `localStorage` keys written here are also directly readable by sibling apps (e.g. the suite dashboard). `ParticipantPanel.tsx` also reads `team-identity-charter.members` to offer a one-click "import from Team Identity" suggestion when the participant list is empty — a point-to-point read chosen over the Dashboard's newer `agile-toolkit:activeTeam` contract because this needs the full member *list*, not just a team name.
 - **Timer alerts** — a 440 Hz tone via the Web Audio API plus an `animate-pulse` CSS flash when a step's countdown hits zero.
 
 ## Screenshots

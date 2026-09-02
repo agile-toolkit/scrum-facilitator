@@ -46,6 +46,7 @@ npm run dev
 | `npm run dev` | Start the Vite dev server with hot reload |
 | `npm run build` | Type-check (`tsc`) then produce a production build (`vite build`) |
 | `npm run preview` | Serve the production build locally for a final check |
+| `npm test` | Run the test suite (`vitest run`) — `src/data/ceremonies.ts` and `src/data/retroFormats.ts` |
 
 ## localStorage keys
 
@@ -69,6 +70,7 @@ All keys below are written by this app (not read from other apps). Because `agil
 ## Tech notes
 
 - **State management** — no global store; each localStorage key is a `useLocalStorage` hook (`src/hooks/useLocalStorage.ts`) backing local component state, kept in sync via `useEffect`. Ceremony session state lives in `CeremonyRunner.tsx` and is auto-saved on every change.
+- **Ceremony data** (`src/data/ceremonies.ts`) — `totalMinutes` (shown on the ceremony selection card, before any step ever runs) must equal the sum of that ceremony's own step `duration`s; `ceremonies.test.ts` asserts this for every ceremony after Sprint Planning and Retrospective were found drifted (240/90 declared vs. an actual 135/65 minutes of guided steps) during a suite-wide audit.
 - **i18n** — `react-i18next` with four locale files (`src/i18n/{en,es,be,ru}.json`), a language-cycle toggle in the header (EN→ES→BE→RU→EN), and `i18next-browser-languagedetector` for the initial guess. Locale key parity across all four files is checked manually each release (see `.artefacts/BRIEF.md` agent log).
 - **Theme** — Tailwind `darkMode: 'class'`; an anti-flash inline script in `index.html` applies the stored `theme` class before first paint; `ThemeToggle.tsx` is copied in from the shared `agile-toolkit` design system.
 - **Cross-app integration** — "Open Planning Poker →" deep-links to `https://agile-toolkit.github.io/planning-poker/` with participants pre-filled via a `?participants=` query param (no localStorage read); the Daily Scrum impediment log deep-links to `https://agile-toolkit.github.io/improvement-board/`. Because all `agile-toolkit` apps share one origin, `localStorage` keys written here are also directly readable by sibling apps (e.g. the suite dashboard). `ParticipantPanel.tsx` also reads `team-identity-charter.members` to offer a one-click "import from Team Identity" suggestion when the participant list is empty — a point-to-point read chosen over the Dashboard's newer `agile-toolkit:activeTeam` contract because this needs the full member *list*, not just a team name.

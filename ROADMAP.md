@@ -7,13 +7,15 @@ None — idle. See `## Next epics` below.
 
 ## Next epics
 1. **E2: Consistent destructive-action confirmation** — serves signal #1 (session/data integrity, so a team doesn't lose a sprint's worth of ceremony data to a stray click). Two related gaps share one fix pattern: sticky-note delete still uses the browser's native `window.confirm()` (breaks dark theme, inconsistent with the app's custom UI), and the home-screen "Discard" on the resume banner wipes an entire in-progress ceremony with zero confirmation at all. Replace both with the app's inline two-step confirm pattern. https://github.com/agile-toolkit/scrum-facilitator/issues/47, https://github.com/agile-toolkit/scrum-facilitator/issues/55
-2. **E3: Quality hardening** — serves reliability (signal #1) and accessibility. No automated test coverage exists yet (start with `useTimer`/`useLocalStorage`/`RetroBoard` CRUD); separately, the timer-done `animate-pulse` flash ignores `prefers-reduced-motion` (WCAG 2.3.3 gap), a one-line `motion-safe:` fix. https://github.com/agile-toolkit/scrum-facilitator/issues/45, https://github.com/agile-toolkit/scrum-facilitator/issues/46
+2. **E3 remainder: Quality hardening** — serves reliability (signal #1) and accessibility. Data-layer test coverage started (`src/data/ceremonies.ts`, `src/data/retroFormats.ts`, 2026-09-02) — still open: `useTimer`/`useLocalStorage`/`RetroBoard` CRUD coverage; separately, the timer-done `animate-pulse` flash ignores `prefers-reduced-motion` (WCAG 2.3.3 gap), a one-line `motion-safe:` fix. https://github.com/agile-toolkit/scrum-facilitator/issues/45, https://github.com/agile-toolkit/scrum-facilitator/issues/46
 3. **E4: Installable offline PWA** — serves signal #1 (habit — opens fast even with spotty wifi) and #2. App state is already 100% localStorage-driven with continuous auto-save, making it a strong offline candidate — `vite-plugin-pwa` + manifest, precached app shell, no localStorage contract change. https://github.com/agile-toolkit/scrum-facilitator/issues/56
 4. **E5: Bulk history export** — serves signal #1, #3. `scrum-facilitator-history` caps at 5 entries and silently evicts the oldest once full (a team running Daily Scrum alone burns through 5 slots in under a week) — add an "Export all history" action on `HomeScreen.tsx` reusing `ExportView.tsx`'s Markdown renderer. https://github.com/agile-toolkit/scrum-facilitator/issues/57
 
 Blocked, not scheduled: **#1 — Favicon is missing** (bug, `research-more`). Research/spec is finalized (indigo brand-colour scale + geometric SVG), and the same research also found the current green Tailwind scale fails WCAG AA in two spots — but the issue explicitly poses a brand-identity question to a human (keep green + favicon-only fix, or full indigo rebrand) that shouldn't be auto-approved. Not queued for autonomous pickup. https://github.com/agile-toolkit/scrum-facilitator/issues/1
 
 ## Recently shipped
+**Fix: ceremony timebox display bug + data-layer tests** (2026-09-02) — see `## Shipped`. Found during a suite-wide UX/test audit: Sprint Planning and Retrospective each showed a `totalMinutes` on the selection card (240 / 90) that didn't match the sum of their own guided step durations (actually 135 / 65) — Daily and Review were already consistent, so this was drift, not a deliberate buffer. Corrected the two mismatched values and added a `vitest` suite (`ceremonies.test.ts`, `retroFormats.test.ts`) whose totalMinutes-vs-step-sum invariant test guards against the same class of bug recurring; this is also the repo's first automated test coverage (partial E3).
+
 **E1: Team Identity participant import** (2026-09-02) — see `## Shipped`. Adopted a direct read of `team-identity-charter.members[]` rather than the Dashboard's `agile-toolkit:activeTeam` contract, since this needs the full member list, not just a team name — `activeTeam` doesn't carry one. [#44](https://github.com/agile-toolkit/scrum-facilitator/issues/44)
 
 ## Repo cleanup (2026-09-02)
@@ -49,3 +51,8 @@ No small un-filed items queued — every known gap above already has an open iss
   Identity" banner instead of asking the facilitator to re-type names~~
 - ~~Dismissible per-browser (`scrum-facilitator-ti-import-dismissed`); never
   shown once `sf_participants` already has entries~~
+
+**v0.2.1 — Fix ceremony timebox display bug + data-layer tests** (2026-09-02):
+- ~~Corrected Sprint Planning's and Retrospective's displayed `totalMinutes`
+  (240→135, 90→65) to match the sum of their own guided step durations~~
+- ~~Added `vitest` + `jsdom`; `ceremonies.test.ts` and `retroFormats.test.ts`~~

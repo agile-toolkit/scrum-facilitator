@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+## 0.2.1 — Fix ceremony timebox display bug + data-layer tests (2026-09-02)
+
+- **fix**: Sprint Planning and Retrospective each showed a `totalMinutes`
+  on the ceremony selection card (240 / 90) that didn't match the sum of
+  their own guided step durations (actually 135 / 65) — found during a
+  suite-wide UX audit. Daily and Review were already internally
+  consistent, confirming this was drift rather than a deliberate buffer.
+  Corrected both values in `src/data/ceremonies.ts`.
+- **test**: added `vitest` + `jsdom` (this repo's first automated test
+  coverage — partial E3). `ceremonies.test.ts` asserts the
+  totalMinutes-vs-step-sum invariant for every ceremony (guarding against
+  the exact bug above recurring), plus `getCeremony`/`formatDuration`;
+  `retroFormats.test.ts` covers `getRetroFormat`/`emptyNotes` and format
+  data-shape invariants. `npm test` now passes cleanly: 2 files, 13 tests.
+
 ## 0.2.0 — E1: Team Identity participant import (2026-09-02)
 
 - **feat**: the Daily Scrum participant panel now offers a one-click import

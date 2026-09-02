@@ -5,7 +5,7 @@ export const CEREMONIES: Ceremony[] = [
     type: 'planning',
     nameKey: 'ceremonies.planning.name',
     descKey: 'ceremonies.planning.desc',
-    totalMinutes: 240,
+    totalMinutes: 135,
     icon: '📋',
     tipsKeys: [
       'ceremonies.planning.tips.0',
@@ -126,7 +126,7 @@ export const CEREMONIES: Ceremony[] = [
     type: 'retro',
     nameKey: 'ceremonies.retro.name',
     descKey: 'ceremonies.retro.desc',
-    totalMinutes: 90,
+    totalMinutes: 65,
     icon: '🔄',
     tipsKeys: [
       'ceremonies.retro.tips.0',

@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+## 0.2.2 — Confirm before discarding an in-progress session (2026-09-02)
+
+- **fix**: the resume-session banner's "Discard" button had no
+  confirmation — one accidental click could lose an in-progress
+  ceremony session with no way back. Added a confirm dialog, matching
+  the pattern already used elsewhere in the suite for destructive
+  actions.
+- Found via a suite-wide UX audit.
+
 ## 0.2.1 — Fix ceremony timebox display bug + data-layer tests (2026-09-02)
 
 - **fix**: Sprint Planning and Retrospective each showed a `totalMinutes`

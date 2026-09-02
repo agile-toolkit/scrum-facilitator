@@ -170,7 +170,8 @@
     "resumePrompt": "Resume {{ceremony}} from {{ago}}?",
     "resumePromptTeam": "Resume {{team}} · {{ceremony}} from {{ago}}?",
     "resume": "Resume",
-    "discard": "Discard"
+    "discard": "Discard",
+    "discard_confirm": "Discard this in-progress session? This can't be undone."
   },
   "team": {
     "label": "Team / Label (optional)",

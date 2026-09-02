@@ -80,6 +80,7 @@ export default function App() {
   }
 
   const discardSession = () => {
+    if (!window.confirm(t('history.discard_confirm'))) return
     localStorage.removeItem(SESSION_KEY)
     setDismissedResume(true)
   }

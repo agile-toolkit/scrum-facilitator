@@ -14,6 +14,8 @@ None — idle. See `## Next epics` below.
 Blocked, not scheduled: **#1 — Favicon is missing** (bug, `research-more`). Research/spec is finalized (indigo brand-colour scale + geometric SVG), and the same research also found the current green Tailwind scale fails WCAG AA in two spots — but the issue explicitly poses a brand-identity question to a human (keep green + favicon-only fix, or full indigo rebrand) that shouldn't be auto-approved. Not queued for autonomous pickup. https://github.com/agile-toolkit/scrum-facilitator/issues/1
 
 ## Recently shipped
+**Confirm before discarding an in-progress session** (2026-09-02) — see `## Shipped`. A suite-wide UX audit flagged the resume-session banner's "Discard" button as having no confirmation — one accidental click could lose an in-progress ceremony. Added a confirm dialog.
+
 **Fix: ceremony timebox display bug + data-layer tests** (2026-09-02) — see `## Shipped`. Found during a suite-wide UX/test audit: Sprint Planning and Retrospective each showed a `totalMinutes` on the selection card (240 / 90) that didn't match the sum of their own guided step durations (actually 135 / 65) — Daily and Review were already consistent, so this was drift, not a deliberate buffer. Corrected the two mismatched values and added a `vitest` suite (`ceremonies.test.ts`, `retroFormats.test.ts`) whose totalMinutes-vs-step-sum invariant test guards against the same class of bug recurring; this is also the repo's first automated test coverage (partial E3).
 
 **E1: Team Identity participant import** (2026-09-02) — see `## Shipped`. Adopted a direct read of `team-identity-charter.members[]` rather than the Dashboard's `agile-toolkit:activeTeam` contract, since this needs the full member list, not just a team name — `activeTeam` doesn't carry one. [#44](https://github.com/agile-toolkit/scrum-facilitator/issues/44)
@@ -56,3 +58,7 @@ No small un-filed items queued — every known gap above already has an open iss
 - ~~Corrected Sprint Planning's and Retrospective's displayed `totalMinutes`
   (240→135, 90→65) to match the sum of their own guided step durations~~
 - ~~Added `vitest` + `jsdom`; `ceremonies.test.ts` and `retroFormats.test.ts`~~
+
+**v0.2.2 — Confirm before discarding an in-progress session** (2026-09-02):
+- ~~Added a confirm dialog to the resume-session banner's Discard
+  button~~

@@ -167,7 +167,8 @@
     "resumePrompt": "¿Reanudar {{ceremony}} desde hace {{ago}}?",
     "resumePromptTeam": "¿Reanudar {{team}} · {{ceremony}} desde hace {{ago}}?",
     "resume": "Reanudar",
-    "discard": "Descartar"
+    "discard": "Descartar",
+    "discard_confirm": "¿Descartar esta sesión en curso? Esta acción no se puede deshacer."
   },
   "team": {
     "label": "Equipo / Etiqueta (opcional)",

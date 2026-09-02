@@ -1,6 +1,6 @@
 # Scrum Facilitator
 
-> An interactive Scrum ceremony runner built on Management 3.0 and ICAgile source materials.
+> An interactive Scrum ceremony runner built on the Scrum Guide and ICAgile source materials.
 
 **Live demo:** https://bthos.github.io/scrum-facilitator/
 

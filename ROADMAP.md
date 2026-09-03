@@ -14,6 +14,8 @@ None — idle. See `## Next epics` below.
 Blocked, not scheduled: **#1 — Favicon is missing** (bug, `research-more`). Research/spec is finalized (indigo brand-colour scale + geometric SVG), and the same research also found the current green Tailwind scale fails WCAG AA in two spots — but the issue explicitly poses a brand-identity question to a human (keep green + favicon-only fix, or full indigo rebrand) that shouldn't be auto-approved. Not queued for autonomous pickup. https://github.com/agile-toolkit/scrum-facilitator/issues/1
 
 ## Recently shipped
+**Facilitator Mode persists across suite apps** (2026-09-03) — see `## Shipped`. `useFacilitatorMode`'s storage key changed to the shared `agile-toolkit:facilitatorMode` so the mode survives switching to another suite app in the same tab, per direct user request.
+
 **Replace decorative ✕/×/✓/📋 emoji with SVG icons** (2026-09-03) — see `## Shipped`. Part of a suite-wide emoji→SVG sweep the user asked for; found that 6 delete buttons used `×` (multiplication sign) instead of `✕`, a variant the original sweep's grep missed.
 
 **Hide informational elements in Facilitator Mode** (2026-09-03) — see `## Shipped`. A follow-up user request found `CeremonyRunner`'s Why-tooltip and Facilitation-tips card, both on the live ceremony screen, untouched by Facilitator Mode — the flag was never even threaded down to that component. Fixed.
@@ -39,6 +41,7 @@ Closed 20 stale issues (#4–#43, minus already-open ones) that were `approved` 
 No small un-filed items queued — every known gap above already has an open issue. New polish-only findings (no epic-worthy scope, no issue yet) go here.
 
 ## Shipped
+- ~~Unify Facilitator Mode's storage key to the shared `agile-toolkit:facilitatorMode` so it persists across suite apps~~
 - ~~Replace decorative ✕/×/✓/📋 text-glyph buttons with shared SVG icons~~
 - ~~Hide CeremonyRunner's Why-tooltip and Facilitation-tips in Facilitator Mode~~
 - ~~Facilitator Mode — bigger UI + hidden language picker for in-room presentation, adopted from the shared design-system pattern~~

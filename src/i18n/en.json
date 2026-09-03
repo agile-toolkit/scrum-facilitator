@@ -300,5 +300,9 @@
         "Review last Sprint's actions first — did they help? Accountability drives change."
       ]
     }
+  },
+  "facilitator": {
+    "toggle_on": "Facilitator Mode",
+    "toggle_off": "Exit Facilitator Mode"
   }
 }

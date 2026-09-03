@@ -300,5 +300,9 @@
   },
   "timer": {
     "announceTime": "{{time}} restante"
+  },
+  "facilitator": {
+    "toggle_on": "Modo Facilitador",
+    "toggle_off": "Salir del Modo Facilitador"
   }
 }

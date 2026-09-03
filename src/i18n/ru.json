@@ -300,5 +300,9 @@
   },
   "timer": {
     "announceTime": "{{time}} осталось"
+  },
+  "facilitator": {
+    "toggle_on": "Режим фасилитатора",
+    "toggle_off": "Выйти из режима фасилитатора"
   }
 }

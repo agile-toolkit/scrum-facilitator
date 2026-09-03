@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+## 0.2.6 — Facilitator Mode (2026-09-03)
+
+- **feat**: added Facilitator (projector) Mode — a presentation toggle for
+  in-room ceremonies, bigger UI via one CSS rule (everything sized in
+  `rem` scales automatically) plus hiding the language picker while
+  active. Toggled from a new header button next to the theme toggle,
+  session-scoped via `sessionStorage`. Adopted from the shared
+  design-system pattern (`useFacilitatorMode.ts` + `FacilitatorToggle.tsx`),
+  originally built for Team Identity.
+
 ## 0.2.5 — Fix Export-to-Sprint-Metrics data loss; receive Sprint Metrics' retro handoff (2026-09-03)
 
 - **fix (broken integration, data loss)**: "Export to Sprint Metrics"

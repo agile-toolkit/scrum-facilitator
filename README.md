@@ -64,6 +64,7 @@ All keys below are written by this app (not read from other apps). Because `agil
 | `sf_participants` | `Participant[]` | Daily Scrum / Sprint Review participant list |
 | `scrum-facilitator-ti-import-dismissed` | `'1'` once dismissed | Suppresses the "Import from Team Identity" banner in `ParticipantPanel` after the facilitator dismisses it once |
 | `theme` | `'dark' \| 'light'` | Theme preference (shared key convention with sibling apps' `ThemeToggle`) |
+| `scrum-facilitator:facilitatorMode` (`sessionStorage`) | `'1' \| '0'` | Facilitator (projector) mode toggle — per-tab, not persisted across sessions. See `src/components/useFacilitatorMode.ts`. |
 
 **Read from another app:** `team-identity-charter` (written by `team-identity`, shape `{ teamName?: string, members?: string[], ...other charter fields, savedAt: number }` — flat, not nested under a `charter` key). `ParticipantPanel.tsx` reads `members` to offer a one-click import when the participant list is empty, instead of asking the facilitator to re-type names already entered in Team Identity.
 

@@ -12,6 +12,8 @@ import CeremonyComplete from './components/CeremonyComplete'
 import ExportView from './components/ExportView'
 import AppHeader from './components/AppHeader'
 import ThemeToggle from './components/ThemeToggle'
+import FacilitatorToggle from './components/FacilitatorToggle'
+import { useFacilitatorMode } from './components/useFacilitatorMode'
 
 const SESSION_KEY = 'scrum-facilitator-session'
 const HISTORY_KEY = 'scrum-facilitator-history'
@@ -29,6 +31,7 @@ interface AppState {
 
 export default function App() {
   const { t } = useTranslation()
+  const [facilitatorMode, toggleFacilitatorMode] = useFacilitatorMode('scrum-facilitator:facilitatorMode')
 
   const [sessionOnMount] = useState<SessionState | null>(() => {
     try {
@@ -144,7 +147,15 @@ export default function App() {
 
   return (
     <div data-accent="violet" className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
-      <AppHeader title={t('app.title')} onTitleClick={goHome}><ThemeToggle /></AppHeader>
+      <AppHeader title={t('app.title')} onTitleClick={goHome} hideLanguagePicker={facilitatorMode}>
+        <ThemeToggle />
+        <FacilitatorToggle
+          active={facilitatorMode}
+          onToggle={toggleFacilitatorMode}
+          labelOn={t('facilitator.toggle_on')}
+          labelOff={t('facilitator.toggle_off')}
+        />
+      </AppHeader>
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-8">
         {appState.screen === 'home' && (

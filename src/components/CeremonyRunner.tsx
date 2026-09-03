@@ -12,6 +12,7 @@ import ImpedimentPanel from './ImpedimentPanel'
 import DemoChecklistPanel from './DemoChecklistPanel'
 import FeedbackPanel from './FeedbackPanel'
 import RetroBoard from './RetroBoard'
+import { readLastSprintSession } from '../utils/sprintMetricsHandoff'
 
 function Kbd({ children }: { children: React.ReactNode }) {
   return (
@@ -74,6 +75,8 @@ export default function CeremonyRunner({
   const [isMuted, setIsMuted] = useState(() => {
     try { return localStorage.getItem(MUTED_KEY) === 'true' } catch { return false }
   })
+  const [lastSprintSession] = useState(() => ceremonyType === 'retro' ? readLastSprintSession() : null)
+  const [lastSprintDismissed, setLastSprintDismissed] = useState(false)
   const isMutedRef = useRef(isMuted)
   isMutedRef.current = isMuted
 
@@ -246,6 +249,30 @@ export default function CeremonyRunner({
           <p className="text-sm text-brand-700 dark:text-brand-300">
             <span className="font-medium">{t('planning.sprintGoalLabel')}:</span> {sprintGoal}
           </p>
+        </div>
+      )}
+
+      {/* Last sprint context from Sprint Metrics (retro ceremony only) */}
+      {ceremonyType === 'retro' && lastSprintSession && !lastSprintDismissed && (
+        <div className="flex items-start gap-2 rounded-lg bg-brand-50 dark:bg-brand-700/20 border border-brand-200 dark:border-brand-700/40 px-3 py-2">
+          <span className="text-sm">📊</span>
+          <p className="flex-1 text-sm text-brand-700 dark:text-brand-300">
+            <span className="font-medium">{lastSprintSession.projectName}</span>
+            {' — '}
+            {t('retro.lastSprintContext', {
+              name: lastSprintSession.lastSprintName,
+              velocity: lastSprintSession.lastVelocity,
+              avgVelocity: lastSprintSession.avgVelocity,
+            })}
+            {lastSprintSession.lastSprintGoal ? ` "${lastSprintSession.lastSprintGoal}"` : ''}
+          </p>
+          <button
+            onClick={() => setLastSprintDismissed(true)}
+            className="text-brand-400 hover:text-brand-600 dark:hover:text-brand-200 text-xs"
+            aria-label={t('common.dismiss')}
+          >
+            ✕
+          </button>
         </div>
       )}
 

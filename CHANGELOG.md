@@ -2,6 +2,28 @@
 
 ## Unreleased
 
+## 0.2.5 — Fix Export-to-Sprint-Metrics data loss; receive Sprint Metrics' retro handoff (2026-09-03)
+
+- **fix (broken integration, data loss)**: "Export to Sprint Metrics"
+  (`ExportView.tsx`, shown after a Sprint Review) wrote the new sprint
+  entry to the legacy `sprint-metrics-sprints` key. Sprint Metrics only
+  ever reads that key once — on a completely fresh install, before its
+  first project is created — which happens automatically on the very
+  first visit. For any user who had opened Sprint Metrics before (i.e.
+  almost everyone), the button showed a "Sprint added" toast and did
+  nothing: the entry landed in a key nothing reads anymore. Found by a
+  suite-wide cross-app link audit. Fixed to append into the active
+  project inside `sprint-metrics-projects` instead, falling back to the
+  legacy key only on a genuinely fresh install. See
+  `src/utils/sprintMetricsHandoff.ts` (tested).
+- **fix (broken integration)**: Sprint Metrics' "Start Retro" button
+  (next to its velocity/mood decline alert) opens this app with
+  `?ceremony=retro` and writes `sprint-metrics:lastSession` — neither
+  was ever read here. Now `?ceremony=<type>` jumps straight into that
+  ceremony instead of requiring a manual click from Home, and the retro
+  ceremony shows a dismissible "last sprint" context banner (project,
+  sprint name, velocity) when a snapshot is available.
+
 ## 0.2.4 — Fix LanguagePicker dark mode (2026-09-02)
 
 - **fix**: `LanguagePicker.tsx` had zero `dark:` classes — same root

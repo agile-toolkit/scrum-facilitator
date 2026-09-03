@@ -14,6 +14,8 @@ None — idle. See `## Next epics` below.
 Blocked, not scheduled: **#1 — Favicon is missing** (bug, `research-more`). Research/spec is finalized (indigo brand-colour scale + geometric SVG), and the same research also found the current green Tailwind scale fails WCAG AA in two spots — but the issue explicitly poses a brand-identity question to a human (keep green + favicon-only fix, or full indigo rebrand) that shouldn't be auto-approved. Not queued for autonomous pickup. https://github.com/agile-toolkit/scrum-facilitator/issues/1
 
 ## Recently shipped
+**Fix Export-to-Sprint-Metrics data loss; receive Sprint Metrics' retro handoff** (2026-09-03) — see `## Shipped`. A suite-wide cross-app link audit found "Export to Sprint Metrics" wrote to a legacy key Sprint Metrics stopped reading after anyone's first visit — the button's "added" toast was lying. Fixed to write into the active project. Also wired up `?ceremony=` and `sprint-metrics:lastSession`, both previously unread.
+
 **Fix LanguagePicker dark mode** (2026-09-02) — see `## Shipped`. The design-system's canonical `LanguagePicker.tsx` never got dark-mode classes; this app's copy inherited the gap, same class of bug as the dark-theme fix above but in a different file. Synced with the now-fixed design-system source.
 
 **Fix dark theme** (2026-09-02) — see `## Shipped`. `index.css`'s `.card`/`.btn-secondary`/`.btn-ghost`/`body` dark rules targeted a `.dark` class that the app never sets (theme switches via a `data-theme` attribute) — every ceremony card and 10 other components stayed light-themed with barely-legible text in dark mode. Fixed all four selectors.
@@ -31,6 +33,7 @@ Closed 20 stale issues (#4–#43, minus already-open ones) that were `approved` 
 No small un-filed items queued — every known gap above already has an open issue. New polish-only findings (no epic-worthy scope, no issue yet) go here.
 
 ## Shipped
+- ~~Fix Export-to-Sprint-Metrics silently writing to a dead legacy key; receive `?ceremony=`/`sprint-metrics:lastSession` handoffs~~
 - ~~Ceremony picker and time-boxed agenda runner (start/pause/reset) with "why this step?" tips~~
 - ~~Daily Scrum participant tracking and Retrospective sticky-note board with Markdown export~~
 - ~~EN/RU, then full ES + BE locale support (4-language cycle)~~

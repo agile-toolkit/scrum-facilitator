@@ -43,6 +43,7 @@
     "importDismiss": "Dismiss"
   },
   "retro": {
+    "lastSprintContext": "last sprint \"{{name}}\" — velocity {{velocity}} (avg {{avgVelocity}}).",
     "wellDone": "What went well",
     "toImprove": "To improve",
     "actions": "Actions",
@@ -112,7 +113,8 @@
   },
   "common": {
     "back": "Back",
-    "delete": "Delete"
+    "delete": "Delete",
+    "dismiss": "Dismiss"
   },
   "poker": {
     "bannerTitle": "Estimate with Planning Poker",

@@ -43,6 +43,7 @@
     "importDismiss": "Адхіліць"
   },
   "retro": {
+    "lastSprintContext": "апошні спрынт «{{name}}» — хуткасць {{velocity}} (сярэдняя {{avgVelocity}}).",
     "wellDone": "Што прайшло добра",
     "toImprove": "Што паляпшыць",
     "actions": "Дзеянні",
@@ -112,7 +113,8 @@
   },
   "common": {
     "back": "Назад",
-    "delete": "Выдаліць"
+    "delete": "Выдаліць",
+    "dismiss": "Адхіліць"
   },
   "poker": {
     "bannerTitle": "Ацэньвайце з Planning Poker",

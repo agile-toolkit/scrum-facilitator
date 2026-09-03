@@ -2,18 +2,10 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { ExportData, FeedbackItem } from '../types'
 import { CEREMONIES, formatDuration } from '../data/ceremonies'
+import { appendSprintEntryToSprintMetrics } from '../utils/sprintMetricsHandoff'
 
-const SPRINT_METRICS_KEY = 'sprint-metrics-sprints'
 const SPRINT_METRICS_URL = 'https://agile-toolkit.github.io/sprint-metrics/'
 const IMPROVEMENT_BOARD_URL = 'https://agile-toolkit.github.io/improvement-board/'
-
-interface SprintEntry {
-  id: string
-  name: string
-  planned: number
-  completed: number
-  carriedOver: number
-}
 
 interface Props {
   data: ExportData
@@ -146,17 +138,13 @@ export default function ExportView({ data, onBack }: Props) {
   }
 
   const exportToSprintMetrics = () => {
-    const existing: SprintEntry[] = (() => {
-      try { return JSON.parse(localStorage.getItem(SPRINT_METRICS_KEY) ?? '[]') } catch { return [] }
-    })()
-    const entry: SprintEntry = {
+    appendSprintEntryToSprintMetrics({
       id: Date.now().toString(),
       name: data.date,
       planned: 0,
       completed: 0,
       carriedOver: 0,
-    }
-    localStorage.setItem(SPRINT_METRICS_KEY, JSON.stringify([...existing, entry]))
+    })
     window.open(SPRINT_METRICS_URL, '_blank', 'noopener,noreferrer')
     setSmExported(true)
     setTimeout(() => setSmExported(false), 4000)

@@ -4,6 +4,7 @@ import type { Screen, CeremonyType, ExportData, RetroNotes, RetroFormat, Session
 import { CEREMONIES } from './data/ceremonies'
 import { getRetroFormat, emptyNotes } from './data/retroFormats'
 import { useLocalStorage } from './hooks/useLocalStorage'
+import { parseCeremonyParam } from './utils/sprintMetricsHandoff'
 import HomeScreen from './components/HomeScreen'
 import CeremonyRunner from './components/CeremonyRunner'
 import RetroBoard from './components/RetroBoard'
@@ -46,12 +47,18 @@ export default function App() {
   const [reviewDemoItems, setReviewDemoItems] = useLocalStorage<DemoItem[]>(DEMO_ITEMS_KEY, [])
   const [dismissedResume, setDismissedResume] = useState(false)
 
-  const [appState, setAppState] = useState<AppState>({
-    screen: 'home',
-    ceremonyType: null,
-    exportData: null,
-    resumeSession: null,
-    exportBackScreen: 'complete',
+  // Sprint Metrics' "Start Retro" button (shown next to its velocity/mood
+  // decline alert) opens this app with ?ceremony=<type> to jump straight
+  // into that ceremony instead of requiring a manual click from Home.
+  const [appState, setAppState] = useState<AppState>(() => {
+    const ceremonyFromParam = parseCeremonyParam(window.location.search)
+    return {
+      screen: ceremonyFromParam ? 'ceremony' : 'home',
+      ceremonyType: ceremonyFromParam,
+      exportData: null,
+      resumeSession: null,
+      exportBackScreen: 'complete',
+    }
   })
   const [retroNotes, setRetroNotes] = useState<RetroNotes>(() =>
     emptyNotes(getRetroFormat(

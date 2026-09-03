@@ -43,6 +43,7 @@
     "importDismiss": "Descartar"
   },
   "retro": {
+    "lastSprintContext": "último sprint \"{{name}}\" — velocidad {{velocity}} (media {{avgVelocity}}).",
     "wellDone": "Qué salió bien",
     "toImprove": "A mejorar",
     "actions": "Acciones",
@@ -112,7 +113,8 @@
   },
   "common": {
     "back": "Volver",
-    "delete": "Eliminar"
+    "delete": "Eliminar",
+    "dismiss": "Descartar"
   },
   "poker": {
     "bannerTitle": "Estimar con Planning Poker",

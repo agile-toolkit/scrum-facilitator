@@ -43,6 +43,7 @@
     "importDismiss": "Отклонить"
   },
   "retro": {
+    "lastSprintContext": "последний спринт «{{name}}» — скорость {{velocity}} (среднее {{avgVelocity}}).",
     "wellDone": "Что прошло хорошо",
     "toImprove": "Что улучшить",
     "actions": "Действия",
@@ -112,7 +113,8 @@
   },
   "common": {
     "back": "Назад",
-    "delete": "Удалить"
+    "delete": "Удалить",
+    "dismiss": "Отклонить"
   },
   "poker": {
     "bannerTitle": "Оценка с Planning Poker",

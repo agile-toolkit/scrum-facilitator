@@ -189,6 +189,7 @@ export default function App() {
             resumeSession={appState.resumeSession}
             timeboxOverrides={timeboxOverrides[appState.ceremonyType] ?? {}}
             initialDemoItems={reviewDemoItems}
+            facilitatorMode={facilitatorMode}
           />
         )}
         {appState.screen === 'retro' && (

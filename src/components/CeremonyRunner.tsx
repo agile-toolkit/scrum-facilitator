@@ -55,10 +55,11 @@ interface Props {
   onComplete: (stepsCompleted: number, participants?: string[], sprintGoal?: string, impediments?: string[], demoItems?: DemoItem[], stepTimings?: StepTiming[], feedbackItems?: FeedbackItem[]) => void
   onBack: () => void
   resumeSession?: SessionState | null
+  facilitatorMode?: boolean
 }
 
 export default function CeremonyRunner({
-  ceremonyType, retroNotes, retroFormat, teamName, timeboxOverrides = {}, initialDemoItems = [], onRetroNotesChange, onComplete, onBack, resumeSession,
+  ceremonyType, retroNotes, retroFormat, teamName, timeboxOverrides = {}, initialDemoItems = [], onRetroNotesChange, onComplete, onBack, resumeSession, facilitatorMode = false,
 }: Props) {
   const { t } = useTranslation()
   const ceremony = getCeremony(ceremonyType)
@@ -345,8 +346,8 @@ export default function CeremonyRunner({
           </button>
         </div>
 
-        {/* Why tooltip */}
-        <WhyTooltip whyKey={currentStep.whyKey} />
+        {/* Why tooltip — not needed once presenting live */}
+        {!facilitatorMode && <WhyTooltip whyKey={currentStep.whyKey} />}
 
         {/* Sprint Goal capture */}
         {ceremonyType === 'planning' && currentStep.id === 'planning-1' && (
@@ -429,8 +430,8 @@ export default function CeremonyRunner({
         />
       )}
 
-      {/* Facilitation tips */}
-      <FacilitationTips tipsKeys={ceremony.tipsKeys} />
+      {/* Facilitation tips — not needed once presenting live */}
+      {!facilitatorMode && <FacilitationTips tipsKeys={ceremony.tipsKeys} />}
 
       {/* Navigation */}
       <div className="flex items-center justify-between pt-2">

@@ -14,6 +14,8 @@ None — idle. See `## Next epics` below.
 Blocked, not scheduled: **#1 — Favicon is missing** (bug, `research-more`). Research/spec is finalized (indigo brand-colour scale + geometric SVG), and the same research also found the current green Tailwind scale fails WCAG AA in two spots — but the issue explicitly poses a brand-identity question to a human (keep green + favicon-only fix, or full indigo rebrand) that shouldn't be auto-approved. Not queued for autonomous pickup. https://github.com/agile-toolkit/scrum-facilitator/issues/1
 
 ## Recently shipped
+**Hide informational elements in Facilitator Mode** (2026-09-03) — see `## Shipped`. A follow-up user request found `CeremonyRunner`'s Why-tooltip and Facilitation-tips card, both on the live ceremony screen, untouched by Facilitator Mode — the flag was never even threaded down to that component. Fixed.
+
 **Facilitator Mode** (2026-09-03) — see `## Shipped`. A user asked for the presentation/projector mode already built for Team Identity to be adopted suite-wide; this is repo 3 of an 11-repo rollout, adopting the pattern now shared in `design-system/`.
 
 **Fix Export-to-Sprint-Metrics data loss; receive Sprint Metrics' retro handoff** (2026-09-03) — see `## Shipped`. A suite-wide cross-app link audit found "Export to Sprint Metrics" wrote to a legacy key Sprint Metrics stopped reading after anyone's first visit — the button's "added" toast was lying. Fixed to write into the active project. Also wired up `?ceremony=` and `sprint-metrics:lastSession`, both previously unread.
@@ -35,6 +37,7 @@ Closed 20 stale issues (#4–#43, minus already-open ones) that were `approved` 
 No small un-filed items queued — every known gap above already has an open issue. New polish-only findings (no epic-worthy scope, no issue yet) go here.
 
 ## Shipped
+- ~~Hide CeremonyRunner's Why-tooltip and Facilitation-tips in Facilitator Mode~~
 - ~~Facilitator Mode — bigger UI + hidden language picker for in-room presentation, adopted from the shared design-system pattern~~
 - ~~Fix Export-to-Sprint-Metrics silently writing to a dead legacy key; receive `?ceremony=`/`sprint-metrics:lastSession` handoffs~~
 - ~~Ceremony picker and time-boxed agenda runner (start/pause/reset) with "why this step?" tips~~

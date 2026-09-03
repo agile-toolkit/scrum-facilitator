@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+## 0.2.7 — Hide informational elements in Facilitator Mode (2026-09-03)
+
+- **fix (follow-up)**: `CeremonyRunner`'s "▶ Why this step?" tooltip and
+  "💡 Facilitation tips" card — the two educational asides on the live
+  ceremony screen, i.e. what's actually projected during a real
+  standup/planning/review/retro — weren't gated by Facilitator Mode at
+  all, since `CeremonyRunner` never received the flag. Both now hide
+  while presenting.
+
 ## 0.2.6 — Facilitator Mode (2026-09-03)
 
 - **feat**: added Facilitator (projector) Mode — a presentation toggle for

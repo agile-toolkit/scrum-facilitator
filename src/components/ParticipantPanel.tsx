@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { CeremonyType, Participant } from '../types'
+import { CheckIcon, CloseIcon } from './icons'
 
 interface Props {
   participants: Participant[]
@@ -99,7 +100,7 @@ export default function ParticipantPanel({ participants, onChange, ceremonyType 
           className="min-w-[36px] min-h-[36px] flex items-center justify-center opacity-100 md:opacity-40 md:hover:opacity-100 text-sm ml-1"
           aria-label={t('common.delete')}
         >
-          ×
+          <CloseIcon className="w-3.5 h-3.5" />
         </button>
       </div>
     ) : (
@@ -114,7 +115,7 @@ export default function ParticipantPanel({ participants, onChange, ceremonyType 
         aria-pressed={p.status === 'speaking'}
       >
         <div className="w-9 h-9 rounded-full bg-current bg-opacity-10 flex items-center justify-center text-sm font-bold flex-shrink-0">
-          {p.status === 'done' ? '✓' : p.name[0]?.toUpperCase()}
+          {p.status === 'done' ? <CheckIcon className="w-4 h-4" /> : p.name[0]?.toUpperCase()}
         </div>
         <span className="flex-1 text-sm font-medium">{p.name}</span>
         <span className="text-xs opacity-70">{t(`daily.status.${p.status}`)}</span>
@@ -123,7 +124,7 @@ export default function ParticipantPanel({ participants, onChange, ceremonyType 
           className="min-w-[36px] min-h-[36px] flex items-center justify-center opacity-100 md:opacity-40 md:hover:opacity-100 text-sm ml-1"
           aria-label={t('common.delete')}
         >
-          ×
+          <CloseIcon className="w-3.5 h-3.5" />
         </button>
       </div>
     )

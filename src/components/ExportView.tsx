@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import type { ExportData, FeedbackItem } from '../types'
 import { CEREMONIES, formatDuration } from '../data/ceremonies'
 import { appendSprintEntryToSprintMetrics } from '../utils/sprintMetricsHandoff'
+import { CheckIcon, ClipboardIcon } from './icons'
 
 const SPRINT_METRICS_URL = 'https://agile-toolkit.github.io/sprint-metrics/'
 const IMPROVEMENT_BOARD_URL = 'https://agile-toolkit.github.io/improvement-board/'
@@ -173,8 +174,9 @@ export default function ExportView({ data, onBack }: Props) {
         <button onClick={download} className="btn-secondary text-sm">
           ⬇ {t('export.download')}
         </button>
-        <button onClick={copy} className="btn-primary text-sm">
-          {copied ? `✓ ${t('export.copied')}` : `📋 ${t('export.copy')}`}
+        <button onClick={copy} className="btn-primary text-sm inline-flex items-center gap-1.5">
+          {copied ? <CheckIcon className="w-3.5 h-3.5" /> : <ClipboardIcon className="w-3.5 h-3.5" />}
+          {copied ? t('export.copied') : t('export.copy')}
         </button>
       </div>
 

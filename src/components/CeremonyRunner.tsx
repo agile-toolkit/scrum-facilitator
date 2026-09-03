@@ -13,6 +13,7 @@ import DemoChecklistPanel from './DemoChecklistPanel'
 import FeedbackPanel from './FeedbackPanel'
 import RetroBoard from './RetroBoard'
 import { readLastSprintSession } from '../utils/sprintMetricsHandoff'
+import { CloseIcon } from './icons'
 
 function Kbd({ children }: { children: React.ReactNode }) {
   return (
@@ -272,7 +273,7 @@ export default function CeremonyRunner({
             className="text-brand-400 hover:text-brand-600 dark:hover:text-brand-200 text-xs"
             aria-label={t('common.dismiss')}
           >
-            ✕
+            <CloseIcon className="w-3.5 h-3.5" />
           </button>
         </div>
       )}

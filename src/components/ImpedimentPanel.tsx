@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { CloseIcon } from './icons'
 
 interface Props {
   impediments: string[]
@@ -54,7 +55,7 @@ export default function ImpedimentPanel({ impediments, onChange }: Props) {
                 className="min-w-[28px] min-h-[28px] flex items-center justify-center text-sm text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                 aria-label={t('common.delete')}
               >
-                ×
+                <CloseIcon className="w-3 h-3" />
               </button>
             </div>
           ))}

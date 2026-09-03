@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+## 0.2.8 — Replace decorative ✕/×/✓/📋 emoji with SVG icons (2026-09-03)
+
+- **feat**: replaced 9 decorative text glyphs — the last-sprint-banner
+  dismiss (`✕`), the copy-export button's clipboard/checkmark toggle
+  (`📋`/`✓`), a participant's done-status avatar swap (`✓`), and 6
+  delete buttons across `ParticipantPanel`, `DemoChecklistPanel`,
+  `FeedbackPanel`, `ImpedimentPanel`, and `StickyNote` that used `×`
+  (multiplication sign) rather than `✕` — with `CloseIcon`/`CheckIcon`/
+  `ClipboardIcon` from the new shared `icons.tsx`, `currentColor`
+  throughout. The `×` variant wasn't caught by the original suite-wide
+  emoji grep (`✕` only); found while fixing this app's other instances —
+  worth checking other apps for the same variant.
+
 ## 0.2.7 — Hide informational elements in Facilitator Mode (2026-09-03)
 
 - **fix (follow-up)**: `CeremonyRunner`'s "▶ Why this step?" tooltip and

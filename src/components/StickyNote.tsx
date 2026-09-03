@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { StickyNote as StickyNoteType, Participant } from '../types'
+import { CloseIcon } from './icons'
 
 interface Props {
   note: StickyNoteType
@@ -96,7 +97,7 @@ export default function StickyNote({ note, colorClass, onEdit, onDelete, onVote,
             className="min-w-[28px] min-h-[28px] flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 text-gray-400 hover:text-red-500 transition-all text-sm"
             aria-label={t('retro.deleteNote')}
           >
-            ×
+            <CloseIcon className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>

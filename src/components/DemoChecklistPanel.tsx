@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { DemoItem } from '../types'
+import { CloseIcon } from './icons'
 
 interface Props {
   items: DemoItem[]
@@ -82,7 +83,7 @@ export default function DemoChecklistPanel({ items, onChange }: Props) {
                 className="min-w-[28px] min-h-[28px] flex items-center justify-center text-sm text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                 aria-label={t('common.delete')}
               >
-                ×
+                <CloseIcon className="w-3 h-3" />
               </button>
             </div>
           ))}

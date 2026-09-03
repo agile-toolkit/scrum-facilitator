@@ -14,6 +14,8 @@ None — idle. See `## Next epics` below.
 Blocked, not scheduled: **#1 — Favicon is missing** (bug, `research-more`). Research/spec is finalized (indigo brand-colour scale + geometric SVG), and the same research also found the current green Tailwind scale fails WCAG AA in two spots — but the issue explicitly poses a brand-identity question to a human (keep green + favicon-only fix, or full indigo rebrand) that shouldn't be auto-approved. Not queued for autonomous pickup. https://github.com/agile-toolkit/scrum-facilitator/issues/1
 
 ## Recently shipped
+**Fix dark theme** (2026-09-02) — see `## Shipped`. `index.css`'s `.card`/`.btn-secondary`/`.btn-ghost`/`body` dark rules targeted a `.dark` class that the app never sets (theme switches via a `data-theme` attribute) — every ceremony card and 10 other components stayed light-themed with barely-legible text in dark mode. Fixed all four selectors.
+
 **Confirm before discarding an in-progress session** (2026-09-02) — see `## Shipped`. A suite-wide UX audit flagged the resume-session banner's "Discard" button as having no confirmation — one accidental click could lose an in-progress ceremony. Added a confirm dialog.
 
 **Fix: ceremony timebox display bug + data-layer tests** (2026-09-02) — see `## Shipped`. Found during a suite-wide UX/test audit: Sprint Planning and Retrospective each showed a `totalMinutes` on the selection card (240 / 90) that didn't match the sum of their own guided step durations (actually 135 / 65) — Daily and Review were already consistent, so this was drift, not a deliberate buffer. Corrected the two mismatched values and added a `vitest` suite (`ceremonies.test.ts`, `retroFormats.test.ts`) whose totalMinutes-vs-step-sum invariant test guards against the same class of bug recurring; this is also the repo's first automated test coverage (partial E3).
@@ -62,3 +64,8 @@ No small un-filed items queued — every known gap above already has an open iss
 **v0.2.2 — Confirm before discarding an in-progress session** (2026-09-02):
 - ~~Added a confirm dialog to the resume-session banner's Discard
   button~~
+
+**v0.2.3 — Fix dark theme** (2026-09-02):
+- ~~Fixed `.card`/`.btn-secondary`/`.btn-ghost`/`body` dark-mode rules
+  that targeted a `.dark` class the app never sets instead of the
+  `data-theme="dark"` attribute it actually uses~~

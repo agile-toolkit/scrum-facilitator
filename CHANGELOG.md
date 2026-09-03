@@ -2,6 +2,22 @@
 
 ## Unreleased
 
+## 0.2.3 — Fix dark theme (2026-09-02)
+
+- **fix**: `src/index.css`'s `.card`, `.btn-secondary`, `.btn-ghost`, and
+  `body` dark-mode rules were written against the literal `.dark` CSS
+  class (`.dark .card { ... }`), but this app switches themes via a
+  `data-theme="dark"` *attribute* on `<html>` (`ThemeToggle.tsx`,
+  `tailwind.config.js`'s `darkMode: ['selector', '[data-theme="dark"]']`).
+  Since nothing ever gets a literal `class="dark"`, those four rules
+  were permanently dead — every ceremony card, and any component using
+  `.card`/`.btn-secondary`/`.btn-ghost` (11 components total), stayed on
+  a white/light background with barely-legible text in dark mode.
+  Changed all four selectors to `[data-theme="dark"] ...`, matching the
+  rest of the app. Verified visually in both themes, home screen and
+  inside a ceremony.
+- Found via user report.
+
 ## 0.2.2 — Confirm before discarding an in-progress session (2026-09-02)
 
 - **fix**: the resume-session banner's "Discard" button had no

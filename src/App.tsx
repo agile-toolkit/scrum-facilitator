@@ -31,7 +31,7 @@ interface AppState {
 
 export default function App() {
   const { t } = useTranslation()
-  const [facilitatorMode, toggleFacilitatorMode] = useFacilitatorMode('scrum-facilitator:facilitatorMode')
+  const [facilitatorMode, toggleFacilitatorMode] = useFacilitatorMode('agile-toolkit:facilitatorMode')
 
   const [sessionOnMount] = useState<SessionState | null>(() => {
     try {

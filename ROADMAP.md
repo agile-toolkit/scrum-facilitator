@@ -14,6 +14,8 @@ None — idle. See `## Next epics` below.
 Blocked, not scheduled: **#1 — Favicon is missing** (bug, `research-more`). Research/spec is finalized (indigo brand-colour scale + geometric SVG), and the same research also found the current green Tailwind scale fails WCAG AA in two spots — but the issue explicitly poses a brand-identity question to a human (keep green + favicon-only fix, or full indigo rebrand) that shouldn't be auto-approved. Not queued for autonomous pickup. https://github.com/agile-toolkit/scrum-facilitator/issues/1
 
 ## Recently shipped
+**Add glass effect to the header; dedupe icons.tsx** (2026-09-04) — see `## Shipped`. Header background now matches the Dashboard's translucent blur (user-reported). A concurrent design-system PR added its own `ClapperIcon`/`StopwatchIcon`/`PlayIcon`/`PauseIcon` before this app's own versions could be backported — synced and renamed `ClapperboardIcon` → `ClapperIcon` to match.
+
 **Replace remaining decorative emoji with SVG icons** (2026-09-04) — see `## Shipped`. Finished the sweep 0.2.8 left open — ~30 instances across 13 components, plus 3 new icons (Clapperboard, Stopwatch, Play/Pause) added for gaps the shared `icons.tsx` didn't cover yet, each screenshot-verified before use.
 
 **Facilitator Mode persists across suite apps** (2026-09-03) — see `## Shipped`. `useFacilitatorMode`'s storage key changed to the shared `agile-toolkit:facilitatorMode` so the mode survives switching to another suite app in the same tab, per direct user request.
@@ -43,6 +45,8 @@ Closed 20 stale issues (#4–#43, minus already-open ones) that were `approved` 
 No small un-filed items queued — every known gap above already has an open issue. New polish-only findings (no epic-worthy scope, no issue yet) go here.
 
 ## Shipped
+- ~~Add glass/backdrop-blur effect to the header, matching the Dashboard's own nav~~
+- ~~Dedupe local icons.tsx against the now-canonical design-system source (ClapperboardIcon → ClapperIcon)~~
 - ~~Replace ~30 remaining decorative emoji (ceremony icons, timer controls, feedback types, checkboxes, etc.) with shared SVG icons; add ClapperboardIcon/StopwatchIcon/PlayIcon/PauseIcon~~
 - ~~Unify Facilitator Mode's storage key to the shared `agile-toolkit:facilitatorMode` so it persists across suite apps~~
 - ~~Replace decorative ✕/×/✓/📋 text-glyph buttons with shared SVG icons~~

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import type { ExportData, StepTiming, AgendaStep } from '../types'
 import { getCeremony, formatDuration } from '../data/ceremonies'
-import { CelebrateIcon, WarningIcon, ClapperboardIcon, StopwatchIcon, UploadIcon } from './icons'
+import { CelebrateIcon, WarningIcon, ClapperIcon, StopwatchIcon, UploadIcon } from './icons'
 
 const IMPROVEMENT_BOARD_URL = 'https://agile-toolkit.github.io/improvement-board/'
 
@@ -63,7 +63,7 @@ export default function CeremonyComplete({ data, onExport, onHome }: Props) {
       {demoItems.length > 0 && (
         <div className="card p-4 flex flex-col gap-2 border-l-4 border-brand-400 w-full text-left">
           <div className="flex items-center gap-2">
-            <ClapperboardIcon className="w-5 h-5" />
+            <ClapperIcon className="w-5 h-5" />
             <h3 className="font-medium text-gray-800 dark:text-gray-100">
               {t('review.demoChecklist')} ({demoedCount}/{demoItems.length})
             </h3>

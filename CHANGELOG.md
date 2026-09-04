@@ -2,6 +2,26 @@
 
 ## Unreleased
 
+## 0.3.2 — Add glass effect to the header; dedupe icons.tsx (2026-09-04)
+
+- **fix**: `AppHeader.tsx`'s background changed from opaque `bg-white`/
+  `dark:bg-gray-900` to `bg-[var(--glass)] backdrop-blur-sm` — the
+  Dashboard's own nav has always had this translucent blur effect, but
+  the shared header every app copies did not. User-reported
+  inconsistency. This app's header already carried a local
+  `dark:border-gray-700`/`dark:bg-brand-700/20` variation from the
+  canonical source — left untouched, only the background line changed.
+  Verified in both themes.
+- **chore**: a concurrent PR against `design-system` (merged before this
+  cycle) independently added `ClapperIcon`/`StopwatchIcon`/`PlayIcon`/
+  `PauseIcon` to the shared `icons.tsx`, duplicating the
+  `ClapperboardIcon`/`StopwatchIcon`/`PlayIcon`/`PauseIcon` this app had
+  added locally in 0.3.1 pending its own backport. Synced `icons.tsx`
+  fully from the now-canonical source (65 icons) and renamed this app's
+  `ClapperboardIcon` usages (`CeremonyComplete.tsx`,
+  `DemoChecklistPanel.tsx`) to `ClapperIcon`; `StopwatchIcon`/`PlayIcon`/
+  `PauseIcon` kept the same names so no other call sites changed.
+
 ## 0.3.1 — Replace remaining decorative emoji with SVG icons (2026-09-04)
 
 - **feat**: finished the emoji→SVG sweep started in 0.2.8 — the ~30

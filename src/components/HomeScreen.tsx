@@ -5,6 +5,8 @@ import { RETRO_FORMATS } from '../data/retroFormats'
 import type { CeremonyType, RetroFormat, SessionState, HistoryEntry, TimeboxOverrides, DemoItem } from '../types'
 import CeremonyCard from './CeremonyCard'
 import DemoChecklistPanel from './DemoChecklistPanel'
+import { CEREMONY_ICONS } from './ceremonyIcons'
+import { TargetIcon, StopwatchIcon } from './icons'
 
 function timeAgo(ts: number): string {
   const diff = Date.now() - ts
@@ -231,8 +233,11 @@ export default function HomeScreen({
                 className="card px-4 py-3 flex items-center justify-between gap-3"
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <span className="text-lg">
-                    {CEREMONIES.find(c => c.type === entry.exportData.ceremonyType)?.icon ?? '📋'}
+                  <span className="text-lg text-brand-600 dark:text-brand-400">
+                    {(() => {
+                      const Icon = CEREMONY_ICONS[entry.exportData.ceremonyType]
+                      return <Icon className="w-5 h-5" />
+                    })()}
                   </span>
                   <div className="min-w-0">
                     <p className="text-sm font-medium text-gray-800 dark:text-gray-100 truncate flex items-center gap-1.5">
@@ -242,15 +247,17 @@ export default function HomeScreen({
                           : ceremonyName(entry.exportData.ceremonyType)}
                       </span>
                       {hasSignificantOvertime(entry.exportData) && (
-                        <span title={t('timeStats.overtimeBadge')} className="flex-shrink-0">⏱</span>
+                        <span title={t('timeStats.overtimeBadge')} className="flex-shrink-0 text-amber-600 dark:text-amber-500">
+                          <StopwatchIcon className="w-3.5 h-3.5" />
+                        </span>
                       )}
                     </p>
                     <p className="text-xs text-gray-400 dark:text-gray-500">
                       {entry.exportData.date} · {t('history.steps', { done: entry.exportData.stepsCompleted, total: entry.exportData.totalSteps })}
                     </p>
                     {entry.exportData.ceremonyType === 'planning' && entry.exportData.sprintGoal && (
-                      <p className="text-xs text-brand-600 dark:text-brand-400 truncate">
-                        🎯 {entry.exportData.sprintGoal}
+                      <p className="text-xs text-brand-600 dark:text-brand-400 truncate flex items-center gap-1">
+                        <TargetIcon className="w-3.5 h-3.5 flex-shrink-0" /> {entry.exportData.sprintGoal}
                       </p>
                     )}
                     {entry.exportData.ceremonyType === 'daily' && (

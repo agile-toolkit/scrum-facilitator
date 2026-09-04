@@ -6,7 +6,6 @@ export const CEREMONIES: Ceremony[] = [
     nameKey: 'ceremonies.planning.name',
     descKey: 'ceremonies.planning.desc',
     totalMinutes: 135,
-    icon: '📋',
     tipsKeys: [
       'ceremonies.planning.tips.0',
       'ceremonies.planning.tips.1',
@@ -51,7 +50,6 @@ export const CEREMONIES: Ceremony[] = [
     nameKey: 'ceremonies.daily.name',
     descKey: 'ceremonies.daily.desc',
     totalMinutes: 15,
-    icon: '☀️',
     tipsKeys: [
       'ceremonies.daily.tips.0',
       'ceremonies.daily.tips.1',
@@ -83,7 +81,6 @@ export const CEREMONIES: Ceremony[] = [
     nameKey: 'ceremonies.review.name',
     descKey: 'ceremonies.review.desc',
     totalMinutes: 120,
-    icon: '🔍',
     tipsKeys: [
       'ceremonies.review.tips.0',
       'ceremonies.review.tips.1',
@@ -127,7 +124,6 @@ export const CEREMONIES: Ceremony[] = [
     nameKey: 'ceremonies.retro.name',
     descKey: 'ceremonies.retro.desc',
     totalMinutes: 65,
-    icon: '🔄',
     tipsKeys: [
       'ceremonies.retro.tips.0',
       'ceremonies.retro.tips.1',

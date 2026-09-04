@@ -1,7 +1,8 @@
 import { useState } from 'react'
+import type { ComponentType } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { FeedbackItem, Participant } from '../types'
-import { CloseIcon } from './icons'
+import { CloseIcon, QuestionIcon, WarningIcon, CheckCircleIcon, TeamIcon } from './icons'
 
 interface Props {
   items: FeedbackItem[]
@@ -9,10 +10,10 @@ interface Props {
   onChange: (items: FeedbackItem[]) => void
 }
 
-const TYPE_ICON: Record<FeedbackItem['type'], string> = {
-  question: '❓',
-  concern: '⚠️',
-  praise: '✅',
+const TYPE_ICON: Record<FeedbackItem['type'], ComponentType<{ className?: string }>> = {
+  question: QuestionIcon,
+  concern: WarningIcon,
+  praise: CheckCircleIcon,
 }
 
 export default function FeedbackPanel({ items, participants, onChange }: Props) {
@@ -44,7 +45,7 @@ export default function FeedbackPanel({ items, participants, onChange }: Props) 
         aria-expanded={open}
         aria-controls="feedback-panel-body"
       >
-        <span className="text-lg">🤝</span>
+        <TeamIcon className="w-5 h-5 text-brand-600 dark:text-brand-400" />
         <span className="font-medium text-gray-800 dark:text-gray-100 flex-1">{t('review.feedback')}</span>
         {items.length > 0 && (
           <span className="text-xs font-medium bg-brand-50 dark:bg-brand-700/20 text-brand-600 dark:text-brand-400 rounded-full px-2 py-0.5">
@@ -61,7 +62,9 @@ export default function FeedbackPanel({ items, participants, onChange }: Props) 
               key={item.id}
               className="flex items-start gap-2 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800"
             >
-              <span className="text-sm flex-shrink-0" aria-hidden="true">{TYPE_ICON[item.type]}</span>
+              <span className="flex-shrink-0" aria-hidden="true">
+                {(() => { const Icon = TYPE_ICON[item.type]; return <Icon className="w-4 h-4" /> })()}
+              </span>
               <div className="flex-1 min-w-0">
                 <p className="text-sm text-gray-700 dark:text-gray-200">{item.text}</p>
                 {item.from && (
@@ -79,20 +82,23 @@ export default function FeedbackPanel({ items, participants, onChange }: Props) 
           ))}
 
           <div className="flex gap-2 flex-wrap">
-            {(['question', 'concern', 'praise'] as const).map(opt => (
-              <button
-                key={opt}
-                type="button"
-                onClick={() => setType(opt)}
-                className={`px-2 py-1.5 rounded-lg text-xs font-medium border ${
-                  type === opt
-                    ? 'bg-brand-500 text-white border-brand-500'
-                    : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-600'
-                }`}
-              >
-                {TYPE_ICON[opt]} {t(`review.feedbackType.${opt}`)}
-              </button>
-            ))}
+            {(['question', 'concern', 'praise'] as const).map(opt => {
+              const Icon = TYPE_ICON[opt]
+              return (
+                <button
+                  key={opt}
+                  type="button"
+                  onClick={() => setType(opt)}
+                  className={`px-2 py-1.5 rounded-lg text-xs font-medium border flex items-center gap-1 ${
+                    type === opt
+                      ? 'bg-brand-500 text-white border-brand-500'
+                      : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-600'
+                  }`}
+                >
+                  <Icon className="w-3.5 h-3.5" /> {t(`review.feedbackType.${opt}`)}
+                </button>
+              )
+            })}
           </div>
 
           <div className="flex gap-2 flex-wrap sm:flex-nowrap">

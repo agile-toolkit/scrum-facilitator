@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { StickyNote as StickyNoteType, Participant } from '../types'
-import { CloseIcon } from './icons'
+import { CloseIcon, CheckboxCheckedIcon, CheckboxEmptyIcon, ThumbsUpIcon } from './icons'
 
 interface Props {
   note: StickyNoteType
@@ -71,7 +71,7 @@ export default function StickyNote({ note, colorClass, onEdit, onDelete, onVote,
           aria-label={`${note.text} — click to edit`}
         >
           {note.isAction && (
-            <span aria-hidden="true" className="block text-xs text-brand-600 dark:text-brand-400 mb-1">☑</span>
+            <span aria-hidden="true" className="block text-brand-600 dark:text-brand-400 mb-1"><CheckboxCheckedIcon className="w-3.5 h-3.5" /></span>
           )}
           <p className="text-sm text-gray-800 dark:text-gray-100 leading-relaxed whitespace-pre-wrap break-words">{note.text}</p>
         </div>
@@ -88,7 +88,7 @@ export default function StickyNote({ note, colorClass, onEdit, onDelete, onVote,
             aria-label={note.isAction ? t('retro.unmarkAction') : t('retro.markAction')}
             title={note.isAction ? t('retro.unmarkAction') : t('retro.markAction')}
           >
-            {note.isAction ? '☑' : '☐'}
+            {note.isAction ? <CheckboxCheckedIcon className="w-3.5 h-3.5" /> : <CheckboxEmptyIcon className="w-3.5 h-3.5" />}
           </button>
           <button
             onClick={() => {
@@ -136,7 +136,7 @@ export default function StickyNote({ note, colorClass, onEdit, onDelete, onVote,
           aria-label={t('retro.vote')}
           title={t('retro.vote')}
         >
-          👍{votes > 0 && <span className="font-semibold text-brand-600 dark:text-brand-400">{votes}</span>}
+          <ThumbsUpIcon className="w-3.5 h-3.5" />{votes > 0 && <span className="font-semibold text-brand-600 dark:text-brand-400">{votes}</span>}
         </button>
         {votes > 0 && (
           <button

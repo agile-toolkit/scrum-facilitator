@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { DemoItem } from '../types'
-import { CloseIcon } from './icons'
+import { CloseIcon, ClapperboardIcon } from './icons'
 
 interface Props {
   items: DemoItem[]
@@ -43,7 +43,7 @@ export default function DemoChecklistPanel({ items, onChange }: Props) {
         aria-expanded={open}
         aria-controls="demo-checklist-body"
       >
-        <span className="text-lg">🎬</span>
+        <ClapperboardIcon className="w-5 h-5" />
         <span className="font-medium text-gray-800 dark:text-gray-100 flex-1">{t('review.demoChecklist')}</span>
         {items.length > 0 && (
           <span className="text-xs font-medium bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 rounded-full px-2 py-0.5">

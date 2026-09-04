@@ -1,11 +1,35 @@
 # Changelog
 
 ## Unreleased
+
+## 0.3.1 — Replace remaining decorative emoji with SVG icons (2026-09-04)
+
+- **feat**: finished the emoji→SVG sweep started in 0.2.8 — the ~30
+  remaining instances across `HomeScreen`, `CeremonyCard`, `CeremonyRunner`,
+  `DemoChecklistPanel`, `CeremonyComplete`, `RetroBoard`, `ExportView`,
+  `ImpedimentPanel`, `FacilitationTips`, `FeedbackPanel`, `ParticipantPanel`,
+  `StickyColumn`, and `StickyNote` now use the shared `icons.tsx` instead of
+  raw emoji. Synced the full file from `design-system/` first (also drops
+  the unused, broken `HandshakeIcon` removed there for bad geometry), then
+  added 3 new icons this app needed that don't exist upstream yet —
+  `ClapperboardIcon` (Demo Checklist), `StopwatchIcon` (overtime badge),
+  `PlayIcon`/`PauseIcon` (timer controls) — each rendered and screenshotted
+  standalone before use. All three are backport candidates for
+  `design-system/components/icons.tsx` next time that repo is picked.
+- **refactor**: `Ceremony.icon` (a raw emoji string in `data/ceremonies.ts`)
+  removed from the data model — the four ceremony-card icons are now
+  looked up by `CeremonyType` via a new `ceremonyIcons.tsx` map instead of
+  being carried as string data.
+- The `✅` inside `ExportView`'s generated Markdown ("## ✅ Action Items")
+  is exported file content, not live UI — left untouched, matching the
+  precedent set for Planning Poker's `☕` card value. Inline `→` notation
+  (planned → actual duration) and the literal `<Kbd>←</Kbd>`/`<Kbd>→</Kbd>`
+  keyboard-shortcut hints are typographic/functional, not decorative —
+  also left as-is.
 - **ci**: CI Node bumped 20 → 22 and `engines` declared. `jsdom@30` requires
   Node `^22.22.2 || ^24.15.0 || >=26`, so the test step could never have passed
   on the pinned Node 20 — invisible until this release started running the
   tests in CI at all. Builds were unaffected (vite and tsc do not load jsdom).
-
 
 ## 0.3.0 — Error boundary and test-gated deploys (2026-09-03)
 

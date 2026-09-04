@@ -13,7 +13,7 @@ import DemoChecklistPanel from './DemoChecklistPanel'
 import FeedbackPanel from './FeedbackPanel'
 import RetroBoard from './RetroBoard'
 import { readLastSprintSession } from '../utils/sprintMetricsHandoff'
-import { CloseIcon } from './icons'
+import { CloseIcon, ArrowLeftIcon, TargetIcon, ChartIcon, PlayIcon, PauseIcon, RefreshIcon, BellIcon, BellOffIcon } from './icons'
 
 function Kbd({ children }: { children: React.ReactNode }) {
   return (
@@ -233,7 +233,7 @@ export default function CeremonyRunner({
     <div className="flex flex-col gap-6 max-w-2xl">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <button onClick={onBack} className="btn-ghost">← {t('common.back')}</button>
+        <button onClick={onBack} className="btn-ghost flex items-center gap-1"><ArrowLeftIcon className="w-3.5 h-3.5" /> {t('common.back')}</button>
         <div className="flex-1">
           <h2 className="font-bold text-gray-900 dark:text-gray-50 text-lg">
             {teamName ? `${teamName} · ${t(ceremony.nameKey)}` : t(ceremony.nameKey)}
@@ -247,7 +247,7 @@ export default function CeremonyRunner({
       {/* Sprint Goal pinned reminder (planning ceremony, after goal-setting step) */}
       {ceremonyType === 'planning' && sprintGoal.trim() && currentStep.id !== 'planning-1' && (
         <div className="flex items-start gap-2 rounded-lg bg-brand-50 dark:bg-brand-700/20 border border-brand-200 dark:border-brand-700/40 px-3 py-2">
-          <span className="text-sm">🎯</span>
+          <TargetIcon className="w-4 h-4 flex-shrink-0 text-brand-600 dark:text-brand-400" />
           <p className="text-sm text-brand-700 dark:text-brand-300">
             <span className="font-medium">{t('planning.sprintGoalLabel')}:</span> {sprintGoal}
           </p>
@@ -257,7 +257,7 @@ export default function CeremonyRunner({
       {/* Last sprint context from Sprint Metrics (retro ceremony only) */}
       {ceremonyType === 'retro' && lastSprintSession && !lastSprintDismissed && (
         <div className="flex items-start gap-2 rounded-lg bg-brand-50 dark:bg-brand-700/20 border border-brand-200 dark:border-brand-700/40 px-3 py-2">
-          <span className="text-sm">📊</span>
+          <ChartIcon className="w-4 h-4 flex-shrink-0 text-brand-600 dark:text-brand-400" />
           <p className="flex-1 text-sm text-brand-700 dark:text-brand-300">
             <span className="font-medium">{lastSprintSession.projectName}</span>
             {' — '}
@@ -319,23 +319,23 @@ export default function CeremonyRunner({
         {/* Timer controls */}
         <div className="flex gap-2 flex-wrap items-center">
           {timerState === 'idle' && (
-            <button onClick={start} className="btn-primary">▶ {t('ceremony.start')}</button>
+            <button onClick={start} className="btn-primary flex items-center gap-1.5"><PlayIcon className="w-3.5 h-3.5" /> {t('ceremony.start')}</button>
           )}
           {timerState === 'running' && (
-            <button onClick={pause} className="btn-secondary">⏸ {t('ceremony.pause')}</button>
+            <button onClick={pause} className="btn-secondary flex items-center gap-1.5"><PauseIcon className="w-3.5 h-3.5" /> {t('ceremony.pause')}</button>
           )}
           {timerState === 'paused' && (
-            <button onClick={start} className="btn-primary">▶ {t('ceremony.resume')}</button>
+            <button onClick={start} className="btn-primary flex items-center gap-1.5"><PlayIcon className="w-3.5 h-3.5" /> {t('ceremony.resume')}</button>
           )}
           {timerState === 'done' && (
-            <span className="text-sm font-medium text-red-500 flex items-center gap-1">⏰ {t('ceremony.timeUp')}</span>
+            <span className="text-sm font-medium text-red-500 flex items-center gap-1"><BellIcon className="w-4 h-4" /> {t('ceremony.timeUp')}</span>
           )}
           <button
             onClick={() => reset(stepDuration(currentStep))}
-            className="btn-ghost"
+            className="btn-ghost flex items-center gap-1"
             aria-label={t('ceremony.reset')}
           >
-            ↺ {t('ceremony.reset')}
+            <RefreshIcon className="w-3.5 h-3.5" /> {t('ceremony.reset')}
           </button>
           <button
             onClick={toggleMute}
@@ -343,7 +343,7 @@ export default function CeremonyRunner({
             aria-label={isMuted ? t('ceremony.unmute') : t('ceremony.mute')}
             title={isMuted ? t('ceremony.unmute') : t('ceremony.mute')}
           >
-            {isMuted ? '🔇' : '🔔'}
+            {isMuted ? <BellOffIcon className="w-4 h-4" /> : <BellIcon className="w-4 h-4" />}
           </button>
         </div>
 

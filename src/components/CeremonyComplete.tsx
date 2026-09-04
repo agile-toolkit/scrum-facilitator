@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import type { ExportData, StepTiming, AgendaStep } from '../types'
 import { getCeremony, formatDuration } from '../data/ceremonies'
+import { CelebrateIcon, WarningIcon, ClapperboardIcon, StopwatchIcon, UploadIcon } from './icons'
 
 const IMPROVEMENT_BOARD_URL = 'https://agile-toolkit.github.io/improvement-board/'
 
@@ -31,7 +32,7 @@ export default function CeremonyComplete({ data, onExport, onHome }: Props) {
 
   return (
     <div className="flex flex-col items-center gap-8 max-w-md mx-auto pt-12 text-center">
-      <div className="text-6xl">🎉</div>
+      <div className="flex justify-center"><CelebrateIcon className="w-16 h-16" /></div>
       <div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-50">{t('complete.title')}</h2>
         <p className="text-gray-500 dark:text-gray-400 mt-2">
@@ -43,7 +44,7 @@ export default function CeremonyComplete({ data, onExport, onHome }: Props) {
       {hasImpediments && (
         <div className="card p-4 flex flex-col gap-2 border-l-4 border-red-400 w-full text-left">
           <div className="flex items-center gap-2">
-            <span className="text-lg">🚧</span>
+            <WarningIcon className="w-5 h-5" />
             <h3 className="font-medium text-gray-800 dark:text-gray-100">
               {t('daily.impediments')} ({data.impediments!.length})
             </h3>
@@ -62,7 +63,7 @@ export default function CeremonyComplete({ data, onExport, onHome }: Props) {
       {demoItems.length > 0 && (
         <div className="card p-4 flex flex-col gap-2 border-l-4 border-brand-400 w-full text-left">
           <div className="flex items-center gap-2">
-            <span className="text-lg">🎬</span>
+            <ClapperboardIcon className="w-5 h-5" />
             <h3 className="font-medium text-gray-800 dark:text-gray-100">
               {t('review.demoChecklist')} ({demoedCount}/{demoItems.length})
             </h3>
@@ -73,7 +74,7 @@ export default function CeremonyComplete({ data, onExport, onHome }: Props) {
       {orderedTimings.length > 0 && (
         <div className="card p-4 flex flex-col gap-2 w-full text-left">
           <h3 className="font-medium text-gray-800 dark:text-gray-100 flex items-center gap-2">
-            ⏱ {t('timeStats.title')}
+            <StopwatchIcon className="w-4 h-4" /> {t('timeStats.title')}
           </h3>
           <div className="flex flex-col divide-y divide-gray-100 dark:divide-gray-700">
             {orderedTimings.map(({ step, timing }) => {
@@ -100,7 +101,7 @@ export default function CeremonyComplete({ data, onExport, onHome }: Props) {
 
       <div className="flex flex-col gap-3 w-full">
         <button onClick={onExport} className="btn-primary w-full justify-center flex items-center gap-2">
-          📤 {t('complete.export')}
+          <UploadIcon className="w-4 h-4" /> {t('complete.export')}
         </button>
         <button onClick={onHome} className="btn-secondary w-full">
           {t('complete.backHome')}

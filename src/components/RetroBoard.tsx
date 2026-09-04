@@ -3,6 +3,7 @@ import type { RetroNotes, RetroColumn, StickyNote, RetroFormat, Participant } fr
 import { getRetroFormat, emptyNotes } from '../data/retroFormats'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import StickyColumn from './StickyColumn'
+import { ArrowLeftIcon, UploadIcon } from './icons'
 
 interface Props {
   notes: RetroNotes
@@ -77,12 +78,12 @@ export default function RetroBoard({ notes, format, onChange, onFormatChange, on
       {!embedded && (
         <div className="flex items-center gap-3">
           {onBack && (
-            <button onClick={onBack} className="btn-ghost">← {t('common.back')}</button>
+            <button onClick={onBack} className="btn-ghost flex items-center gap-1"><ArrowLeftIcon className="w-3.5 h-3.5" /> {t('common.back')}</button>
           )}
           <h2 className="text-xl font-bold flex-1">{t('app.title')}</h2>
           {onExport && (
-            <button onClick={onExport} className="btn-secondary text-sm">
-              📤 {t('complete.export')}
+            <button onClick={onExport} className="btn-secondary text-sm flex items-center gap-1.5">
+              <UploadIcon className="w-4 h-4" /> {t('complete.export')}
             </button>
           )}
         </div>

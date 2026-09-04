@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { CloseIcon } from './icons'
+import { CloseIcon, WarningIcon } from './icons'
 
 interface Props {
   impediments: string[]
@@ -32,7 +32,7 @@ export default function ImpedimentPanel({ impediments, onChange }: Props) {
         aria-expanded={open}
         aria-controls="impediments-panel-body"
       >
-        <span className="text-lg">🚧</span>
+        <WarningIcon className="w-5 h-5" />
         <span className="font-medium text-gray-800 dark:text-gray-100 flex-1">{t('daily.impediments')}</span>
         {impediments.length > 0 && (
           <span className="text-xs font-medium bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 rounded-full px-2 py-0.5">

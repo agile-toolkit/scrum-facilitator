@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import type { ExportData, FeedbackItem } from '../types'
 import { CEREMONIES, formatDuration } from '../data/ceremonies'
 import { appendSprintEntryToSprintMetrics } from '../utils/sprintMetricsHandoff'
-import { CheckIcon, ClipboardIcon } from './icons'
+import { CheckIcon, ClipboardIcon, ArrowLeftIcon, ChartIcon, LinkIcon, DownloadIcon } from './icons'
 
 const SPRINT_METRICS_URL = 'https://agile-toolkit.github.io/sprint-metrics/'
 const IMPROVEMENT_BOARD_URL = 'https://agile-toolkit.github.io/improvement-board/'
@@ -154,11 +154,11 @@ export default function ExportView({ data, onBack }: Props) {
   return (
     <div className="flex flex-col gap-4 max-w-2xl">
       <div className="flex items-center gap-3 flex-wrap">
-        <button onClick={onBack} className="btn-ghost">← {t('export.back')}</button>
+        <button onClick={onBack} className="btn-ghost flex items-center gap-1"><ArrowLeftIcon className="w-3.5 h-3.5" /> {t('export.back')}</button>
         <h2 className="text-xl font-bold flex-1 dark:text-gray-50">{t('export.title')}</h2>
         {data.ceremonyType === 'review' && (
-          <button onClick={exportToSprintMetrics} className="btn-secondary text-sm">
-            📊 {t('export.sprintMetrics')}
+          <button onClick={exportToSprintMetrics} className="btn-secondary text-sm flex items-center gap-1.5">
+            <ChartIcon className="w-4 h-4" /> {t('export.sprintMetrics')}
           </button>
         )}
         {data.ceremonyType === 'daily' && data.impediments && data.impediments.length > 0 && (
@@ -166,13 +166,13 @@ export default function ExportView({ data, onBack }: Props) {
             href={IMPROVEMENT_BOARD_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-secondary text-sm"
+            className="btn-secondary text-sm flex items-center gap-1.5"
           >
-            🧩 {t('daily.openImprovementBoard')}
+            <LinkIcon className="w-4 h-4" /> {t('daily.openImprovementBoard')}
           </a>
         )}
-        <button onClick={download} className="btn-secondary text-sm">
-          ⬇ {t('export.download')}
+        <button onClick={download} className="btn-secondary text-sm flex items-center gap-1.5">
+          <DownloadIcon className="w-4 h-4" /> {t('export.download')}
         </button>
         <button onClick={copy} className="btn-primary text-sm inline-flex items-center gap-1.5">
           {copied ? <CheckIcon className="w-3.5 h-3.5" /> : <ClipboardIcon className="w-3.5 h-3.5" />}

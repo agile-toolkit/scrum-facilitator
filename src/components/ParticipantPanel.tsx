@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { CeremonyType, Participant } from '../types'
-import { CheckIcon, CloseIcon } from './icons'
+import { CheckIcon, CloseIcon, TeamIcon, ShuffleIcon } from './icons'
 
 interface Props {
   participants: Participant[]
@@ -92,7 +92,7 @@ export default function ParticipantPanel({ participants, onChange, ceremonyType 
         key={p.id}
         className="flex items-center gap-3 px-3 py-2 min-h-[44px] rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800"
       >
-        <span className="text-lg flex-shrink-0" aria-hidden="true">🤝</span>
+        <span className="flex-shrink-0 text-brand-600 dark:text-brand-400" aria-hidden="true"><TeamIcon className="w-5 h-5" /></span>
         <span className="flex-1 text-sm font-medium text-gray-700 dark:text-gray-200">{p.name}</span>
         <span className="text-xs opacity-70 text-gray-500 dark:text-gray-400">{t('participant.role.stakeholder')}</span>
         <button
@@ -134,8 +134,8 @@ export default function ParticipantPanel({ participants, onChange, ceremonyType 
       <div className="flex items-center justify-between">
         <h3 className="font-medium text-gray-800 dark:text-gray-100">{t('daily.participants')}</h3>
         {participants.length > 1 && (
-          <button onClick={randomise} className="btn-ghost text-xs">
-            🔀 {t('daily.randomise')}
+          <button onClick={randomise} className="btn-ghost text-xs flex items-center gap-1">
+            <ShuffleIcon className="w-3.5 h-3.5" /> {t('daily.randomise')}
           </button>
         )}
       </div>
@@ -197,7 +197,9 @@ export default function ParticipantPanel({ participants, onChange, ceremonyType 
 
       {isReview && stakeholders.length > 0 && (
         <div className="flex flex-col gap-2 pt-1 border-t border-gray-100 dark:border-gray-700">
-          <span className="text-xs font-medium text-gray-500 dark:text-gray-400 pt-2">🤝 {t('participant.role.stakeholder')}</span>
+          <span className="text-xs font-medium text-gray-500 dark:text-gray-400 pt-2 flex items-center gap-1">
+            <TeamIcon className="w-3.5 h-3.5" /> {t('participant.role.stakeholder')}
+          </span>
           {stakeholders.map(renderRow)}
         </div>
       )}

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { StickyNote as StickyNoteType, RetroColumn, Participant } from '../types'
 import StickyNote from './StickyNote'
+import { ThumbsUpIcon } from './icons'
 
 interface Props {
   column: RetroColumn
@@ -67,13 +68,13 @@ export default function StickyColumn({
           onClick={() => setSortByVotes(v => !v)}
           title={t('retro.sortByVotes')}
           aria-pressed={sortByVotes}
-          className={`text-xs px-1.5 py-0.5 rounded-full border transition-colors ${
+          className={`text-xs px-1.5 py-0.5 rounded-full border transition-colors flex items-center gap-1 ${
             sortByVotes
               ? 'bg-brand-500 text-white border-brand-500'
               : 'bg-white bg-opacity-50 text-gray-600 border-gray-300 hover:border-brand-400'
           }`}
         >
-          {totalVotes > 0 ? `👍 ${totalVotes}` : '👍'}
+          <ThumbsUpIcon className="w-3 h-3" /> {totalVotes > 0 && totalVotes}
         </button>
       </div>
 

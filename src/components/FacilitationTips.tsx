@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { TipIcon } from './icons'
 
 interface Props {
   tipsKeys: string[]
@@ -16,7 +17,7 @@ export default function FacilitationTips({ tipsKeys }: Props) {
         className="flex items-center gap-2 w-full text-left text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
         aria-expanded={open}
       >
-        <span className="text-lg">💡</span>
+        <span className="text-amber-500"><TipIcon className="w-5 h-5" /></span>
         <span className="flex-1">{t('ceremony.tipsToggle')}</span>
         <span className={`text-gray-400 dark:text-gray-500 transition-transform ${open ? 'rotate-180' : ''}`}>▾</span>
       </button>

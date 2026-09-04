@@ -16,7 +16,6 @@ export interface Ceremony {
   nameKey: string
   descKey: string
   totalMinutes: number
-  icon: string
   steps: AgendaStep[]
   tipsKeys: string[]
 }

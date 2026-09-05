@@ -46,7 +46,7 @@ npm run dev
 | `npm run dev` | Start the Vite dev server with hot reload |
 | `npm run build` | Type-check (`tsc`) then produce a production build (`vite build`) |
 | `npm run preview` | Serve the production build locally for a final check |
-| `npm test` | Run the test suite (`vitest run`) — `src/data/ceremonies.ts` and `src/data/retroFormats.ts` |
+| `npm test` | Run the test suite (`vitest run` + `@testing-library/react`) — data layer (`ceremonies.ts`, `retroFormats.ts`, `sprintMetricsHandoff.ts`), hooks (`useTimer`, `useLocalStorage`), and `RetroBoard` note CRUD |
 
 ## localStorage keys
 

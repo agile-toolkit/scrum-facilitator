@@ -6,11 +6,13 @@ Derived from GOAL.md. Rebuilt when GOAL changes or an epic ships.
 None — idle. See `## Next epics` below.
 
 ## Next epics
-1. **E3 remainder: Quality hardening** — serves reliability (signal #1) and accessibility. Data-layer test coverage started (`src/data/ceremonies.ts`, `src/data/retroFormats.ts`, 2026-09-02) — still open: `useTimer`/`useLocalStorage`/`RetroBoard` CRUD coverage and component-level tests (Vitest + React Testing Library). https://github.com/agile-toolkit/scrum-facilitator/issues/45
+None open right now.
 
 Blocked, not scheduled: **#1 — Favicon is missing** (bug, `research-more`). Research/spec is finalized (indigo brand-colour scale + geometric SVG), and the same research also found the current green Tailwind scale fails WCAG AA in two spots — but the issue explicitly poses a brand-identity question to a human (keep green + favicon-only fix, or full indigo rebrand) that shouldn't be auto-approved. Not queued for autonomous pickup. https://github.com/agile-toolkit/scrum-facilitator/issues/1
 
 ## Recently shipped
+**E3: Test coverage — hooks and RetroBoard CRUD** (2026-09-05) — see `## Shipped`. Added `@testing-library/react`/`@testing-library/jest-dom` (vitest + jsdom were already in place). Covers `useTimer` (start/pause/reset/tick, done firing once, clamping at zero), `useLocalStorage` (read/write round-trip, corrupted-JSON fallback), and `RetroBoard` note add/edit/delete/vote CRUD — the highest data-loss-risk surface per the issue's own framing. Scoped to exactly what the issue proposed, not a full-suite pass.
+
 **E4: Installable offline PWA** (2026-09-05) — see `## Shipped`. `vite-plugin-pwa` precaches the app shell and Google Fonts, matching Moving Motivators' existing setup — the app loads and runs offline after a first visit. Uses a temporary placeholder icon (`icons/icon.svg`, brand-500 green) since `favicon.svg` is corrupted and blocked on a separate brand decision (#5); this issue doesn't resolve that.
 
 **E5: Bulk history export** (2026-09-05) — see `## Shipped`. An "Export all" button next to "Past Ceremonies" downloads every history entry (max 5, newest first) as one concatenated Markdown file, reusing `ExportView.tsx`'s per-ceremony renderer (`buildMarkdown()`, now exported) rather than a new one. Skipped the issue's optional pre-eviction warning toast — the button alone covers the need.
@@ -48,6 +50,7 @@ Closed 20 stale issues (#4–#43, minus already-open ones) that were `approved` 
 No small un-filed items queued — every known gap above already has an open issue. New polish-only findings (no epic-worthy scope, no issue yet) go here.
 
 ## Shipped
+- ~~Test coverage: `@testing-library/react`, `useTimer`/`useLocalStorage` hook tests, `RetroBoard` note CRUD tests~~ (2026-09-05)
 - ~~Installable offline PWA: `vite-plugin-pwa` precaches the app shell + fonts, temporary placeholder icon pending the blocked favicon/brand decision (#5)~~ (2026-09-05)
 - ~~Bulk history export: "Export all" button downloads every history entry as one concatenated Markdown file~~ (2026-09-05)
 - ~~Consistent destructive-action confirmation: shared `useConfirmAction` inline two-step confirm replaces `window.confirm()` on sticky-note delete and adds confirmation to the resume-banner Discard button; timer-done pulse now respects `prefers-reduced-motion`~~ (2026-09-05)

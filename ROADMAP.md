@@ -8,11 +8,12 @@ None — idle. See `## Next epics` below.
 ## Next epics
 1. **E3 remainder: Quality hardening** — serves reliability (signal #1) and accessibility. Data-layer test coverage started (`src/data/ceremonies.ts`, `src/data/retroFormats.ts`, 2026-09-02) — still open: `useTimer`/`useLocalStorage`/`RetroBoard` CRUD coverage and component-level tests (Vitest + React Testing Library). https://github.com/agile-toolkit/scrum-facilitator/issues/45
 2. **E4: Installable offline PWA** — serves signal #1 (habit — opens fast even with spotty wifi) and #2. App state is already 100% localStorage-driven with continuous auto-save, making it a strong offline candidate — `vite-plugin-pwa` + manifest, precached app shell, no localStorage contract change. https://github.com/agile-toolkit/scrum-facilitator/issues/56
-3. **E5: Bulk history export** — serves signal #1, #3. `scrum-facilitator-history` caps at 5 entries and silently evicts the oldest once full (a team running Daily Scrum alone burns through 5 slots in under a week) — add an "Export all history" action on `HomeScreen.tsx` reusing `ExportView.tsx`'s Markdown renderer. https://github.com/agile-toolkit/scrum-facilitator/issues/57
 
 Blocked, not scheduled: **#1 — Favicon is missing** (bug, `research-more`). Research/spec is finalized (indigo brand-colour scale + geometric SVG), and the same research also found the current green Tailwind scale fails WCAG AA in two spots — but the issue explicitly poses a brand-identity question to a human (keep green + favicon-only fix, or full indigo rebrand) that shouldn't be auto-approved. Not queued for autonomous pickup. https://github.com/agile-toolkit/scrum-facilitator/issues/1
 
 ## Recently shipped
+**E5: Bulk history export** (2026-09-05) — see `## Shipped`. An "Export all" button next to "Past Ceremonies" downloads every history entry (max 5, newest first) as one concatenated Markdown file, reusing `ExportView.tsx`'s per-ceremony renderer (`buildMarkdown()`, now exported) rather than a new one. Skipped the issue's optional pre-eviction warning toast — the button alone covers the need.
+
 **E2: Consistent destructive-action confirmation** (2026-09-05) — see `## Shipped`. Sticky-note delete and the resume-banner Discard button both replaced their native `window.confirm()`/none-at-all confirmation with a shared inline two-step confirm (`useConfirmAction` hook): first click arms a ~3s pending state, second click (or blur cancels it) fires the action. Also fixed the timer-done pulse animation to respect `prefers-reduced-motion` (`motion-safe:animate-pulse`), a one-line WCAG 2.3.3 gap fix bundled into the same pass. https://github.com/agile-toolkit/scrum-facilitator/issues/47, https://github.com/agile-toolkit/scrum-facilitator/issues/55, https://github.com/agile-toolkit/scrum-facilitator/issues/46
 
 **Add glass effect to the header; dedupe icons.tsx** (2026-09-04) — see `## Shipped`. Header background now matches the Dashboard's translucent blur (user-reported). A concurrent design-system PR added its own `ClapperIcon`/`StopwatchIcon`/`PlayIcon`/`PauseIcon` before this app's own versions could be backported — synced and renamed `ClapperboardIcon` → `ClapperIcon` to match.
@@ -46,6 +47,7 @@ Closed 20 stale issues (#4–#43, minus already-open ones) that were `approved` 
 No small un-filed items queued — every known gap above already has an open issue. New polish-only findings (no epic-worthy scope, no issue yet) go here.
 
 ## Shipped
+- ~~Bulk history export: "Export all" button downloads every history entry as one concatenated Markdown file~~ (2026-09-05)
 - ~~Consistent destructive-action confirmation: shared `useConfirmAction` inline two-step confirm replaces `window.confirm()` on sticky-note delete and adds confirmation to the resume-banner Discard button; timer-done pulse now respects `prefers-reduced-motion`~~ (2026-09-05)
 - ~~Team Identity participant import: "Import N members from Team Identity" banner in `ParticipantPanel.tsx`~~ (2026-09-02) — was already shipped, issue closed on this pass
 - ~~Add glass/backdrop-blur effect to the header, matching the Dashboard's own nav~~

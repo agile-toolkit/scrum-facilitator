@@ -175,7 +175,9 @@
     "resume": "Resume",
     "discard": "Discard",
     "discard_confirm": "Discard this in-progress session? This can't be undone.",
-    "confirmDiscard": "Yes, discard"
+    "confirmDiscard": "Yes, discard",
+    "exportAll": "Export all",
+    "exportAllTitle": "Scrum Facilitator — Ceremony History"
   },
   "team": {
     "label": "Team / Label (optional)",

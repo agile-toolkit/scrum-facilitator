@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { CEREMONIES } from '../data/ceremonies'
 import { RETRO_FORMATS } from '../data/retroFormats'
 import type { CeremonyType, RetroFormat, SessionState, HistoryEntry, TimeboxOverrides, DemoItem } from '../types'
+import { useConfirmAction } from '../hooks/useConfirmAction'
 import CeremonyCard from './CeremonyCard'
 import DemoChecklistPanel from './DemoChecklistPanel'
 import { CEREMONY_ICONS } from './ceremonyIcons'
@@ -50,6 +51,7 @@ export default function HomeScreen({
 }: Props) {
   const { t } = useTranslation()
   const [openTimebox, setOpenTimebox] = useState<CeremonyType | null>(null)
+  const discardConfirm = useConfirmAction(onDiscard)
 
   const setStepOverride = (type: CeremonyType, stepId: string, seconds: number) => {
     const ceremonyOverrides = { ...(timeboxOverrides[type] ?? {}) }
@@ -87,8 +89,13 @@ export default function HomeScreen({
             <button onClick={onResume} className="btn-primary text-sm">
               {t('history.resume')}
             </button>
-            <button onClick={onDiscard} className="btn-ghost text-sm">
-              {t('history.discard')}
+            <button
+              onClick={() => discardConfirm.trigger()}
+              onBlur={() => discardConfirm.cancel()}
+              title={discardConfirm.confirming ? t('history.discard_confirm') : undefined}
+              className={`text-sm transition-colors ${discardConfirm.confirming ? 'btn-ghost text-red-600 dark:text-red-400 font-medium' : 'btn-ghost'}`}
+            >
+              {discardConfirm.confirming ? t('history.confirmDiscard') : t('history.discard')}
             </button>
           </div>
         </div>

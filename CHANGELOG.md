@@ -2,6 +2,29 @@
 
 ## Unreleased
 
+## 0.3.3 — Consistent destructive-action confirmation (2026-09-05)
+
+- **feat**: new `useConfirmAction` hook (`src/hooks/`) — an inline
+  two-step confirm: first call arms a ~3s pending state (auto-cancels on
+  timeout or blur), second call while armed runs the action.
+- **fix**: `StickyNote.tsx`'s delete button replaced `window.confirm()`
+  (the only native browser dialog in the app — broke dark theme,
+  inconsistent focus/announcement behavior) with the new hook; the
+  button shows a red "Sure?" state instead.
+- **fix**: `HomeScreen.tsx`'s resume-banner Discard button had zero
+  confirmation at all despite being able to destroy an entire
+  in-progress ceremony (retro notes, sprint goal, impediments, demo
+  checklist, timings) with one click. Now uses the same hook, showing
+  "Yes, discard" before actually discarding. `App.tsx`'s
+  `discardSession()` no longer confirms itself — confirmation now lives
+  in the UI, once, shared by both call sites.
+- **fix**: `CountdownTimer.tsx`'s timer-done `animate-pulse` now uses
+  Tailwind's `motion-safe:` variant, so it doesn't fire for users who
+  set `prefers-reduced-motion` (WCAG 2.3.3 gap) — the existing
+  color-change on done state stays as the non-motion signal.
+- **chore**: closed #44 (Team Identity participant import) — already
+  shipped 2026-09-02, never formally closed.
+
 ## 0.3.2 — Add glass effect to the header; dedupe icons.tsx (2026-09-04)
 
 - **fix**: `AppHeader.tsx`'s background changed from opaque `bg-white`/

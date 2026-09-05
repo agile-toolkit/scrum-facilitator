@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { StickyNote as StickyNoteType, Participant } from '../types'
+import { useConfirmAction } from '../hooks/useConfirmAction'
 import { CloseIcon, CheckboxCheckedIcon, CheckboxEmptyIcon, ThumbsUpIcon } from './icons'
 
 interface Props {
@@ -20,6 +21,7 @@ export default function StickyNote({ note, colorClass, onEdit, onDelete, onVote,
   const [draft, setDraft] = useState(note.text)
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const votes = note.votes ?? 0
+  const deleteConfirm = useConfirmAction(() => onDelete(note.id))
 
   useEffect(() => {
     if (editing) inputRef.current?.focus()
@@ -91,13 +93,21 @@ export default function StickyNote({ note, colorClass, onEdit, onDelete, onVote,
             {note.isAction ? <CheckboxCheckedIcon className="w-3.5 h-3.5" /> : <CheckboxEmptyIcon className="w-3.5 h-3.5" />}
           </button>
           <button
-            onClick={() => {
-              if (window.confirm(t('retro.deleteConfirm'))) onDelete(note.id)
-            }}
-            className="min-w-[28px] min-h-[28px] flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 text-gray-400 hover:text-red-500 transition-all text-sm"
-            aria-label={t('retro.deleteNote')}
+            onClick={() => deleteConfirm.trigger()}
+            onBlur={() => deleteConfirm.cancel()}
+            title={deleteConfirm.confirming ? t('retro.deleteConfirm') : undefined}
+            className={`min-h-[28px] flex items-center justify-center rounded transition-all text-sm ${
+              deleteConfirm.confirming
+                ? 'min-w-[28px] px-1.5 gap-1 bg-red-500 text-white opacity-100'
+                : 'min-w-[28px] opacity-100 md:opacity-0 md:group-hover:opacity-100 text-gray-400 hover:text-red-500'
+            }`}
+            aria-label={deleteConfirm.confirming ? t('retro.deleteConfirm') : t('retro.deleteNote')}
           >
-            <CloseIcon className="w-3.5 h-3.5" />
+            {deleteConfirm.confirming ? (
+              <span className="text-[10px] font-semibold whitespace-nowrap">{t('retro.confirmShort')}</span>
+            ) : (
+              <CloseIcon className="w-3.5 h-3.5" />
+            )}
           </button>
         </div>
       </div>

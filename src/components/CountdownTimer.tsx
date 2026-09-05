@@ -32,7 +32,7 @@ export default function CountdownTimer({ timeRemaining, percentLeft, timerState 
       <span className="sr-only" aria-live="polite">
         {shouldAnnounce ? t('timer.announceTime', { time: formatTime(timeRemaining) }) : ''}
       </span>
-      <div className={`relative w-full max-w-[120px]${isDone ? ' animate-pulse' : ''}`}>
+      <div className={`relative w-full max-w-[120px]${isDone ? ' motion-safe:animate-pulse' : ''}`}>
         <svg
           viewBox={`0 0 ${SIZE} ${SIZE}`}
           className="-rotate-90 w-full h-auto text-gray-200 dark:text-gray-700"

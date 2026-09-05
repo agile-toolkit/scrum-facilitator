@@ -94,7 +94,8 @@
     "markAction": "Mark as action item",
     "unmarkAction": "Unmark as action item",
     "owner": "Owner",
-    "ownerPlaceholder": "Assign owner…"
+    "ownerPlaceholder": "Assign owner…",
+    "confirmShort": "Sure?"
   },
   "complete": {
     "title": "Ceremony complete!",
@@ -173,7 +174,8 @@
     "resumePromptTeam": "Resume {{team}} · {{ceremony}} from {{ago}}?",
     "resume": "Resume",
     "discard": "Discard",
-    "discard_confirm": "Discard this in-progress session? This can't be undone."
+    "discard_confirm": "Discard this in-progress session? This can't be undone.",
+    "confirmDiscard": "Yes, discard"
   },
   "team": {
     "label": "Team / Label (optional)",

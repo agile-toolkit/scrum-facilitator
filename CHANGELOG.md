@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+## 0.3.6 — Test coverage: hooks and RetroBoard CRUD (2026-09-05)
+
+- **feat**: added `@testing-library/react` + `@testing-library/jest-dom`
+  as devDependencies (vitest + jsdom were already in place from the
+  earlier data-layer test pass) and a `src/test/setup.ts` wiring
+  jest-dom matchers into `vitest.config.ts`.
+- **test**: `useTimer.test.ts` — start/pause/reset/tick transitions, the
+  done state firing exactly once and clamping at zero, `formatTime()`.
+- **test**: `useLocalStorage.test.ts` — read/write round-trip, the
+  corrupted-JSON fallback, and key independence.
+- **test**: `RetroBoard.test.tsx` — note add (with whitespace
+  trimming), edit, delete (only after the two-step confirm's second
+  click), vote up/down (clamped at zero), and cross-column isolation —
+  the highest data-loss-risk surface in the app, per the issue's own
+  framing.
+- **context**: closes #45. Scoped to exactly the three areas the issue
+  proposed rather than a full-suite pass in one PR, per its own
+  "Questions for review."
+
 ## 0.3.5 — Installable, offline-capable PWA (2026-09-05)
 
 - **feat**: `vite-plugin-pwa` (`registerType: 'autoUpdate'`, same version

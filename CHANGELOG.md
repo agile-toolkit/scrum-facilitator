@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+## 0.3.5 — Installable, offline-capable PWA (2026-09-05)
+
+- **feat**: `vite-plugin-pwa` (`registerType: 'autoUpdate'`, same version
+  and `generateSW` pattern already shipped in Moving Motivators) —
+  precaches the built app shell (JS/CSS/HTML) plus Google Fonts at
+  runtime, so the app loads and runs offline after a first visit. State
+  is already 100% `localStorage`-driven with continuous auto-save, so
+  this is a pure build/deploy addition — no data-layer change.
+- **feat**: `public/icons/icon.svg` — a temporary placeholder app icon
+  (brand-500 green rounded square, "S" mark) used for the manifest and
+  install prompt. `public/favicon.svg` is excluded from the PWA's
+  precached/included assets: it's corrupted, tracked separately in #5
+  as a blocked brand decision (green vs. a proposed indigo rebrand) —
+  this issue doesn't resolve that, it just needs *an* installable icon
+  in the meantime.
+- **context**: closes #56. No hand-rolled `sw.js` — `vite-plugin-pwa`
+  meets the suite's dependency auto-approve threshold and matches
+  existing precedent, so no reason to reinvent it here.
+
 ## 0.3.4 — Bulk history export (2026-09-05)
 
 - **feat**: an "Export all" button next to `HomeScreen.tsx`'s "Past

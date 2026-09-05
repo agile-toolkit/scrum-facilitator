@@ -22,7 +22,7 @@ See `GOAL.md` for why this exists and its success criteria, and `ROADMAP.md` for
 
 ## Tech Stack
 
-React 18 · TypeScript · Vite · Tailwind CSS · react-i18next · GitHub Pages
+React 18 · TypeScript · Vite · Tailwind CSS · react-i18next · vite-plugin-pwa · GitHub Pages
 
 ## Source Materials
 
@@ -75,7 +75,9 @@ All keys below are written by this app (not read from other apps). Because `agil
 - **i18n** — `react-i18next` with four locale files (`src/i18n/{en,es,be,ru}.json`), a language-cycle toggle in the header (EN→ES→BE→RU→EN), and `i18next-browser-languagedetector` for the initial guess. Locale key parity across all four files is checked manually each release (see `.artefacts/BRIEF.md` agent log).
 - **Theme** — Tailwind `darkMode: 'class'`; an anti-flash inline script in `index.html` applies the stored `theme` class before first paint; `ThemeToggle.tsx` is copied in from the shared `agile-toolkit` design system.
 - **Cross-app integration** — "Open Planning Poker →" deep-links to `https://agile-toolkit.github.io/planning-poker/` with participants pre-filled via a `?participants=` query param (no localStorage read); the Daily Scrum impediment log deep-links to `https://agile-toolkit.github.io/improvement-board/`. Because all `agile-toolkit` apps share one origin, `localStorage` keys written here are also directly readable by sibling apps (e.g. the suite dashboard). `ParticipantPanel.tsx` also reads `team-identity-charter.members` to offer a one-click "import from Team Identity" suggestion when the participant list is empty — a point-to-point read chosen over the Dashboard's newer `agile-toolkit:activeTeam` contract because this needs the full member *list*, not just a team name. "Export to Sprint Metrics" (`ExportView.tsx`) appends a sprint entry into Sprint Metrics' active project (`sprint-metrics-projects`, falling back to the legacy `sprint-metrics-sprints` key only on a fresh Sprint Metrics install) — see `src/utils/sprintMetricsHandoff.ts`. That same module also *receives* Sprint Metrics' handoff: `?ceremony=<type>` jumps straight into a ceremony instead of Home, and `sprint-metrics:lastSession` surfaces as a dismissible context banner during a retro.
-- **Timer alerts** — a 440 Hz tone via the Web Audio API plus an `animate-pulse` CSS flash when a step's countdown hits zero.
+- **Timer alerts** — a 440 Hz tone via the Web Audio API plus a `motion-safe:animate-pulse` CSS flash (skipped for `prefers-reduced-motion` users, WCAG 2.3.3) when a step's countdown hits zero.
+- **Destructive-action confirmation** — `useConfirmAction` (`src/hooks/useConfirmAction.ts`) is a shared inline two-step confirm: first click arms a ~3s pending state, second click (or blur) fires or cancels it. Used by the sticky-note delete button and the resume-banner Discard button — no native `window.confirm()` anywhere in the app.
+- **Offline/installable (PWA)** — `vite-plugin-pwa` precaches the built app shell and Google Fonts (`vite.config.ts`), so the app loads and runs offline after a first visit; state is unaffected since it's already 100% `localStorage`-driven. `public/icons/icon.svg` is a temporary placeholder app icon (brand-500 green) — `public/favicon.svg` is corrupted and excluded, tracked separately as a blocked brand decision (#5).
 
 ## Screenshots
 

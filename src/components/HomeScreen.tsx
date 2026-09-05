@@ -6,8 +6,9 @@ import type { CeremonyType, RetroFormat, SessionState, HistoryEntry, TimeboxOver
 import { useConfirmAction } from '../hooks/useConfirmAction'
 import CeremonyCard from './CeremonyCard'
 import DemoChecklistPanel from './DemoChecklistPanel'
+import { buildMarkdown } from './ExportView'
 import { CEREMONY_ICONS } from './ceremonyIcons'
-import { TargetIcon, StopwatchIcon } from './icons'
+import { TargetIcon, StopwatchIcon, DownloadIcon } from './icons'
 
 function timeAgo(ts: number): string {
   const diff = Date.now() - ts
@@ -73,6 +74,20 @@ export default function HomeScreen({
   const ceremonyName = (type: CeremonyType) => {
     const c = CEREMONIES.find(x => x.type === type)
     return c ? t(c.nameKey) : type
+  }
+
+  const exportAllHistory = () => {
+    // Newest first, matching the on-screen list — each entry keeps its own
+    // buildMarkdown() output verbatim, just joined with a rule between them.
+    const sections = history.map(entry => buildMarkdown(entry.exportData, t))
+    const combined = `# ${t('history.exportAllTitle')}\n\n${sections.join('\n\n---\n\n')}\n`
+    const blob = new Blob([combined], { type: 'text/markdown;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `scrum-facilitator-history-${new Date().toISOString().slice(0, 10)}.md`
+    link.click()
+    URL.revokeObjectURL(url)
   }
 
   return (
@@ -232,7 +247,12 @@ export default function HomeScreen({
       {/* Past ceremonies */}
       {history.length > 0 && (
         <div className="flex flex-col gap-3">
-          <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300">{t('history.title')}</h2>
+          <div className="flex items-center justify-between gap-3">
+            <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300">{t('history.title')}</h2>
+            <button onClick={exportAllHistory} className="btn-ghost text-xs inline-flex items-center gap-1 flex-shrink-0">
+              <DownloadIcon className="w-3.5 h-3.5" /> {t('history.exportAll')}
+            </button>
+          </div>
           <div className="flex flex-col gap-2">
             {history.map(entry => (
               <div

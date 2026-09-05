@@ -172,7 +172,9 @@
     "resume": "Reanudar",
     "discard": "Descartar",
     "discard_confirm": "¿Descartar esta sesión en curso? Esta acción no se puede deshacer.",
-    "confirmDiscard": "Sí, descartar"
+    "confirmDiscard": "Sí, descartar",
+    "exportAll": "Exportar todo",
+    "exportAllTitle": "Scrum Facilitator — Historial de ceremonias"
   },
   "team": {
     "label": "Equipo / Etiqueta (opcional)",

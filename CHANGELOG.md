@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+## 0.3.4 — Bulk history export (2026-09-05)
+
+- **feat**: an "Export all" button next to `HomeScreen.tsx`'s "Past
+  Ceremonies" heading downloads every entry in
+  `scrum-facilitator-history` (max 5, newest first) as one concatenated
+  Markdown file, reusing `ExportView.tsx`'s existing per-ceremony
+  renderer (now exported as `buildMarkdown()`) rather than a new
+  renderer. No localStorage schema change.
+- **context**: closes #57. The 5-entry history cap silently evicts the
+  oldest record once full — a team running Daily Scrum alone burns
+  through that in under a week — so this gives a one-click way to keep
+  a permanent record before that happens. Skipped the issue's optional
+  pre-eviction warning toast: the export button alone covers the actual
+  need without new toast infrastructure for one call site.
+
 ## 0.3.3 — Consistent destructive-action confirmation (2026-09-05)
 
 - **feat**: new `useConfirmAction` hook (`src/hooks/`) — an inline

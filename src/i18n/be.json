@@ -172,7 +172,9 @@
     "resume": "Працягнуць",
     "discard": "Адхіліць",
     "discard_confirm": "Адхіліць гэту незавершаную сесію? Гэта дзеянне нельга адрабіць.",
-    "confirmDiscard": "Так, адхіліць"
+    "confirmDiscard": "Так, адхіліць",
+    "exportAll": "Экспартаваць усё",
+    "exportAllTitle": "Scrum Facilitator — Гісторыя цырымоній"
   },
   "team": {
     "label": "Каманда / Пазнака (неабавязкова)",

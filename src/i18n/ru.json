@@ -172,7 +172,9 @@
     "resume": "Продолжить",
     "discard": "Отменить",
     "discard_confirm": "Отменить эту незавершённую сессию? Это действие нельзя отменить.",
-    "confirmDiscard": "Да, отменить"
+    "confirmDiscard": "Да, отменить",
+    "exportAll": "Экспортировать всё",
+    "exportAllTitle": "Scrum Facilitator — История церемоний"
   },
   "team": {
     "label": "Команда / Метка (необязательно)",

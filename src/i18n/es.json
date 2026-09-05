@@ -94,7 +94,8 @@
     "markAction": "Marcar como acción",
     "unmarkAction": "Desmarcar como acción",
     "owner": "Responsable",
-    "ownerPlaceholder": "Asignar responsable…"
+    "ownerPlaceholder": "Asignar responsable…",
+    "confirmShort": "¿Seguro?"
   },
   "complete": {
     "title": "¡Ceremonia completada!",
@@ -170,7 +171,8 @@
     "resumePromptTeam": "¿Reanudar {{team}} · {{ceremony}} desde hace {{ago}}?",
     "resume": "Reanudar",
     "discard": "Descartar",
-    "discard_confirm": "¿Descartar esta sesión en curso? Esta acción no se puede deshacer."
+    "discard_confirm": "¿Descartar esta sesión en curso? Esta acción no se puede deshacer.",
+    "confirmDiscard": "Sí, descartar"
   },
   "team": {
     "label": "Equipo / Etiqueta (opcional)",

@@ -62,7 +62,7 @@ export default defineConfig({
       },
     }),
   ],
-  base: '/scrum-facilitator/',
+  base: './',
   build: {
     outDir: 'dist',
     sourcemap: true,

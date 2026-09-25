@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- **build**: sourcemaps are now opt-in. `npm run build` (the production
+  build that `deploy.yml` publishes) no longer emits `.map` files into
+  `dist/`; `npm run build:debug` (`vite build --mode debug`) produces the
+  same bundle with sourcemaps for local debugging.
+
 ## 0.3.6 — Test coverage: hooks and RetroBoard CRUD (2026-09-05)
 
 - **feat**: added `@testing-library/react` + `@testing-library/jest-dom`

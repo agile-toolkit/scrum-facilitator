@@ -64,7 +64,7 @@ export default defineConfig(({ mode }) => ({
       },
     }),
   ],
-  base: '/scrum-facilitator/',
+  base: './',
   build: {
     outDir: 'dist',
     sourcemap: mode === 'debug',
